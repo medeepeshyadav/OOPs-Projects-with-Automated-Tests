@@ -4,11 +4,11 @@ In this project, I have turned the famous Towers of Hanoi problem into a very in
 ## Project Procedure
 - [Problem Description](#description)
 - [Object Oriented Analysis (OOA)](#ooa)
-    - Identifying the objects and Interface
+    - Identifying the objects and interactions
     - Result of OOA stage
 - [Object Oriented Design (OOD)](#ood)
     - High level design
-    - Identifying the classes and interfaces
+    - Identifying the Attributes and Methods
     - UML Diagrams
     - Result of OOD stage
 - [Object Oriented Programming (OOP)](#oop)
@@ -51,3 +51,25 @@ From the OOA stage we have got the description of the system that needs to be bu
 <h1> Object Oriented Design (OOD)</h1>
 </a>
 In the OOA stage, we came up with the high level description of the system we are required to build. Now, let's use that description and transform it into requirements for our program.
+
+### High level design
+With the above description of the system our high level design looks like this:
+![](./images/high_level_design.png)
+
+Since, there are tree **Rods** and N number of **Discs**, we are required to make two classes. Class **Rod** and class **Disc**. The above UML diagram shows that the object of class Disc is pushed to an object of class Rod.
+The '*' beside the Disc class and '1' beside the Rod class tells that, **many** object of Disc class can be pushed to **one** object of Rod class, respectively.
+
+Now, let's move further and see what kind of attributes and methods we can define on these classes.
+
+### Identifying the Attributes and Methods
+#### Attributes:
+The class Disc can have a `size` attribute since, all the discs are of different size. And the class Rod can have a `name` attribute to identify which rod it is. Also class Rod can have a `disc` attribute which is the object of Disc type to be pushed into the rod.
+
+#### Methods:
+Since, we are required to push discs in the rods, the Rod class can have a `push()` which takes a object of type Disc and push it to the rod. This method is only activated by an object of Disc type on the rod.
+
+Also, we are required to move disc from one rod to another rod. For that, we can have another method `pop_and_put()` in the Rod class to pop the disc from given rod and push it to another Rod type object. It takes an object of Rod type as an argument to which we want to push.
+
+Now, our UML diagram looks like this:
+![](./images/attributes_and_methods.png)
+
