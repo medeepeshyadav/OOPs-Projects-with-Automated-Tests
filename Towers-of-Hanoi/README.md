@@ -4,8 +4,7 @@ In this project, I have turned the famous Towers of Hanoi problem into a very in
 ## Project Procedure
 - [Problem Description](#description)
 - [Object Oriented Analysis (OOA)](#ooa)
-    - Analysis of the problem
-    - Identifying the objects
+    - Identifying the objects and Interface
     - Result of OOA stage
 - [Object Oriented Design (OOD)](#ood)
     - High level design
@@ -27,4 +26,28 @@ The objective of the puzzle is to move the entire stack of disc from rod **A** t
 
 ![](./images/Towers-Of-Hanoi-768x576.png)
 
-*Figure. Tower of Hanoi*
+*Figure. Towers of Hanoi*
+
+<a name = "ooa">
+<h1> Object Oriented Analysis (OOA)</h1>
+</a>
+Now that we are familiar with the problem, let's analyse the problem and look it from the Object Oriented point of view. This stage is known as Object Oriented Analysis (OOA). We just simply see the problem and identify the objects and the interface of the problem.
+
+### Identifying the objects
+The problem has two objects:
+- Rods
+- Discs
+
+The problem has the following interface:
+- Discs are put on Rods.
+- Discs are removed from Rods.
+- Small disc cannot be put on large disc.
+- Goal is to stack all the discs on Rod 'C' in correct order.
+
+### Result of the OOA stage
+From the OOA stage we have got the description of the system that needs to be built. We determined that we need two type of objects, Rods and Discs. And we also determined the behaviors on the objects, and which object activate a certain behavior on what object.
+
+<a name = "ood">
+<h1> Object Oriented Design (OOD)</h1>
+</a>
+In the OOA stage, we came up with the high level description of the system we are required to build. Now, let's use that description and transform it into requirements for our program.
