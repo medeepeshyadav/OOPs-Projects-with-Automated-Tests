@@ -54,7 +54,7 @@ class Rod(List[int]):
             return
 
         if disc.size >= self[-1].size:
-            raise InvalidMove("Cannot put bigger disc on smaller disc!")
+            raise InvalidMove("\n!!!Cannot put bigger disc on smaller disc. Did you not read the rules?!!!\n")
         else:
             self.append(disc)
             print(f"Rod {self.rod_name}: {self}")
@@ -69,13 +69,19 @@ class Rod(List[int]):
         """
         if self:
             popped = self.pop()
-            print(f"Disc {popped.size} "
+            try:
+                rod.push(popped)
+                print(f"Disc {popped.size} "
                     f"popped from rod {self.rod_name} "
                     f"and pushed on rod {rod.rod_name}.")
-            rod.push(popped)
+
+            except InvalidMove as e:
+                self.append(popped)
+                raise e
+            
             return self
         else:
-            raise IndexError("Rod is empty")
+            raise IndexError(f"BRUHHH!! Rod {self.rod_name} is empty \(-_-)/")
 
 if __name__=="__main__":
     d1 = Disc(1)
