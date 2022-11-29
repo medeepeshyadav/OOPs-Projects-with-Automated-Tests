@@ -1,7 +1,11 @@
+from __future__ import annotations
 import pytest
+import sys
+from unittest import mock
 from towerofhanoi import Disc, Rod, InvalidMove
+import playgame
 
-# Testing Errors raises
+# Testing Errors raises in gameobjects.py
 @pytest.fixture
 def rod_object():
     """This fixture is expected to raise error"""
@@ -41,8 +45,11 @@ def test_pop_and_put_method() -> None:
         assert True
 
     except IndexError:
-        assert False
+        assert True
 
+    else:
+        assert False
+        
 def test_program() -> None:
     try:
         d1 = Disc(1)
@@ -97,3 +104,31 @@ def test_program() -> None:
     except (TypeError, InvalidMove, IndexError) as e:
         print(e)
         assert False
+
+# Testing playgame.py
+
+def test_initial_setup_function() -> None:
+    level = 5
+    dict_of_rods = playgame.initial_setup(level)
+    assert isinstance(dict_of_rods, dict)
+    assert isinstance(dict_of_rods['A'],Rod)
+    assert len(dict_of_rods['A']) != 0
+    assert len(dict_of_rods['B']) == 0
+    assert len(dict_of_rods['C']) == 0
+
+def test_askFormove_funtion() -> None:
+    level = 2
+    towers = playgame.initial_setup(level)
+
+    tuple_rods = playgame.askForMove(towers)
+    assert isinstance(tuple_rods, tuple)
+    assert len(tuple_rods) == 2
+    assert isinstance(tuple_rods[0], Rod)
+    assert isinstance(tuple_rods[1], Rod)
+
+def test_main_function() -> None:
+    try:
+        playgame.main()
+    except SystemExit:
+        assert True
+    
