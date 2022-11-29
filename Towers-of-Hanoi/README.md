@@ -26,4 +26,5 @@ The objective of the puzzle is to move the entire stack of disc from rod **A** t
 - No disc may be placed on top of a smaller disc.
 
 ![](./images/Towers-Of-Hanoi-768x576.png)
-*Figure. Tower of Hanoi (img src: https://www.javainterviewpoint.com/wp-content/uploads/2016/08/Towers-Of-Hanoi-768x576.png)*
+*Figure. Tower of Hanoi* 
+img src: https://www.javainterviewpoint.com/wp-content/uploads/2016/08/Towers-Of-Hanoi-768x576.png
