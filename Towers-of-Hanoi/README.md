@@ -69,7 +69,7 @@ The class Disc can have a `size` attribute since, all the discs are of different
 Since, we are required to push discs in the rods, the Rod class can have a `push()` which takes a object of type Disc and push it to the rod. This method is only activated by an object of Disc type on the rod.
 
 Also, we are required to move disc from one rod to another rod. For that, we can have another method `pop_and_put()` in the Rod class to pop the disc from given rod and push it to another Rod type object. It takes an object of Rod type as an argument to which we want to push.
-
 Now, our UML diagram looks like this:
+
 ![](./images/attributes_and_methods.png)
 
