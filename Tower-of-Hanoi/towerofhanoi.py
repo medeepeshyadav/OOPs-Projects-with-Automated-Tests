@@ -81,7 +81,7 @@ class Rod(List[int]):
             
             return self
         else:
-            raise IndexError(f"BRUHHH!! Rod {self.rod_name} is empty \(-_-)/")
+            raise IndexError(f"BRUHHH!! Rod {self.rod_name} is empty \\(-_-)/")
 
 if __name__=="__main__":
     d1 = Disc(1)
