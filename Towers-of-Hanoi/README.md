@@ -90,25 +90,31 @@ As a result of OOD stage, we discovered: what classes we need to implement for o
 <h1> Object Oriented Programming (OOP)</h1>
 </a>
 
-### *class* `Disc(size: int)` 
+#### *class* `Disc(size: int)` 
 A class to construct an object of `Disc` type.
 
-#### Parameters:
+**Parameters:**
 **`size`**: ***int type*** 
-            It represents the size of the disc of object.
 
-### *class* `Rod(name: str, disc: Disc = None)` 
+            It represents the size of the disc of object.
+            
+
+#### *class* `Rod(name: str, disc: Disc = None)`
+
 The **`Rod`** class extends the buit-in `List` class.
 
-#### Parameters:
+**Parameters:**
 **`name`**: ***str type*** 
+
             It represents the name of the rod object.
 
 **`disc`**: ***object of Disc type***
+
             The disc which will be pushed into the given rod object.
 
-#### Methods:
+**Methods:**
 **`push()`**: ***arguments: object of Disc type***
+
             Takes an object of type `Disc` and push it to the object of `Rod` class. This method is only activated by an object of `Disc` type on the rod.
 
 **`pop_and_put()`**: ***arguments: object of Rod type***
