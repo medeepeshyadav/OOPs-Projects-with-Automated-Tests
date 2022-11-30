@@ -24,7 +24,7 @@ def main():
     displayInitialMoves(level)
 
     while level not in range(3, 5+1):        
-        print('Please enter the no. of discs in the given range only.')
+        print('Please enter the no. of discs from the given range only.')
         level = int(input('> '))
 
         # display initial moves
