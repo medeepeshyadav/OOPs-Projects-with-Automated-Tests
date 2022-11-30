@@ -12,10 +12,8 @@ In this project, I have turned the famous Towers of Hanoi problem into a very in
     - UML Diagram
     - Result of OOD stage
 - [Object Oriented Programming (OOP)](#oop)
-    - Disc class
-    - Rod class
-    - Exceptions
-
+    - Documentation
+    - Examples
 
 <a name = "description">
 <h1> Problem Description</h1>
@@ -90,12 +88,13 @@ As a result of OOD stage, we discovered: what classes we need to implement for o
 <h1> Object Oriented Programming (OOP)</h1>
 </a>
 
+## Documentation
 ### *class* `Disc(size: int)` 
 A class to construct an object of `Disc` type.
 
 **Parameters:**\
 **size**: ***int type***\
-            It represents the size of the disc of object.
+            It represents the size of the disc object.
 
 
 ### *class* `Rod(name: str, disc: Disc = None)`
@@ -117,6 +116,61 @@ Pops the disc from *`self`* and push it to given `Rod` type object.
 
 
 ### Exceptions
+#### `TypeError`
+This exception is raised when a parameter is passed in the `Rod` class which is not of type `Disc`.
+
+#### `InvalidMove`
+This is a custom exception class, which is raised when the user tries to push the small disc on top of large disc in the rod.
+
+#### `IndexError`
+This exception is raised when the user tries to pop from a rod object which is empty.
+
+\#Note: Later we use these exceptions in our user interface to show warning messages to the user.
+
+## Examples:
+Pushing disc in a rod.
+```py
+# instantiating object of Disc
+# setting size parameter as 1
+d1 = Disc(size=1)
+
+# instantiating object of Rod
+# setting name parameter as 'A'
+rod1 = Rod(name='A')
+
+# pushing d1 in rod1
+rod1.push(d1)
+```
+**Output**
+```
+ Rod A: [1]
+```
+
+Popping disc from rod and putting on other rod.
+```py
+# instantiating two Disc objects
+d1 = Disc(size=1)
+d2 = Disc(size=2)
+
+# instantiating two Rod objects
+rod1 = Rod(name='A')
+rod2 = Rod(name='B')
+
+# pushing d2 in rod1
+rod1.push(d2)
+# pushing d2 in rod1
+rod1.push(d1)
+
+# popping from rod1 and putting on rod2
+rod1.pop_and_put(rod2)
+```
+**Output**
+```
+Rod A: [2]
+Rod A: [2, 1]
+Rod B: [1]
+Disc 1 popped from rod A and pushed on rod B.
+```
 
 
 
