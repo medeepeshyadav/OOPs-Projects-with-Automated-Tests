@@ -14,6 +14,15 @@ In this project, I have turned the famous Towers of Hanoi problem into a very in
 - [Object Oriented Programming (OOP)](#oop)
     - Documentation
     - Examples
+- [Functional Programming](#functional)
+    - Using Rod and Disc classes
+    - Functions in the program
+- [Testing](#testing)
+    - Testing error raises
+    - Testing objects
+    - Testing functionality of playgame.py
+- [Demonstration](#demo)
+- [Things that I learnt from this Project](#lessons)
 
 <a name = "description">
 <h1> Problem Description</h1>
@@ -171,6 +180,61 @@ Rod A: [2, 1]
 Rod B: [1]
 Disc 1 popped from rod A and pushed on rod B.
 ```
+
+<a name = "functional">
+<h1> Functional Programming</h1>
+</a>
+
+### Using Disc and Rod classes
+We use the classes from our **`towersofhanoi`** module to create the objects for our game i.e., Rods and Discs.
+
+```py
+from towerofhanoi import Disc, Rod
+.
+.
+.
+# level is the number of discs
+level = int(input('> '))
+# prepare initial setup based on the level
+towers = initial_setup(level)
+.
+.
+.
+def initial_setup(level):
+    """ Forms initial setup of game"""
+    # creating 3 rod objects, because
+    # towers of hanoi problem has 3 rods
+    rod1 = Rod('A')
+    rod2 = Rod('B')
+    rod3 = Rod('C')
+
+    # stacking all discs in descending order
+    # on rod1 object (only)
+    for i in range(level, 0, -1):
+        rod1.push(Disc(i))
+    
+    # returning a dictionary of rods
+    # this will make the initial setup
+    # of the game with rod A with all rods
+    # and rod B and rod C completely empty.
+    return {'A': rod1, 'B': rod2, 'C': rod3}
+```
+The above code will prepare the initial setup for the game with all the discs stacked up on (rod A) in descending order of their size.
+
+### Other functions in the program
+**`askForMove(towers)`**: This function takes the towers dictionary and asks the player for their move. The player is required to give a response with a string of length 2 (e.g., let player response be 'AB') this will return a tuple of rods "from_rod" and "to_rod" which represents the rod from which the disc is to be popped and the rod on which the disc is to be put, respectively.
+
+It keeps asking player to respond with a valid string, if the letters in the response string doesn't have the name of the rod.
+
+**`displayRods(rods, total_discs)`**: Displays the rods on the players' screen with discs if rod has discs on it else empty rods.
+
+**`displayDiscs(width, total_discs)`**: Displays the discs on the rods.
+
+**`displayInitialMoves(level)`**: This function displays the maximum number of moves in which the given difficulty level puzzle can be solved. The `level` argument is the number of maximum number of discs.
+
+**`displayMoves(towers, level, move_counter)`**: Displays the number of moves left to solve the puzzle.
+
+**`main()`**: The driver function to run the whole program.
 
 
 
