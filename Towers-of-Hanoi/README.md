@@ -367,7 +367,9 @@ def test_main_function() -> None:
 ```
 The above code is the integration test, we are testing functionality of the whole module by testing the `main()` function which is the driver function for our game. This test will pass if the player successfully clears the puzzle, and the program exits with `SystemExit` exception.
 
-### Demonstration
+<a name='demo'>
+<h1> Demonstration </h1>
+</a>
 Given below are some of the snapshots of the final output of the progam.
 
 #### The initial state of the game
@@ -388,3 +390,20 @@ After the user successfully solves the puzzle in the given number of moves, by g
 ![](./images/final_interface.png)
 
 and the game exits successfully with SystemExit.
+
+<a name = 'lessons'>
+<h1> Things that I learnt from this project</h1>
+</a>
+
+I have acquired the following skills from this project:
+- **Object Oriented Designing**: I have learnt how to approach an OOPs project as a step-by-step procedure, by first analysing the problem at hand from object oriented point of view, finding the objects and the relations between those objects.
+
+- **UML Diagrams**: I have learnt how to draw the basic UML diagrams before jumping into programming step. UML diagrams do really makes implementation easy, when we sit and write the code for the Object Oriented Programming project.
+
+- **Exception Handling**: In this project I have used some of the exception classes and also coded my own simple exception `InvalidMove`. Doing this I have developed a good understanding of the concept of Exception Handling.
+
+- **Extending built-in types**: In my project I extended the built-in `list` type for our new class `Rod`. Which makes things quite easy.
+
+- **Unit Testing with `pytest` library**: The most valuable skill I have learnt is unit testing using `pytest` library. Testing my code pointed out a few loopholes in my code which I fixed and ensured that my code is free of bugs.
+
+- **Using functional programming to make a highly interactive command line display**: I learnt how we can make our command line prompt so interactive and also display our objects in such easy way.
