@@ -67,16 +67,16 @@ Now, let's move further and see what kind of attributes and methods we can defin
 
 ### Identifying the Attributes and Methods
 #### Attributes:
-**`size`**: The class Disc can have a `size` attribute since, all the discs are of different size.
+**`size`**: The class `Disc` can have a `size` attribute since, all the discs are of different size.
 
-**`name`**: The class Rod can have a `name` attribute to identify which rod it is. 
+**`rod_name`**: The class `Rod` can have a `rod_name` attribute to identify which rod it is. 
 
-**`disc`**: Also class Rod can have a `disc` attribute which is the object of Disc type to be pushed into the rod.
+**`disc`**: Also class `Rod` can have a `disc` attribute which is the object of `Disc` type to be pushed into the rod.
 
 #### Methods:
-**`push()`**: Since, we are required to push discs in the rods, the Rod class can have a `push()` which takes a object of type Disc and push it to the rod. This method is only activated by an object of Disc type on the rod.
+**`push()`**: Since, we are required to push discs in the rods, the `Rod` class can have a `push()` which takes a object of type `Disc` and push it to the rod. This method is only activated by an object of `Disc` type on the rod.
 
-**`pop_and_put()`**: Also, we are required to move disc from one rod to another rod. For that, we can have another method `pop_and_put()` in the Rod class to pop the disc from given rod and push it to another Rod type object. It takes an object of Rod type as an argument to which we want to push.
+**`pop_and_put()`**: Also, we are required to move disc from one rod to another rod. For that, we can have another method `pop_and_put()` in the `Rod` class to pop the disc from given rod and push it to another Rod type object. It takes an object of `Rod` type as an argument to which we want to push.
 
 ### The updated UML diagram
 Now, our UML diagram looks like this:
@@ -84,17 +84,39 @@ Now, our UML diagram looks like this:
 ![](./images/attributes_and_methods.png)
 
 ### Result of OOD stage
-As a result of OOD stage, we discovered what classes we need to implement for our system. We also discovered the associated attributes and methods to the respective classes. We now have the requirements for our Object Oriented Programming stage. We can now implement these classes in any Object Oriented language, we will use Python.
+As a result of OOD stage, we discovered: what classes we need to implement for our system. We also discovered the associated attributes and methods for the respective classes. We now have the requirements for our Object Oriented Programming stage. We can now implement these classes in any Object Oriented language, we will use Python.
 
 <a name = "oop">
 <h1> Object Oriented Programming (OOP)</h1>
 </a>
 
-### `Disc` class
-The **`Disc`** class takes a single attribute i.e., **`size`** which is `int` type. It represents the size of the disc of object.
+### *class* `Disc(size: int)` 
+A class to construct an object of `Disc` type.
 
-### `Rod` class
-The **`Rod`** class extends the buit-in `List` class. It takes two attributes; 1. **`name`** which is a `str` type attribute and represents the name of the rod object, and 2. **`disc`** which is an object of `Disc` type, it is the disc which will be pushed into the given rod object.
+#### Parameters:
+**`size`**: ***int type*** 
+            It represents the size of the disc of object.
+
+### *class* `Rod(name: str, disc: Disc = None)` 
+The **`Rod`** class extends the buit-in `List` class.
+
+#### Parameters:
+**`name`**: ***str type*** 
+            It represents the name of the rod object.
+
+**`disc`**: ***object of Disc type***
+            The disc which will be pushed into the given rod object.
+
+#### Methods:
+**`push()`**: ***arguments: object of Disc type***
+            Takes an object of type `Disc` and push it to the object of `Rod` class. This method is only activated by an object of `Disc` type on the rod.
+
+**`pop_and_put()`**: ***arguments: object of Rod type***
+            Pops the disc from *`self`* and push it to given `Rod` type object.
+
+
+
+
 
 
 
