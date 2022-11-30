@@ -130,5 +130,8 @@ if __name__=="__main__":
     rod2.pop_and_put(rod1)
     rod2.pop_and_put(rod3)
     rod1.pop_and_put(rod3)
+    print(rod1.rod_name, rod1)
+    print(rod2.rod_name, rod2)
+    print(rod3.rod_name, rod3)
 
 
