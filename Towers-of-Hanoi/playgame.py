@@ -64,7 +64,7 @@ def initial_setup(level):
     rod2 = Rod('B')
     rod3 = Rod('C')
     for i in range(level, 0, -1):
-        rod1.append(Disc(i))
+        rod1.push(Disc(i))
         
     return {'A': rod1, 'B': rod2, 'C': rod3}
 

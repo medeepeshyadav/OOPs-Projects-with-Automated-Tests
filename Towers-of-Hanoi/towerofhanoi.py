@@ -50,14 +50,16 @@ class Rod(List[int]):
             
         elif not self:
             self.append(disc)
-            print(f"Rod {self.rod_name}: {self}")
+            # this code displays the rod as list
+            # print(f"Rod {self.rod_name}: {self}")
             return
 
         if disc.size >= self[-1].size:
             raise InvalidMove("\n!!!Cannot put bigger disc on smaller disc. Did you not read the rules?!!!\n")
         else:
             self.append(disc)
-            print(f"Rod {self.rod_name}: {self}")
+            # this code displays the rod as list
+            # print(f"Rod {self.rod_name}: {self}")
             return
 
     def pop_and_put(self, rod: Rod) -> str:
