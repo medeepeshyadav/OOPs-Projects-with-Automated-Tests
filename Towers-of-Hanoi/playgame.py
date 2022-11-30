@@ -12,14 +12,19 @@ def main():
 5. Type 'QUIT' and press Return, if its hard for you.\n""")
 
     print("###### MENU ######")
-    print("Enter the level from (3 to 5).")
+    print("""Enter the no. of discs (3 to 5).
+    Difficulty level:
+    3 discs = Easy
+    4 discs = Medium
+    5 discs = Hard
+    """)
     level = int(input('> '))
 
     # display initial moves
     displayInitialMoves(level)
 
     while level not in range(3, 5+1):        
-        print('Please enter level in the given range only.')
+        print('Please enter the no. of discs in the given range only.')
         level = int(input('> '))
 
         # display initial moves
@@ -91,7 +96,7 @@ def askForMove(towers):
 # USER INTERFACE
 def displayRods(rods, total_discs):
     """Display the current state"""
-    
+
     # Display the three towers
     for l in range(total_discs, -1, -1):
         for rod in (rods['A'], rods['B'], rods['C'] ):
