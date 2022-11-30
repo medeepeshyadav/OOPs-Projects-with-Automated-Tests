@@ -1,11 +1,9 @@
 from __future__ import annotations
 import pytest
-import sys
-from unittest import mock
 from towerofhanoi import Disc, Rod, InvalidMove
 import playgame
 
-# Testing Errors raises in gameobjects.py
+# Testing Errors raises in towerofhanoi.py
 @pytest.fixture
 def rod_object():
     """This fixture is expected to raise error"""
