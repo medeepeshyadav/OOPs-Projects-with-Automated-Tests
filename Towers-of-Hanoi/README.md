@@ -93,9 +93,8 @@ As a result of OOD stage, we discovered: what classes we need to implement for o
 #### *class* `Disc(size: int)` 
 A class to construct an object of `Disc` type.
 
-**Parameters:**
+**Parameters:** **`size`**: ***int type*** 
 
-**`size`**: ***int type*** 
 &nbsp;&nbsp;It represents the size of the disc of object.
 
 
@@ -103,20 +102,20 @@ A class to construct an object of `Disc` type.
 
 The **`Rod`** class extends the buit-in `List` class.
 
-**Parameters:**
+**Parameters:** **`name`**: ***str type*** 
 
-**`name`**: ***str type*** 
 &nbsp;&nbsp;It represents the name of the rod object.
 
-**`disc`**: ***object of Disc type***
+&nbsp;&nbsp;&nbsp;**`disc`**: ***object of Disc type***
+
 &nbsp;&nbsp;The disc which will be pushed into the given rod object.
 
-**Methods:**
+**Methods:** **`push()`**: ***arguments: object of Disc type***
 
-**`push()`**: ***arguments: object of Disc type***
 &nbsp;&nbsp;Takes an object of type `Disc` and push it to the object of `Rod` class. This method is only activated by an object of `Disc` type on the rod.
 
-**`pop_and_put()`**: ***arguments: object of Rod type***
+&nbsp;&nbsp;&nbsp;**`pop_and_put()`**: ***arguments: object of Rod type***
+
 &nbsp;&nbsp;&nbsp;Pops the disc from *`self`* and push it to given `Rod` type object.
 
 
