@@ -367,5 +367,24 @@ def test_main_function() -> None:
 ```
 The above code is the integration test, we are testing functionality of the whole module by testing the `main()` function which is the driver function for our game. This test will pass if the player successfully clears the puzzle, and the program exits with `SystemExit` exception.
 
+### Demonstration
+Given below are some of the snapshots of the final output of the progam.
+
+#### The initial state of the game
+Here, I have first shown the rules of the game. and a small Menu, to ask the player for the level of difficulty.
+
+![](./images/initial_interface.png)
 
 
+#### The state after the user inputs the level of difficulty
+After the user inputs the level of difficulty (3 in the snapshot below) the initial state of the game is diplayed as shown below.
+
+![](./images/intermediate_interface.png)
+
+
+#### The final state of the game when user successfully solves the puzzle
+After the user successfully solves the puzzle in the given number of moves, by giving their response through keyboard input. They see the following display.
+
+![](./images/final_interface.png)
+
+and the game exits successfully with SystemExit.
