@@ -93,30 +93,27 @@ As a result of OOD stage, we discovered: what classes we need to implement for o
 #### *class* `Disc(size: int)` 
 A class to construct an object of `Disc` type.
 
-**Parameters:** **`size`**: ***int type*** 
-
-&nbsp;&nbsp;It represents the size of the disc of object.
+**Parameters:**\
+**`size`**: ***int type***\
+            It represents the size of the disc of object.
 
 
 #### *class* `Rod(name: str, disc: Disc = None)`
-
 The **`Rod`** class extends the buit-in `List` class.
 
-**Parameters:** **`name`**: ***str type*** 
+**Parameters:**\
+**`name`**: ***str type***\
+            It represents the name of the rod object.
 
-&nbsp;&nbsp;It represents the name of the rod object.
+**`disc`**: ***object of Disc type***\
+The disc which will be pushed into the given rod object.
 
-&nbsp;&nbsp;&nbsp;**`disc`**: ***object of Disc type***
+**Methods:**\
+**`push()`**: ***arguments: object of Disc type***\
+Takes an object of type `Disc` and push it to the object of `Rod` class. This method is only activated by an object of `Disc` type on the rod.
 
-&nbsp;&nbsp;The disc which will be pushed into the given rod object.
-
-**Methods:** **`push()`**: ***arguments: object of Disc type***
-
-&nbsp;&nbsp;Takes an object of type `Disc` and push it to the object of `Rod` class. This method is only activated by an object of `Disc` type on the rod.
-
-&nbsp;&nbsp;&nbsp;**`pop_and_put()`**: ***arguments: object of Rod type***
-
-&nbsp;&nbsp;&nbsp;Pops the disc from *`self`* and push it to given `Rod` type object.
+**`pop_and_put()`**: ***arguments: object of Rod type***\
+Pops the disc from *`self`* and push it to given `Rod` type object.
 
 
 ### Exceptions
