@@ -18,7 +18,7 @@ In this project, I have turned the famous Towers of Hanoi problem into a very in
     - Using Rod and Disc classes
     - Functions in the program
 - [Testing](#testing)
-    - Testing error raises
+    - Testing error raise
     - Testing objects
     - Testing functionality of playgame.py
 - [Demonstration](#demo)
@@ -222,26 +222,150 @@ def initial_setup(level):
 The above code will prepare the initial setup for the game with all the discs stacked up on (rod A) in descending order of their size.
 
 ### Other functions in the program
-**`askForMove(towers)`**: This function takes the towers dictionary and asks the player for their move. The player is required to give a response with a string of length 2 (e.g., let player response be 'AB') this will return a tuple of rods "from_rod" and "to_rod" which represents the rod from which the disc is to be popped and the rod on which the disc is to be put, respectively.
+**askForMove(towers)**: This function takes the towers dictionary and asks the player for their move. The player is required to give a response with a string of length 2 (e.g., let player response be 'AB') this will return a tuple of rods "from_rod" and "to_rod" which represents the rod from which the disc is to be popped and the rod on which the disc is to be put, respectively.
 
 It keeps asking player to respond with a valid string, if the letters in the response string doesn't have the name of the rod.
 
-**`displayRods(rods, total_discs)`**: Displays the rods on the players' screen with discs if rod has discs on it else empty rods.
+**displayRods(rods, total_discs)**: Displays the rods on the players' screen with discs if rod has discs on it else empty rods.
 
-**`displayDiscs(width, total_discs)`**: Displays the discs on the rods.
+**displayDiscs(width, total_discs)**: Displays the discs on the rods.
 
-**`displayInitialMoves(level)`**: This function displays the maximum number of moves in which the given difficulty level puzzle can be solved. The `level` argument is the number of maximum number of discs.
+**displayInitialMoves(level)**: This function displays the maximum number of moves in which the given difficulty level puzzle can be solved. The `level` argument is the number of maximum number of discs.
 
-**`displayMoves(towers, level, move_counter)`**: Displays the number of moves left to solve the puzzle.
+**displayMoves(towers, level, move_counter)**: Displays the number of moves left to solve the puzzle.
 
-**`main()`**: The driver function to run the whole program.
+**main()**: The driver function to run the whole program.
 
+<a name = "testing">
+<h1> Testing </h1>
+</a>
 
+For testing our programs I have used **`pytest`** library. 
+### Testing error raise
+```py
+import pytest
+from towerofhanoi import Disc, Rod, InvalidMove
 
+# Testing Errors raises in towerofhanoi.py
+@pytest.fixture
+def rod_object():
+    """This fixture is expected to raise error"""
+    rod = Rod('A')
+    return rod
+```
+We create a fixture to instantiate an object of class `Rod` for testing error raises (to check if the exceptions we have defined in the program raise correctly or not)
 
+#### Testing TypeError
+```py
+def test_type_error(rod_object) -> None:
+    try:
+        # we are pushing an int type in our
+        # rod object which is expected to
+        # raise TypeError
+        rod_object.push(200)
+        assert False
+    except TypeError as t:
+        # asserting True if the TypeError is raised
+        assert True
+```
+The above code will test if pushing an `int` type object will raise a `TypeError` or not. Since, we expect our test to raise the error, it will pass if the `TypeError` does raise.
 
+#### Testing InvalidMove error
+```py
+def test_push_method(rod_object) -> None:
+    try:
+        # pushing disc of size 1 in rod object
+        rod_object.push(Disc(1))
 
+        # pushing disc of size 2 in the same rod
+        # this is expected to raise InvalidMove error
+        rod_object.push(Disc(2))
+        assert False
+    except InvalidMove:
+        # asserting True if the InvalidMove error is raised
+        assert True
+```
+The above code tests the raising of `InvalidMove` error. Since, we are trying to push a bigger size disc on top of small disc, we expect this to raise `InvalidMove` error. If it does raise this error, the test will pass.
 
+#### Testing  IndexError
+```py
+def test_pop_and_put_method() -> None:
+    try:
+        disc1 = Disc(1)
+        disc2 = Disc(2)
+        rod1 = Rod('A')
+        rod2 = Rod('B')
+        rod3 = Rod('C')
+        
+        rod1.push(disc2)
+        rod1.push(disc1)
+
+        rod1.pop_and_put(rod2)
+        rod1.pop_and_put(rod3)
+        rod1.pop_and_put(rod2)
+
+        assert True
+
+    except IndexError:
+        assert True
+
+    else:
+        assert False
+```
+The above code tests the raising of `IndexError`. If the user calls `pop_and_put(rod)` method on an empty rod object. This is expected to raise `IndexError` if the error does raise, the test will pass. The test will also pass if the user doesn't raise the error. The test will fail otherwize.
+
+### Testing `playgame` module
+Since, the `playgame` module is a functional script, we test the functionality of each of the functions in the module.
+
+We import following things first:
+```py
+import pytest
+import playgame
+```
+
+#### Testing `initial_setup()` function
+```py
+def test_initial_setup_function() -> None:
+    level = 5
+    dict_of_rods = playgame.initial_setup(level)
+    assert isinstance(dict_of_rods, dict)
+    assert isinstance(dict_of_rods['A'],Rod)
+    assert len(dict_of_rods['A']) != 0
+    assert len(dict_of_rods['B']) == 0
+    assert len(dict_of_rods['C']) == 0
+```
+In the above code, we are testing the functionality of the `initial_setup()` function, which prepares the initial setup for the game. We are testing the following things:
+- if the return type of the function is of `dict` type.
+- if the item in the `dict` is a `Rod` type.
+- if the rod A in the output dict is filled and all other rods (B and C) are empty.
+
+#### Testing `askForMove()` function
+```py
+def test_askFormove_funtion() -> None:
+    level = 2
+    towers = playgame.initial_setup(level)
+
+    tuple_rods = playgame.askForMove(towers)
+    assert isinstance(tuple_rods, tuple)
+    assert len(tuple_rods) == 2
+    assert isinstance(tuple_rods[0], Rod)
+    assert isinstance(tuple_rods[1], Rod)
+```
+In the above code, we are testing the functionality of `askForMove()` function. We are testing following things:
+- if the return type of the function is a `tuple`.
+- if the length of the returned object is 2
+- if the value at index 0 in the returned tuple is object of `Rod`
+- if the value at index 1 in the returned tuple is object of `Rod`
+
+#### Testing the `main()` function
+```py
+def test_main_function() -> None:
+    try:
+        playgame.main()
+    except SystemExit:
+        assert True
+```
+The above code is the integration test, we are testing functionality of the whole module by testing the `main()` function which is the driver function for our game. This test will pass if the player successfully clears the puzzle, and the program exits with `SystemExit` exception.
 
 
 
