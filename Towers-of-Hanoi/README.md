@@ -115,6 +115,9 @@ The **`Rod`** class extends the buit-in `List` class.
             Pops the disc from *`self`* and push it to given `Rod` type object.
 
 
+### Exceptions
+
+
 
 
 
