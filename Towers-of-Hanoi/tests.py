@@ -132,6 +132,10 @@ def game_object() -> None:
 def test_Game_class(game_object: Game) -> None:
     try:
         game_object.run()
+
+    # if the game successfully runs
+    # it stops with sys.exit()
+    # this test passes
     except SystemExit:
         assert True
 
