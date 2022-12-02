@@ -1,7 +1,6 @@
 from __future__ import annotations
 import pytest
-from towerofhanoi import Disc, Rod, InvalidMove
-import playgame
+from towerofhanoi import Disc, Rod, Player, SetUp, Game, InvalidMove
 
 # Testing Errors raises in towerofhanoi.py
 @pytest.fixture
@@ -10,34 +9,56 @@ def rod_object():
     rod = Rod('A')
     return rod
 
-def test_type_error(rod_object) -> None:
+@pytest.mark.parametrize("val", [10,20,100,300, Disc(2)])
+def test_type_error(rod_object, val) -> None:
+    """This is expected to raise error"""
     try:
-        rod_object.push(200)
-        assert False
-    except TypeError as t:
+        rod_object.push(val)
+    except TypeError:
         assert True
 
-def test_push_method(rod_object) -> None:
+# testing push method of Rod class
+@pytest.mark.parametrize("val", [Disc(2), Disc(3), Disc(100)])
+def test_push_method1(rod_object, val) -> None:
+    rod_object.push(val)
+    assert isinstance(rod_object[0], Disc)
+
+# testing push method of Rod class
+def test_push_method2(rod_object) -> None:
+    """This is expected to raise error"""
     try:
+        # trying to push a bigger disc on small disc
         rod_object.push(Disc(1))
         rod_object.push(Disc(2))
-        assert False
     except InvalidMove:
         assert True
 
+# testing pop_and_put method of Rod class
 def test_pop_and_put_method() -> None:
     try:
+        # creating disc objects
         disc1 = Disc(1)
         disc2 = Disc(2)
+
+        # creating rod objects
         rod1 = Rod('A')
         rod2 = Rod('B')
         rod3 = Rod('C')
         
+        # pushing all discs in rod1
+        # in decreasing order of their size
         rod1.push(disc2)
         rod1.push(disc1)
 
+        # popping disc from rod1 and pushing on rod2
         rod1.pop_and_put(rod2)
+
+        # popping disc from rod1 and pushing on rod3
         rod1.pop_and_put(rod3)
+
+        # popping disc from rod1 (which is empty now)
+        # and pushing on rod2
+        # this will raise IndexError
         rod1.pop_and_put(rod2)
 
         assert True
@@ -47,86 +68,71 @@ def test_pop_and_put_method() -> None:
 
     else:
         assert False
-        
-def test_program() -> None:
+
+# Testing SetUp class
+def test_setup_class() -> None:
+    """ This test checks the SetUp"""
+    # it takes 3 parameters
+    # n : Number of discs
+    # disc_class : Disc
+    # rod_class : Rod
+    # and its prepare_setup() method prepares
+    # the initial setup of game
+    number_of_discs = 3
+    setUp = SetUp(n=number_of_discs, disc_class=Disc, rod_class=Rod)
+    towers = setUp.prepare_setup()
+
+    assert isinstance(towers, dict)
+    assert isinstance(towers['A'], Rod)
+    assert len(towers['A']) == number_of_discs
+    assert len(towers['B']) == 0
+    assert len(towers['C']) == 0
+
+@pytest.fixture
+def setup():
+    """this fixture creates a setup object"""
+    setUp = SetUp(n=3, disc_class=Disc, rod_class=Rod)
+    towers = setUp.prepare_setup()
+    return towers
+
+# Testing make_a_move() method in Player class
+def test_make_a_move_method(setup) -> None:
+    player = Player(name='Jack Sparrow')
+    
+    rod1, rod2 = player.make_a_move(setup)
+    
+    # checking the return type of method
+    assert isinstance(player.make_a_move(setup), tuple)
+
+    # checking the type of the value in tuple returned
+    assert isinstance(rod1, Rod)
+    assert isinstance(rod2, Rod)
+
+    # checking the length of the tuple returned
+    assert len(player.make_a_move(setup)) == 2
+
+# testing the display_menu() method of Game class
+def test_display_menu(setup) -> None:
+    g = Game
+
+    # takes input from the user and returns values
+    level, player = g.display_menu(g)
+
+    assert len(g.display_menu(g)) == 2
+    assert isinstance(level, int)
+    assert isinstance(player, Player)
+
+# testing the whole Game class
+@pytest.fixture
+def game_object() -> None:
+    g = Game()
+
+    return g
+
+def test_Game_class(game_object: Game) -> None:
     try:
-        d1 = Disc(1)
-        d2 = Disc(2)
-        d3 = Disc(3)
-        d4 = Disc(4)
-
-        rod1 = Rod(name='A')
-        rod2 = Rod(name='B')
-        rod3 = Rod(name='C')
-
-        rod1.push(d4)
-        rod1.push(d3)
-        rod1.push(d2)
-        rod1.push(d1)
-
-        rod1.pop_and_put(rod2)
-        rod1.pop_and_put(rod3)
-        rod2.pop_and_put(rod3)
-        rod1.pop_and_put(rod2)
-        rod3.pop_and_put(rod2)
-        rod3.pop_and_put(rod1)
-        rod2.pop_and_put(rod1)
-        rod2.pop_and_put(rod3)
-        rod1.pop_and_put(rod2)
-        rod1.pop_and_put(rod3)
-        rod2.pop_and_put(rod3)
-        rod1.pop_and_put(rod2)
-        rod3.pop_and_put(rod1)
-        rod3.pop_and_put(rod2)
-        rod1.pop_and_put(rod2)
-        rod3.pop_and_put(rod1)
-        rod2.pop_and_put(rod1)
-        rod2.pop_and_put(rod3)
-        rod1.pop_and_put(rod3)
-        rod3.pop_and_put(rod2)
-        rod3.pop_and_put(rod1)
-        rod2.pop_and_put(rod1)
-        rod2.pop_and_put(rod3)
-        rod1.pop_and_put(rod3)
-        rod1.pop_and_put(rod2)
-        rod3.pop_and_put(rod2)
-        rod1.pop_and_put(rod3)
-        rod2.pop_and_put(rod1)
-        rod2.pop_and_put(rod3)
-        rod1.pop_and_put(rod3)
-
-        assert not(rod1)
-        assert not(rod2)
-        assert rod3
-
-    except (TypeError, InvalidMove, IndexError) as e:
-        print(e)
-        assert False
-
-# Testing playgame.py
-
-def test_initial_setup_function() -> None:
-    level = 5
-    dict_of_rods = playgame.initial_setup(level)
-    assert isinstance(dict_of_rods, dict)
-    assert isinstance(dict_of_rods['A'],Rod)
-    assert len(dict_of_rods['A']) != 0
-    assert len(dict_of_rods['B']) == 0
-    assert len(dict_of_rods['C']) == 0
-
-def test_askFormove_funtion() -> None:
-    level = 2
-    towers = playgame.initial_setup(level)
-
-    tuple_rods = playgame.askForMove(towers)
-    assert isinstance(tuple_rods, tuple)
-    assert len(tuple_rods) == 2
-    assert isinstance(tuple_rods[0], Rod)
-    assert isinstance(tuple_rods[1], Rod)
-
-def test_main_function() -> None:
-    try:
-        playgame.main()
+        game_object.run()
     except SystemExit:
         assert True
+
     
