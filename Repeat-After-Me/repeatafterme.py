@@ -17,12 +17,12 @@ class Sound:
 
 class SoundList(List[Sound]):
     """ Creates a list of Sound type objects"""
-    def append(self, __object: Sound) -> None:
-        if isinstance(__object, Sound):
-            return super().append(__object)
+    def append(self, sound: Sound) -> None:
+        if isinstance(sound, Sound):
+            return super().append(sound)
 
         else:
-            raise TypeError(f"Sound type object expected, got {type(__object).__name__} type.")
+            raise TypeError(f"Sound type object expected, got {type(sound).__name__} type.")
 
     def __repr__(self) -> str:
         return (f"{list(self)}")
