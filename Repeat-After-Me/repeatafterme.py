@@ -1,6 +1,5 @@
 # Repeat after me Game
 from __future__ import annotations
-import sys
 import time
 import random
 from pathlib import Path
@@ -19,12 +18,17 @@ class Sound:
 class SoundList(List[Sound]):
     """ Creates a list of Sound type objects"""
     def append(self, __object: Sound) -> None:
-        return super().append(__object)
+        if isinstance(__object, Sound):
+            return super().append(__object)
+
+        else:
+            raise TypeError(f"Sound type object expected, got {type(__object).__name__} type.")
 
     def __repr__(self) -> str:
         return (f"{list(self)}")
 
 class Player:
+    """a Class to create a Player object"""
     def __init__(self, name) -> None:
         self.player_name = name
         self.score = 0
@@ -32,6 +36,8 @@ class Player:
 
 class Display:
     def display_rules(self) -> Player:
+        """displays the rules of game and asks for player name"""
+
         print("#"*55 + " REPEAT AFTER ME "+ "#"*55)
         print(" "*45 + "#"*15 + " RULES "+ "#"*15)
         print("""You will be shown a pattern of letters from set (A, S, D, F) along with their sounds.
@@ -52,9 +58,10 @@ class Game:
         self, 
         sound_list: SoundList[Sound], 
         sounds: list[Sound], 
-        pattern: str
+        pattern: str,
         ) -> SoundList:
         """This method appends a random letter to the pattern"""
+
         # get random sound object from the list of sounds
         random_letter = random.choice(sounds)
 
@@ -66,6 +73,7 @@ class Game:
 
     def sound_player(self, sound_list: SoundList[Sound]):
         """This method plays the sound of each letter in the pattern"""
+
         for sound in sound_list:
             # print each letter and play its sound
             print(sound.sound_name, end=" ", flush= True)
@@ -139,10 +147,8 @@ class Game:
                 print(f"\nYou scored {player.score} points.")
                 print(f"\nThanks for playing, {player.player_name}!")
                 break
-
         time.sleep(1)
         
 if __name__ == "__main__":
     g = Game()
     s = g.run()
-        
