@@ -61,9 +61,9 @@ In the OOA stage, we came up with the high level description of the system we ar
 
 ## High level design
 With the above description of the system, our high level design looks like this:
-![](./images/high_level_design1.png)
+![](./images/high_level_design2.png)
 
-We see that, the `Sound` class is directly associated with the `SoundList` class, and The `Player` class depends on the `Display` class. And then the `SounList` class and the `Display` classes are in composite relation with the `Game` class 
+We see that, the `Sound` class is directly associated with the `SoundList` class, and The `Player` class depends on the `Display` class. And then the `SoundList` class and the `Display` classes are in composite relation with the `Game` class 
 
 Now, let's move further and see what kind of attributes and methods we can define on these classes.
 
@@ -85,12 +85,22 @@ Now, let's move further and see what kind of attributes and methods we can defin
 
 **`score`**: The `Player` class can also have a `score` attribute to store the current score of the player.
 
-**`pop_and_put()`**: Also, we are required to move disc from one rod to another rod. For that, we can have another method `pop_and_put()` in the `Rod` class to pop the disc from given rod and push it to another Rod type object. It takes an object of `Rod` type as an argument to which we want to push.
+### `Display` class
+#### Methods:
+**`display_rules()`**: The `Display` class can have a `display_rules()` method to display the rules on the user screen, and ask player to enter their name. It will return a player object with its name.
+
+### `Game` class
+#### Methods:
+**`appender()`**: The `Game` class can have a `appender()` method to append a random letter after each correct input from player. It updates the `SoundList` object.
+
+**`sound_player()`**: The `sound_player()` method to play the sound of each `Sound` object stored in the `SoundList` object.
+
+**`run()`**: The `run()` method will integrate each of the objects and run the whole program.
 
 ### The updated UML diagram
 Now, our UML diagram looks like this:
 
-![](./images/attributes_and_methods.png)
+![](./images/attributes_and_methods2.png)
 
 ### Result of OOD stage
 As a result of OOD stage, we discovered: what classes we need to implement for our system. We also discovered the associated attributes and methods for the respective classes. We now have the requirements for our Object Oriented Programming stage. We can now implement these classes in any Object Oriented language, we will use Python.
