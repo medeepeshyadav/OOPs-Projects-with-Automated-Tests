@@ -69,27 +69,27 @@ Now, let's move further and see what kind of attributes and methods we can defin
 
 ## Identifying the Attributes and Methods
 
-### `Sound` class
+### 1. `Sound` class
 #### Attributes:
 **`sound_path`**: The class `Sound` can have a `sound_path` attribute to store the path of the sound file.
 
 **`sound_name`**: The class `Sound` can have a `sound_name` attribute to identify what sound it is. 
 
-### `SoundList` class
+### 2. `SoundList` class
 #### Methods:
 **`append()`**: The `SoundList` class needs to have a `append()`method to append the object of `Sound` type.
 
-### `Player` class
+### 3. `Player` class
 #### Attributes:
 **`player_name`**: The `Player` class can have a `player_name` attribute to store the name of the player.
 
 **`score`**: The `Player` class can also have a `score` attribute to store the current score of the player.
 
-### `Display` class
+### 4. `Display` class
 #### Methods:
 **`display_rules()`**: The `Display` class can have a `display_rules()` method to display the rules on the user screen, and ask player to enter their name. It will return a player object with its name.
 
-### `Game` class
+### 5. `Game` class
 #### Methods:
 **`appender()`**: The `Game` class can have a `appender()` method to append a random letter after each correct input from player. It updates the `SoundList` object.
 
@@ -110,274 +110,143 @@ As a result of OOD stage, we discovered: what classes we need to implement for o
 </a>
 
 ## Documentation
-### *class* `Disc(size: int)` 
-A class to construct an object of `Disc` type.
+### *class* `Sound(sound_path: Path, sound_name: str)` 
+A class to construct an object of `Sound` type.
 
 **Parameters:**\
-**size**: ***int type***\
-            It represents the size of the disc object.
+**sound_path**: ***str type or Path object***\
+            It represents the path of the sound object.
 
+**sound_name**: ***str type***\
+            It represents the name of the sound object.
 
-### *class* `Rod(name: str, disc: Disc = None)`
-The **`Rod`** class extends the buit-in `List` class.
+### *class* `SoundList(sound: Sound)`
+The **`SoundList`** class extends the buit-in `List` class, and stores only object of `Sound` type.
+
+**Methods:**\
+**append()**: ***sound: Sound type***\
+            Appends the object of `Sound` to self.
+
+### *class* `Player(name: str)` 
+A class to construct an object of `Player` type.
 
 **Parameters:**\
 **name**: ***str type***\
-            It represents the name of the rod object.
+            It represents the name of the player.
+            
+**Attributes**:\
+**score**: ***int type***\
+            represents the score of the player.
 
-**disc**: ***object of Disc type***\
-The disc which will be pushed into the given rod object.
+### *class* `Display()`
+The **`Display`** creates an object of `Display` type having method to display the rules and ask player for their name to create an objec of `Player` class.
 
 **Methods:**\
-**push()**: ***arguments: object of Disc type***\
-Takes an object of type `Disc` and push it to the object of `Rod` class. This method is only activated by an object of `Disc` type on the rod.
+**display_rules()**:\
+            Displays the rules on user's screen and asks user for their name to create a Player object.
 
-**pop_and_put()**: ***arguments: object of Rod type***\
-Pops the disc from *`self`* and push it to given `Rod` type object.
+### *class* `Game()`
+The **`Game`** creates a composite object of all the other classes in the program. It takes the objects of each class and run the game.
 
+**Methods:**\
+**appender()**: ***sound_list: SoundList, sounds: list, pattern: str***\
+                This method appends the random sound objects form `sounds` to the `sound_list` and also updates the `pattern`. 
+            
+**sound_player()**: ***sound_list: SoundList***\
+                This method goes over each sound object in the `sound_list` and plays its associated sound located at the `sound_path`.
+
+**run()**:\
+            Combines all the objects in the program and run the `Game` object.
 
 ### Exceptions
 #### `TypeError`
-This exception is raised when a parameter is passed in the `Rod` class which is not of type `Disc`.
-
-#### `InvalidMove`
-This is a custom exception class, which is raised when the user tries to push the small disc on top of large disc in the rod.
-
-#### `IndexError`
-This exception is raised when the user tries to pop from a rod object which is empty.
-
-\#Note: Later we use these exceptions in our user interface to show warning messages to the user.
+This exception is raised when a parameter is passed in the `SoundList` class which is not of type `Sound`.
 
 ## Examples:
-Pushing disc in a rod.
+Appending `Sound` object in a `SoundList`.
 ```py
-# instantiating object of Disc
-# setting size parameter as 1
-d1 = Disc(size=1)
+# instantiating object of Sound class
+# passing the sound_path and sound_name parameters
+s1 = Sound(sound_path= "Repeat-After-Me/sounds/soundA.wav", sound_name='A')
 
-# instantiating object of Rod
-# setting name parameter as 'A'
-rod1 = Rod(name='A')
+# instantiating object of SoundList
+sl = SoundList()
 
-# pushing d1 in rod1
-rod1.push(d1)
+# appending s1 in sl
+sl.append(s1)
 ```
-**Output**
-```
- Rod A: [1]
-```
-
-Popping disc from rod and putting on other rod.
-```py
-# instantiating two Disc objects
-d1 = Disc(size=1)
-d2 = Disc(size=2)
-
-# instantiating two Rod objects
-rod1 = Rod(name='A')
-rod2 = Rod(name='B')
-
-# pushing d2 in rod1
-rod1.push(d2)
-# pushing d2 in rod1
-rod1.push(d1)
-
-# popping from rod1 and putting on rod2
-rod1.pop_and_put(rod2)
-```
-**Output**
-```
-Rod A: [2]
-Rod A: [2, 1]
-Rod B: [1]
-Disc 1 popped from rod A and pushed on rod B.
-```
-
-<a name = "functional">
-<h1> Functional Programming</h1>
-</a>
-
-### Using Disc and Rod classes
-We use the classes from our **`towersofhanoi`** module to create the objects for our game i.e., Rods and Discs.
-
-```py
-from towerofhanoi import Disc, Rod
-.
-.
-.
-# level is the number of discs
-level = int(input('> '))
-# prepare initial setup based on the level
-towers = initial_setup(level)
-.
-.
-.
-def initial_setup(level):
-    """ Forms initial setup of game"""
-    # creating 3 rod objects, because
-    # towers of hanoi problem has 3 rods
-    rod1 = Rod('A')
-    rod2 = Rod('B')
-    rod3 = Rod('C')
-
-    # stacking all discs in descending order
-    # on rod1 object (only)
-    for i in range(level, 0, -1):
-        rod1.push(Disc(i))
-    
-    # returning a dictionary of rods
-    # this will make the initial setup
-    # of the game with rod A with all rods
-    # and rod B and rod C completely empty.
-    return {'A': rod1, 'B': rod2, 'C': rod3}
-```
-The above code will prepare the initial setup for the game with all the discs stacked up on (rod A) in descending order of their size.
-
-### Other functions in the program
-**askForMove(towers)**: This function takes the towers dictionary and asks the player for their move. The player is required to give a response with a string of length 2 (e.g., let player response be 'AB') this will return a tuple of rods "from_rod" and "to_rod" which represents the rod from which the disc is to be popped and the rod on which the disc is to be put, respectively.
-
-It keeps asking player to respond with a valid string, if the letters in the response string doesn't have the name of the rod.
-
-**displayRods(rods, total_discs)**: Displays the rods on the players' screen with discs if rod has discs on it else empty rods.
-
-**displayDiscs(width, total_discs)**: Displays the discs on the rods.
-
-**displayInitialMoves(level)**: This function displays the maximum number of moves in which the given difficulty level puzzle can be solved. The `level` argument is the number of maximum number of discs.
-
-**displayMoves(towers, level, move_counter)**: Displays the number of moves left to solve the puzzle.
-
-**main()**: The driver function to run the whole program.
 
 <a name = "testing">
 <h1> Testing </h1>
 </a>
 
-For testing our programs I have used **`pytest`** library. 
+For testing our program I have used **`pytest`** library. 
 ### Testing error raise
 ```py
 import pytest
-from towerofhanoi import Disc, Rod, InvalidMove
+from repeatafterme import Sound, SoundList, Player, Display, Game
 
-# Testing Errors raises in towerofhanoi.py
+# Testing Error
 @pytest.fixture
-def rod_object():
-    """This fixture is expected to raise error"""
-    rod = Rod('A')
-    return rod
+def sound_list() -> None:
+    sl = SoundList()
+
+    return sl
 ```
-We create a fixture to instantiate an object of class `Rod` for testing error raises (to check if the exceptions we have defined in the program raise correctly or not)
+We create a fixture to instantiate an object of class `SoundList` for checking if the SoundList class raise an error if we append an object of any kind other than `Sound` type.
 
 #### Testing TypeError
 ```py
-def test_type_error(rod_object) -> None:
+def test_SoundList_classV1(sound_list: SoundList) -> None:
     try:
-        # we are pushing an int type in our
-        # rod object which is expected to
-        # raise TypeError
-        rod_object.push(200)
-        assert False
-    except TypeError as t:
-        # asserting True if the TypeError is raised
+        sound_list.append(12)
+
+    except TypeError:
         assert True
 ```
-The above code will test if pushing an `int` type object will raise a `TypeError` or not. Since, we expect our test to raise the error, it will pass if the `TypeError` does raise.
+The above code will test if appending an `int` type object will raise a `TypeError` or not. Since, we expect our test to raise the error, it will pass if the `TypeError` does raise.
 
-#### Testing InvalidMove error
+#### Testing SoundList class's append() method
 ```py
-def test_push_method(rod_object) -> None:
-    try:
-        # pushing disc of size 1 in rod object
-        rod_object.push(Disc(1))
+def test_SoundList_classV2(sound_list: SoundList) -> None:
+    sound = Sound("Repeat-After-Me/sounds/soundA", 'A')
+    sound_list.append(sound)
 
-        # pushing disc of size 2 in the same rod
-        # this is expected to raise InvalidMove error
-        rod_object.push(Disc(2))
-        assert False
-    except InvalidMove:
-        # asserting True if the InvalidMove error is raised
-        assert True
+    assert isinstance(sound_list[-1], Sound)
 ```
-The above code tests the raising of `InvalidMove` error. Since, we are trying to push a bigger size disc on top of small disc, we expect this to raise `InvalidMove` error. If it does raise this error, the test will pass.
+The above code tests, if the object appended to the `SoundList` type object is an instance of `Sound` class. This test will pass if the object is an instance of `Sound` class.
 
-#### Testing  IndexError
+#### Testing Display class's display_rules() method
 ```py
-def test_pop_and_put_method() -> None:
-    try:
-        disc1 = Disc(1)
-        disc2 = Disc(2)
-        rod1 = Rod('A')
-        rod2 = Rod('B')
-        rod3 = Rod('C')
-        
-        rod1.push(disc2)
-        rod1.push(disc1)
+def test_Display_class() -> None:
+    d = Display
+    player = d.display_rules(d)
 
-        rod1.pop_and_put(rod2)
-        rod1.pop_and_put(rod3)
-        rod1.pop_and_put(rod2)
-
-        assert True
-
-    except IndexError:
-        assert True
-
-    else:
-        assert False
+    assert isinstance(player, Player)
+    assert isinstance(player.player_name, str)
 ```
-The above code tests the raising of `IndexError`. If the user calls `pop_and_put(rod)` method on an empty rod object. This is expected to raise `IndexError` if the error does raise, the test will pass. The test will also pass if the user doesn't raise the error. The test will fail otherwize.
+The above code tests, if the return type of the `display_rules()` method is an instance of `Player` class and if the object is an instance of `Player` class, check if the `player_name` is `str` type.
 
-### Testing `playgame` module
-Since, the `playgame` module is a functional script, we test the functionality of each of the functions in the module.
-
-We import following things first:
+#### Testing the `appender()` method of Game class
 ```py
-import pytest
-import playgame
-```
+def test_appender_method(sound_list: SoundList) -> None:
+    sl = sound_list
+    sound_A = Sound(sound_path="Repeat-After-Me/sounds/soundA.wav", sound_name='A')
+    sound_S = Sound(sound_path="Repeat-After-Me/sounds/soundS.wav", sound_name='S')
+    sound_D = Sound(sound_path="Repeat-After-Me/sounds/soundD.wav", sound_name='D')
+    sound_F = Sound(sound_path="Repeat-After-Me/sounds/soundF.wav", sound_name='F')
 
-#### Testing `initial_setup()` function
-```py
-def test_initial_setup_function() -> None:
-    level = 5
-    dict_of_rods = playgame.initial_setup(level)
-    assert isinstance(dict_of_rods, dict)
-    assert isinstance(dict_of_rods['A'],Rod)
-    assert len(dict_of_rods['A']) != 0
-    assert len(dict_of_rods['B']) == 0
-    assert len(dict_of_rods['C']) == 0
-```
-In the above code, we are testing the functionality of the `initial_setup()` function, which prepares the initial setup for the game. We are testing the following things:
-- if the return type of the function is of `dict` type.
-- if the item in the `dict` is a `Rod` type.
-- if the rod A in the output dict is filled and all other rods (B and C) are empty.
+    sounds = [sound_A, sound_S, sound_D, sound_F]
+    g = Game
+    pattern = ""
+    p = g.appender(g, sl, sounds, pattern)
 
-#### Testing `askForMove()` function
-```py
-def test_askFormove_funtion() -> None:
-    level = 2
-    towers = playgame.initial_setup(level)
+    assert len(sound_list) != 0
+    assert isinstance(p, str)
+    assert p[-1] == sound_list[-1].sound_name
 
-    tuple_rods = playgame.askForMove(towers)
-    assert isinstance(tuple_rods, tuple)
-    assert len(tuple_rods) == 2
-    assert isinstance(tuple_rods[0], Rod)
-    assert isinstance(tuple_rods[1], Rod)
 ```
-In the above code, we are testing the functionality of `askForMove()` function. We are testing following things:
-- if the return type of the function is a `tuple`.
-- if the length of the returned object is 2
-- if the value at index 0 in the returned tuple is object of `Rod`
-- if the value at index 1 in the returned tuple is object of `Rod`
-
-#### Testing the `main()` function
-```py
-def test_main_function() -> None:
-    try:
-        playgame.main()
-    except SystemExit:
-        assert True
-```
-The above code is the integration test, we are testing functionality of the whole module by testing the `main()` function which is the driver function for our game. This test will pass if the player successfully clears the puzzle, and the program exits with `SystemExit` exception.
+The above test code, tests the `appender()` method of Game class. It tests, after appending a sound object to the `sound_list` the length of the `sound_list` is not zero (i.e., the sound list is not empty). It also checks if the return type of the object returned by the `appender()` method is `str` type (which is a pattern string). And it checks if the last last letter added to the `pattern` is same as the name of the sound object in the `sound_list`.
 
 <a name='demo'>
 <h1> Demonstration </h1>
