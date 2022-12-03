@@ -1,0 +1,404 @@
+# Repeat After Me
+In this small OOPs project, I have created a game called "Repeat After Me" using Object Oriented Programming. Also, tested the functionality of program with the help of `pytest` library.
+
+## Project Procedure
+- [Problem Description](#description)
+- [Object Oriented Analysis (OOA)](#ooa)
+    - Identifying the objects and interactions
+    - Result of OOA stage
+- [Object Oriented Design (OOD)](#ood)
+    - High level design
+    - Identifying the Attributes and Methods
+    - UML Diagram
+    - Result of OOD stage
+- [Object Oriented Programming (OOP)](#oop)
+    - Documentation
+    - Examples
+- [Functional Programming](#functional)
+    - Using Rod and Disc classes
+    - Functions in the program
+- [Testing](#testing)
+    - Testing error raise
+    - Testing objects
+    - Testing functionality of playgame.py
+- [Demonstration](#demo)
+- [Things that I learnt from this Project](#lessons)
+
+<a name = "description">
+<h1> Problem Description</h1>
+</a>
+
+In this small game the player is given a string pattern of random letters from a set (A, S, D, F) along with their sounds. Then the player is asked to repeat the same pattern of string. If the player inputs a correct pattern, string pattern keeps growing with addition of one random letter from the set. The player is offered one point for each correct answer. If the player inputs wrong pattern, they lose and the game stops showing the total score of the player.
+
+<a name = "ooa">
+<h1> Object Oriented Analysis (OOA)</h1>
+</a>
+Now that we are familiar with the problem, let's analyse the problem and look it from the Object Oriented point of view. This stage is known as Object Oriented Analysis (OOA). We just simply see the problem and identify the objects and the interface of the problem.
+
+### Identifying the objects
+The problem has 5 objects:
+- Sound
+- List of Sounds
+- Player
+- Game
+- Display
+
+The problem has the following interface:
+- Sound is added in a List of Sounds.
+- List of Sounds keeps the string pattern.
+- The player is asked to input the pattern.
+- If the pattern is correct, the List of Sounds is updated.
+- If the pattern is incorrect, the player loses.
+- Goal is to memorize the pattern and keep entering right pattern to score points.
+
+### Result of the OOA stage
+From the OOA stage we have got the description of the system that needs to be built. We determined that we need five type of objects, Sound, a List of Sounds to hold Sound type objects, Player to save the state of the player, Game to integrate all the components and run the game and a Display object to display contents on user's screen.
+
+<a name = "ood">
+<h1> Object Oriented Design (OOD)</h1>
+</a>
+In the OOA stage, we came up with the high level description of the system we are required to build. Now, let's use that description and transform it into requirements for our program.
+
+### High level design
+With the above description of the system, our high level design looks like this:
+![](./images/high_level_design1.png)
+
+We have 
+
+Now, let's move further and see what kind of attributes and methods we can define on these classes.
+
+### Identifying the Attributes and Methods
+#### Attributes:
+**`size`**: The class `Disc` can have a `size` attribute since, all the discs are of different size.
+
+**`rod_name`**: The class `Rod` can have a `rod_name` attribute to identify which rod it is. 
+
+**`disc`**: Also class `Rod` can have a `disc` attribute which is the object of `Disc` type to be pushed into the rod.
+
+#### Methods:
+**`push()`**: Since, we are required to push discs in the rods, the `Rod` class can have a `push()` which takes a object of type `Disc` and push it to the rod. This method is only activated by an object of `Disc` type on the rod.
+
+**`pop_and_put()`**: Also, we are required to move disc from one rod to another rod. For that, we can have another method `pop_and_put()` in the `Rod` class to pop the disc from given rod and push it to another Rod type object. It takes an object of `Rod` type as an argument to which we want to push.
+
+### The updated UML diagram
+Now, our UML diagram looks like this:
+
+![](./images/attributes_and_methods.png)
+
+### Result of OOD stage
+As a result of OOD stage, we discovered: what classes we need to implement for our system. We also discovered the associated attributes and methods for the respective classes. We now have the requirements for our Object Oriented Programming stage. We can now implement these classes in any Object Oriented language, we will use Python.
+
+<a name = "oop">
+<h1> Object Oriented Programming (OOP)</h1>
+</a>
+
+## Documentation
+### *class* `Disc(size: int)` 
+A class to construct an object of `Disc` type.
+
+**Parameters:**\
+**size**: ***int type***\
+            It represents the size of the disc object.
+
+
+### *class* `Rod(name: str, disc: Disc = None)`
+The **`Rod`** class extends the buit-in `List` class.
+
+**Parameters:**\
+**name**: ***str type***\
+            It represents the name of the rod object.
+
+**disc**: ***object of Disc type***\
+The disc which will be pushed into the given rod object.
+
+**Methods:**\
+**push()**: ***arguments: object of Disc type***\
+Takes an object of type `Disc` and push it to the object of `Rod` class. This method is only activated by an object of `Disc` type on the rod.
+
+**pop_and_put()**: ***arguments: object of Rod type***\
+Pops the disc from *`self`* and push it to given `Rod` type object.
+
+
+### Exceptions
+#### `TypeError`
+This exception is raised when a parameter is passed in the `Rod` class which is not of type `Disc`.
+
+#### `InvalidMove`
+This is a custom exception class, which is raised when the user tries to push the small disc on top of large disc in the rod.
+
+#### `IndexError`
+This exception is raised when the user tries to pop from a rod object which is empty.
+
+\#Note: Later we use these exceptions in our user interface to show warning messages to the user.
+
+## Examples:
+Pushing disc in a rod.
+```py
+# instantiating object of Disc
+# setting size parameter as 1
+d1 = Disc(size=1)
+
+# instantiating object of Rod
+# setting name parameter as 'A'
+rod1 = Rod(name='A')
+
+# pushing d1 in rod1
+rod1.push(d1)
+```
+**Output**
+```
+ Rod A: [1]
+```
+
+Popping disc from rod and putting on other rod.
+```py
+# instantiating two Disc objects
+d1 = Disc(size=1)
+d2 = Disc(size=2)
+
+# instantiating two Rod objects
+rod1 = Rod(name='A')
+rod2 = Rod(name='B')
+
+# pushing d2 in rod1
+rod1.push(d2)
+# pushing d2 in rod1
+rod1.push(d1)
+
+# popping from rod1 and putting on rod2
+rod1.pop_and_put(rod2)
+```
+**Output**
+```
+Rod A: [2]
+Rod A: [2, 1]
+Rod B: [1]
+Disc 1 popped from rod A and pushed on rod B.
+```
+
+<a name = "functional">
+<h1> Functional Programming</h1>
+</a>
+
+### Using Disc and Rod classes
+We use the classes from our **`towersofhanoi`** module to create the objects for our game i.e., Rods and Discs.
+
+```py
+from towerofhanoi import Disc, Rod
+.
+.
+.
+# level is the number of discs
+level = int(input('> '))
+# prepare initial setup based on the level
+towers = initial_setup(level)
+.
+.
+.
+def initial_setup(level):
+    """ Forms initial setup of game"""
+    # creating 3 rod objects, because
+    # towers of hanoi problem has 3 rods
+    rod1 = Rod('A')
+    rod2 = Rod('B')
+    rod3 = Rod('C')
+
+    # stacking all discs in descending order
+    # on rod1 object (only)
+    for i in range(level, 0, -1):
+        rod1.push(Disc(i))
+    
+    # returning a dictionary of rods
+    # this will make the initial setup
+    # of the game with rod A with all rods
+    # and rod B and rod C completely empty.
+    return {'A': rod1, 'B': rod2, 'C': rod3}
+```
+The above code will prepare the initial setup for the game with all the discs stacked up on (rod A) in descending order of their size.
+
+### Other functions in the program
+**askForMove(towers)**: This function takes the towers dictionary and asks the player for their move. The player is required to give a response with a string of length 2 (e.g., let player response be 'AB') this will return a tuple of rods "from_rod" and "to_rod" which represents the rod from which the disc is to be popped and the rod on which the disc is to be put, respectively.
+
+It keeps asking player to respond with a valid string, if the letters in the response string doesn't have the name of the rod.
+
+**displayRods(rods, total_discs)**: Displays the rods on the players' screen with discs if rod has discs on it else empty rods.
+
+**displayDiscs(width, total_discs)**: Displays the discs on the rods.
+
+**displayInitialMoves(level)**: This function displays the maximum number of moves in which the given difficulty level puzzle can be solved. The `level` argument is the number of maximum number of discs.
+
+**displayMoves(towers, level, move_counter)**: Displays the number of moves left to solve the puzzle.
+
+**main()**: The driver function to run the whole program.
+
+<a name = "testing">
+<h1> Testing </h1>
+</a>
+
+For testing our programs I have used **`pytest`** library. 
+### Testing error raise
+```py
+import pytest
+from towerofhanoi import Disc, Rod, InvalidMove
+
+# Testing Errors raises in towerofhanoi.py
+@pytest.fixture
+def rod_object():
+    """This fixture is expected to raise error"""
+    rod = Rod('A')
+    return rod
+```
+We create a fixture to instantiate an object of class `Rod` for testing error raises (to check if the exceptions we have defined in the program raise correctly or not)
+
+#### Testing TypeError
+```py
+def test_type_error(rod_object) -> None:
+    try:
+        # we are pushing an int type in our
+        # rod object which is expected to
+        # raise TypeError
+        rod_object.push(200)
+        assert False
+    except TypeError as t:
+        # asserting True if the TypeError is raised
+        assert True
+```
+The above code will test if pushing an `int` type object will raise a `TypeError` or not. Since, we expect our test to raise the error, it will pass if the `TypeError` does raise.
+
+#### Testing InvalidMove error
+```py
+def test_push_method(rod_object) -> None:
+    try:
+        # pushing disc of size 1 in rod object
+        rod_object.push(Disc(1))
+
+        # pushing disc of size 2 in the same rod
+        # this is expected to raise InvalidMove error
+        rod_object.push(Disc(2))
+        assert False
+    except InvalidMove:
+        # asserting True if the InvalidMove error is raised
+        assert True
+```
+The above code tests the raising of `InvalidMove` error. Since, we are trying to push a bigger size disc on top of small disc, we expect this to raise `InvalidMove` error. If it does raise this error, the test will pass.
+
+#### Testing  IndexError
+```py
+def test_pop_and_put_method() -> None:
+    try:
+        disc1 = Disc(1)
+        disc2 = Disc(2)
+        rod1 = Rod('A')
+        rod2 = Rod('B')
+        rod3 = Rod('C')
+        
+        rod1.push(disc2)
+        rod1.push(disc1)
+
+        rod1.pop_and_put(rod2)
+        rod1.pop_and_put(rod3)
+        rod1.pop_and_put(rod2)
+
+        assert True
+
+    except IndexError:
+        assert True
+
+    else:
+        assert False
+```
+The above code tests the raising of `IndexError`. If the user calls `pop_and_put(rod)` method on an empty rod object. This is expected to raise `IndexError` if the error does raise, the test will pass. The test will also pass if the user doesn't raise the error. The test will fail otherwize.
+
+### Testing `playgame` module
+Since, the `playgame` module is a functional script, we test the functionality of each of the functions in the module.
+
+We import following things first:
+```py
+import pytest
+import playgame
+```
+
+#### Testing `initial_setup()` function
+```py
+def test_initial_setup_function() -> None:
+    level = 5
+    dict_of_rods = playgame.initial_setup(level)
+    assert isinstance(dict_of_rods, dict)
+    assert isinstance(dict_of_rods['A'],Rod)
+    assert len(dict_of_rods['A']) != 0
+    assert len(dict_of_rods['B']) == 0
+    assert len(dict_of_rods['C']) == 0
+```
+In the above code, we are testing the functionality of the `initial_setup()` function, which prepares the initial setup for the game. We are testing the following things:
+- if the return type of the function is of `dict` type.
+- if the item in the `dict` is a `Rod` type.
+- if the rod A in the output dict is filled and all other rods (B and C) are empty.
+
+#### Testing `askForMove()` function
+```py
+def test_askFormove_funtion() -> None:
+    level = 2
+    towers = playgame.initial_setup(level)
+
+    tuple_rods = playgame.askForMove(towers)
+    assert isinstance(tuple_rods, tuple)
+    assert len(tuple_rods) == 2
+    assert isinstance(tuple_rods[0], Rod)
+    assert isinstance(tuple_rods[1], Rod)
+```
+In the above code, we are testing the functionality of `askForMove()` function. We are testing following things:
+- if the return type of the function is a `tuple`.
+- if the length of the returned object is 2
+- if the value at index 0 in the returned tuple is object of `Rod`
+- if the value at index 1 in the returned tuple is object of `Rod`
+
+#### Testing the `main()` function
+```py
+def test_main_function() -> None:
+    try:
+        playgame.main()
+    except SystemExit:
+        assert True
+```
+The above code is the integration test, we are testing functionality of the whole module by testing the `main()` function which is the driver function for our game. This test will pass if the player successfully clears the puzzle, and the program exits with `SystemExit` exception.
+
+<a name='demo'>
+<h1> Demonstration </h1>
+</a>
+Given below are some of the snapshots of the final output of the progam.
+
+#### The initial state of the game
+Here, I have first shown the rules of the game. and a small Menu, to ask the player for the level of difficulty.
+
+![](./images/initial_interface.png)
+
+
+#### The state after the user inputs the level of difficulty
+After the user inputs the level of difficulty (3 in the snapshot below) the initial state of the game is diplayed as shown below.
+
+![](./images/intermediate_interface.png)
+
+
+#### The final state of the game when user successfully solves the puzzle
+After the user successfully solves the puzzle in the given number of moves, by giving their response through keyboard input. They see the following display.
+
+![](./images/final_interface.png)
+
+and the game exits successfully with SystemExit.
+
+<a name = 'lessons'>
+<h1> Things that I learnt from this project</h1>
+</a>
+
+I have acquired the following skills from this project:
+- **Object Oriented Designing**: I have learnt how to approach an OOPs project as a step-by-step procedure, by first analysing the problem at hand from object oriented point of view, finding the objects and the relations between those objects.
+
+- **UML Diagrams**: I have learnt how to draw the basic UML diagrams before jumping into programming step. UML diagrams do really makes implementation easy, when we sit and write the code for the Object Oriented Programming project.
+
+- **Exception Handling**: In this project I have used some of the exception classes and also coded my own simple exception `InvalidMove`. Doing this I have developed a good understanding of the concept of Exception Handling.
+
+- **Extending built-in types**: In my project I extended the built-in `list` type for our new class `Rod`. Which makes things quite easy.
+
+- **Unit Testing with `pytest` library**: The most valuable skill I have learnt is unit testing using `pytest` library. Testing my code pointed out a few loopholes in my code which I fixed and ensured that my code is free of bugs.
+
+- **Using functional programming to make a highly interactive command line display**: I learnt how we can make our command line prompt so interactive and also display our objects in such easy way.
