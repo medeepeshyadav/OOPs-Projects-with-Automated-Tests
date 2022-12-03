@@ -35,7 +35,7 @@ In this small game the player is given a string pattern of random letters from a
 </a>
 Now that we are familiar with the problem, let's analyse the problem and look it from the Object Oriented point of view. This stage is known as Object Oriented Analysis (OOA). We just simply see the problem and identify the objects and the interface of the problem.
 
-### Identifying the objects
+## Identifying the objects
 The problem has 5 objects:
 - Sound
 - List of Sounds
@@ -51,7 +51,7 @@ The problem has the following interface:
 - If the pattern is incorrect, the player loses.
 - Goal is to memorize the pattern and keep entering right pattern to score points.
 
-### Result of the OOA stage
+## Result of the OOA stage
 From the OOA stage we have got the description of the system that needs to be built. We determined that we need five type of objects, Sound, a List of Sounds to hold Sound type objects, Player to save the state of the player, Game to integrate all the components and run the game and a Display object to display contents on user's screen.
 
 <a name = "ood">
@@ -59,24 +59,31 @@ From the OOA stage we have got the description of the system that needs to be bu
 </a>
 In the OOA stage, we came up with the high level description of the system we are required to build. Now, let's use that description and transform it into requirements for our program.
 
-### High level design
+## High level design
 With the above description of the system, our high level design looks like this:
 ![](./images/high_level_design1.png)
 
-We have 
+We see that, the `Sound` class is directly associated with the `SoundList` class, and The `Player` class depends on the `Display` class. And then the `SounList` class and the `Display` classes are in composite relation with the `Game` class 
 
 Now, let's move further and see what kind of attributes and methods we can define on these classes.
 
-### Identifying the Attributes and Methods
+## Identifying the Attributes and Methods
+
+### `Sound` class
 #### Attributes:
-**`size`**: The class `Disc` can have a `size` attribute since, all the discs are of different size.
+**`sound_path`**: The class `Sound` can have a `sound_path` attribute to store the path of the sound file.
 
-**`rod_name`**: The class `Rod` can have a `rod_name` attribute to identify which rod it is. 
+**`sound_name`**: The class `Sound` can have a `sound_name` attribute to identify what sound it is. 
 
-**`disc`**: Also class `Rod` can have a `disc` attribute which is the object of `Disc` type to be pushed into the rod.
-
+### `SoundList` class
 #### Methods:
-**`push()`**: Since, we are required to push discs in the rods, the `Rod` class can have a `push()` which takes a object of type `Disc` and push it to the rod. This method is only activated by an object of `Disc` type on the rod.
+**`append()`**: The `SoundList` class needs to have a `append()`method to append the object of `Sound` type.
+
+### `Player` class
+#### Attributes:
+**`player_name`**: The `Player` class can have a `player_name` attribute to store the name of the player.
+
+**`score`**: The `Player` class can also have a `score` attribute to store the current score of the player.
 
 **`pop_and_put()`**: Also, we are required to move disc from one rod to another rod. For that, we can have another method `pop_and_put()` in the `Rod` class to pop the disc from given rod and push it to another Rod type object. It takes an object of `Rod` type as an argument to which we want to push.
 
