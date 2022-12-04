@@ -326,21 +326,6 @@ def initial_setup(level):
 ```
 The above code will prepare the initial setup for the game with all the discs stacked up on (rod A) in descending order of their size.
 
-### Other functions in the program
-**askForMove(towers)**: This function takes the towers dictionary and asks the player for their move. The player is required to give a response with a string of length 2 (e.g., let player response be 'AB') this will return a tuple of rods "from_rod" and "to_rod" which represents the rod from which the disc is to be popped and the rod on which the disc is to be put, respectively.
-
-It keeps asking player to respond with a valid string, if the letters in the response string doesn't have the name of the rod.
-
-**displayRods(rods, total_discs)**: Displays the rods on the players' screen with discs if rod has discs on it else empty rods.
-
-**displayDiscs(width, total_discs)**: Displays the discs on the rods.
-
-**displayInitialMoves(level)**: This function displays the maximum number of moves in which the given difficulty level puzzle can be solved. The `level` argument is the number of maximum number of discs.
-
-**displayMoves(towers, level, move_counter)**: Displays the number of moves left to solve the puzzle.
-
-**main()**: The driver function to run the whole program.
-
 <a name = "testing">
 <h1> Testing </h1>
 </a>
