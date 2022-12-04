@@ -208,15 +208,15 @@ This method allows the player to make a move in the game, when asked.
 A class to create Game object, combines all the other objects, provides method to display the game set up on user screen and also runs the game with user interaction.
 
 **Methods:**\
-**display_menu()**:\  
+**display_menu()**:\
 This method shows the menu on the player's screen and asks the player to enter difficulty level and their name to create a player object. 
 
 ***Returns***: A tuple of size two, containing level (number of discs basically) and player object.
 
-**display_initial_moves()**:\  
+**display_initial_moves()**:\
 This method shows the player the maximum number of moves to finish the puzzle successfully.
 
-**display_moves()**: ***arguments: level: int, tower: dict[str, Rod]***\  
+**display_moves()**: ***arguments: level: int, tower: dict[str, Rod]***\
 This method shows the number of moves left to finish the puzzle.
 
 **display_rods()**: ***arguments: level: int, rods: dict[str, Rod]***\
