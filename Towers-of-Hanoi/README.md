@@ -44,10 +44,13 @@ The objective of the puzzle is to move the entire stack of disc from rod **A** t
 </a>
 Now that we are familiar with the problem, let's analyse the problem and look it from the Object Oriented point of view. This stage is known as Object Oriented Analysis (OOA). We just simply see the problem and identify the objects and the interface of the problem.
 
-### Identifying the objects
-The problem has two objects:
+## Identifying the objects
+The problem has 5 objects:
 - Rods
 - Discs
+- Player
+- Game Set up
+- Game (engine object, that will run the game)
 
 The problem has the following interface:
 - Discs are put on Rods.
@@ -55,27 +58,43 @@ The problem has the following interface:
 - Small disc cannot be put on large disc.
 - Goal is to stack all the discs on Rod 'C' in correct order.
 
-### Result of the OOA stage
-From the OOA stage we have got the description of the system that needs to be built. We determined that we need two type of objects, Rods and Discs. And we also determined the behaviors on the objects, and which object activate a certain behavior on what object.
+## Result of the OOA stage
+From the OOA stage we have got the description of the system that needs to be built. We determined that we need following five type of objects: 
+- Rod object to replicate real world rod object, 
+- Disc object to replicate a real world disc object, 
+- Player object that will interact with the Game interface, 
+- The game initial set up, 
+- Lastly, the Game object which will act as an engine to combine all this objects and run our game. 
+
+We also determined the behaviors on the objects, and which object activate a certain behavior on what object.
 
 <a name = "ood">
 <h1> Object Oriented Design (OOD)</h1>
 </a>
 In the OOA stage, we came up with the high level description of the system we are required to build. Now, let's use that description and transform it into requirements for our program.
 
-### High level design
+## High level design
 With the above description of the system, our high level design looks like this:
 ![](./images/high_level_design.png)
 
 Since, there are tree **Rods** and N number of **Discs**, we are required to make two classes. Class **Rod** and class **Disc**. The above UML diagram shows that the object of class Disc is pushed to an object of class Rod.
 The '*' beside the Disc class and '1' beside the Rod class tells that, **many** object of Disc class can be pushed to **one** object of Rod class, respectively.
 
+After creating these two class, we can use their objects in another class **SetUp**, to form the initial setup of the game. You can see that both the **Rod** class and the **Disc** class are in composite relationship with the **SetUp** class, that is because, the **SetUp** class is composed of both the classes.
+
+Then we have, **Player** which is in dependence relationship with the **Game** class, that is, object of type **Player** is created by **Game** class. And the **Player** object interacts with the **Game** interface.
+
+Lastly, we have the **Game** class which combines all the objects and run the game. You can see the **SetUp** class is in composite relationship with it.
+
 Now, let's move further and see what kind of attributes and methods we can define on these classes.
 
-### Identifying the Attributes and Methods
+## Identifying the Attributes and Methods
+### 1. `Disc` class
 #### Attributes:
 **`size`**: The class `Disc` can have a `size` attribute since, all the discs are of different size.
 
+### 2. `Rod` class
+#### Attributes:
 **`rod_name`**: The class `Rod` can have a `rod_name` attribute to identify which rod it is. 
 
 **`disc`**: Also class `Rod` can have a `disc` attribute which is the object of `Disc` type to be pushed into the rod.
@@ -84,6 +103,38 @@ Now, let's move further and see what kind of attributes and methods we can defin
 **`push()`**: Since, we are required to push discs in the rods, the `Rod` class can have a `push()` which takes a object of type `Disc` and push it to the rod. This method is only activated by an object of `Disc` type on the rod.
 
 **`pop_and_put()`**: Also, we are required to move disc from one rod to another rod. For that, we can have another method `pop_and_put()` in the `Rod` class to pop the disc from given rod and push it to another Rod type object. It takes an object of `Rod` type as an argument to which we want to push.
+
+### 3. SetUp class
+#### Attributes:
+**`disc_class`**: The `Disc` class itself to create objects of type `Disc` for building the game setup.
+
+**`rod_class`**: The `Rod` class to create the objects of type `Rod` for building the game setup.
+
+**`discs`**: An integer attribute which represents the number of `Disc` type object to be created and pushed on the `Rod` type object to build the game setup.
+
+#### Methods:
+**`prepare_setup()`**: It is the method that will use the attributes and build the setup of game.
+
+### 4. Player class:
+#### Attributes:
+**`name`**: A `str` attribute to hold the name of the player.
+
+#### Methods:
+**`make_a_move()`**: This method asks the player to make a move. This method is how the player will interact with the game interface.
+
+### 5. Game class:
+#### Methods:
+**`display_menu()`**: Displays the menu and asks the user for their name.
+
+**`display_initial_moves()`**: Displays the initial number of moves the player has, and also displays the number of maximum moves the player has to finish the puzzle successfully.
+
+**`display_moves()`**: Displays the current moves left for the player to finish the puzzle.
+
+**`display_rods()`**: Displays the rods, if they have no disc or have discs.
+
+**`display_discs()`**: Displays the discs on the rod if the rod is not empty.
+
+**`run()`**: Combines all the objects and functionality and run the game.
 
 ### The updated UML diagram
 Now, our UML diagram looks like this:
@@ -98,7 +149,7 @@ As a result of OOD stage, we discovered: what classes we need to implement for o
 </a>
 
 ## Documentation
-### *class* `Disc(size: int)` 
+### *class* `Disc` 
 A class to construct an object of `Disc` type.
 
 **Parameters:**\
@@ -106,7 +157,7 @@ A class to construct an object of `Disc` type.
             It represents the size of the disc object.
 
 
-### *class* `Rod(name: str, disc: Disc = None)`
+### *class* `Rod`
 The **`Rod`** class extends the buit-in `List` class.
 
 **Parameters:**\
@@ -122,6 +173,60 @@ Takes an object of type `Disc` and push it to the object of `Rod` class. This me
 
 **pop_and_put()**: ***arguments: object of Rod type***\
 Pops the disc from *`self`* and push it to given `Rod` type object.
+
+### *class* `SetUp`
+The class to prepare the initial set up of the game.
+
+**Parameters:**\
+**n**: ***int type***\
+The number of discs/level.
+
+**disc_class**: ***class Disc type***\
+The class to construct disc objects to be pushed into the rod 'A' to prepare set up.
+
+**rod_class**: ***class Rod type***\
+The class to construct rod objects for the game set up.
+
+**Methods:**\
+**prepare_setup()**: 
+This method prepares the initial setup of game, with all discs on rod 'A' in decreasing order of size.
+
+### *class* `Player`
+A class to create player object with name attribute. And a method to make moves in the game.
+
+**Parameters:**\
+**name**: ***str type***\
+Name of player.
+
+**Methods:**\
+**make_a_move()**: ***arguments: towers: dict[str: Rod]*** 
+This method allows the player to make a move in the game, when asked.
+
+***Returns***: A tuple of two rods.
+
+### *class* `Game`
+A class to create Game object, combines all the other objects, provides method to display the game set up on user screen and also runs the game with user interaction.
+
+**Methods:**\
+**display_menu()**:\  
+This method shows the menu on the player's screen and asks the player to enter difficulty level and their name to create a player object. 
+
+***Returns***: A tuple of size two, containing level (number of discs basically) and player object.
+
+**display_initial_moves()**:\  
+This method shows the player the maximum number of moves to finish the puzzle successfully.
+
+**display_moves()**: ***arguments: level: int, tower: dict[str, Rod]***\  
+This method shows the number of moves left to finish the puzzle.
+
+**display_rods()**: ***arguments: level: int, rods: dict[str, Rod]***\
+This method displays the rods with or without discs on the user screen.
+
+**display_discs()**: ***arguments: width: int, level: int***\
+This method helps the `display_rods()` method to display discs on the rod.
+
+**run()**:\
+This method combines all the objects of other classes and runs the game.
 
 
 ### Exceptions
