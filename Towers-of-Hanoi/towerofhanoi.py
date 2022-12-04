@@ -93,21 +93,25 @@ class SetUp:
         disc_class: Type[Disc],
         rod_class: Type[Rod],
         ) -> None:
-
-        self.rod1 = rod_class('A')
-        self.rod2 = rod_class('B')
-        self.rod3 = rod_class('C')
-
-        # fill the rod 'A' with all the discs
-        for i in range(n, 0, -1):
-            self.rod1.push(disc_class(i))
+        self.disc_class = disc_class
+        self.rod_class = rod_class
+        self.discs = n
 
     def prepare_setup(self) -> dict[str: Rod[Disc]]:
-        return {'A': self.rod1, 'B': self.rod2, 'C': self.rod3}
+        """Prepares initial setup for game."""
+        
+        rod1 = self.rod_class('A')
+        rod2 = self.rod_class('B')
+        rod3 = self.rod_class('C')
+
+        # fill the rod 'A' with all the discs
+        for i in range(self.discs, 0, -1):
+            rod1.push(self.disc_class(i))
+        return {'A': rod1, 'B': rod2, 'C': rod3}
 
 class Game:
     def __init__(self) -> None:
-        self.moves = 0
+        pass
 
     def display_menu(self) -> tuple[int, Player]:
         print("#"*55 + " TOWER OF HANOI "+ "#"*55)
