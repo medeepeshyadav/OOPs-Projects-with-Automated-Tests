@@ -286,46 +286,6 @@ Rod B: [1]
 Disc 1 popped from rod A and pushed on rod B.
 ```
 
-<a name = "functional">
-<h1> Functional Programming</h1>
-</a>
-
-### Using Disc and Rod classes
-We use the classes from our **`towersofhanoi`** module to create the objects for our game i.e., Rods and Discs.
-
-```py
-from towerofhanoi import Disc, Rod
-.
-.
-.
-# level is the number of discs
-level = int(input('> '))
-# prepare initial setup based on the level
-towers = initial_setup(level)
-.
-.
-.
-def initial_setup(level):
-    """ Forms initial setup of game"""
-    # creating 3 rod objects, because
-    # towers of hanoi problem has 3 rods
-    rod1 = Rod('A')
-    rod2 = Rod('B')
-    rod3 = Rod('C')
-
-    # stacking all discs in descending order
-    # on rod1 object (only)
-    for i in range(level, 0, -1):
-        rod1.push(Disc(i))
-    
-    # returning a dictionary of rods
-    # this will make the initial setup
-    # of the game with rod A with all rods
-    # and rod B and rod C completely empty.
-    return {'A': rod1, 'B': rod2, 'C': rod3}
-```
-The above code will prepare the initial setup for the game with all the discs stacked up on (rod A) in descending order of their size.
-
 <a name = "testing">
 <h1> Testing </h1>
 </a>
@@ -347,20 +307,28 @@ We create a fixture to instantiate an object of class `Rod` for testing error ra
 
 #### Testing TypeError
 ```py
-def test_type_error(rod_object) -> None:
+@pytest.mark.parametrize("val", [10,20,100,300, Disc(2)])
+def test_type_error(rod_object, val) -> None:
+    """This is expected to raise error"""
     try:
-        # we are pushing an int type in our
-        # rod object which is expected to
-        # raise TypeError
-        rod_object.push(200)
-        assert False
-    except TypeError as t:
+        rod_object.push(val)
+    except TypeError:
         # asserting True if the TypeError is raised
         assert True
 ```
-The above code will test if pushing an `int` type object will raise a `TypeError` or not. Since, we expect our test to raise the error, it will pass if the `TypeError` does raise.
+The above code will test if pushing an `int` type object will raise a `TypeError` or not. Since, we expect our test to raise the error, it will pass if the `TypeError` does raise. We have passed a parameter list which consists of 4 `int` objects and 1 `Disc` type object, the test will pass for the `int` values since they will raise `TypeError` and fail for the `Disc` type.
 
-#### Testing InvalidMove error
+#### Testing Push method 1
+```py
+@pytest.mark.parametrize("val", [Disc(2), Disc(3), Disc(100)])
+def test_push_method1(rod_object, val) -> None:
+    rod_object.push(val)
+    assert isinstance(rod_object[0], Disc)
+
+```
+The above test code will check if the `rod_object` consists an object of `Disc` type. Since in the parameter list we are passing only `Disc` type objects. This test will pass for all parameters.
+
+#### Testing Push method 2
 ```py
 def test_push_method(rod_object) -> None:
     try:
@@ -370,7 +338,7 @@ def test_push_method(rod_object) -> None:
         # pushing disc of size 2 in the same rod
         # this is expected to raise InvalidMove error
         rod_object.push(Disc(2))
-        assert False
+
     except InvalidMove:
         # asserting True if the InvalidMove error is raised
         assert True
@@ -404,58 +372,100 @@ def test_pop_and_put_method() -> None:
 ```
 The above code tests the raising of `IndexError`. If the user calls `pop_and_put(rod)` method on an empty rod object. This is expected to raise `IndexError` if the error does raise, the test will pass. The test will also pass if the user doesn't raise the error. The test will fail otherwize.
 
-### Testing `playgame` module
-Since, the `playgame` module is a functional script, we test the functionality of each of the functions in the module.
-
-We import following things first:
+#### Testing SetUp class
 ```py
-import pytest
-import playgame
-```
+ """ This test checks the SetUp"""
+    # it takes 3 parameters
+    # n : Number of discs
+    # disc_class : Disc
+    # rod_class : Rod
+    # and its prepare_setup() method prepares
+    # the initial setup of game
+    number_of_discs = 3
+    setUp = SetUp(n=number_of_discs, disc_class=Disc, rod_class=Rod)
+    towers = setUp.prepare_setup()
 
-#### Testing `initial_setup()` function
-```py
-def test_initial_setup_function() -> None:
-    level = 5
-    dict_of_rods = playgame.initial_setup(level)
-    assert isinstance(dict_of_rods, dict)
-    assert isinstance(dict_of_rods['A'],Rod)
-    assert len(dict_of_rods['A']) != 0
-    assert len(dict_of_rods['B']) == 0
-    assert len(dict_of_rods['C']) == 0
+    assert isinstance(towers, dict)
+    assert isinstance(towers['A'], Rod)
+    assert len(towers['A']) == number_of_discs
+    assert len(towers['B']) == 0
+    assert len(towers['C']) == 0
 ```
-In the above code, we are testing the functionality of the `initial_setup()` function, which prepares the initial setup for the game. We are testing the following things:
-- if the return type of the function is of `dict` type.
+In the above code, we are testing the functionality of the `prepare_setup()` method, which prepares the initial setup for the game. We are testing the following things:
+- if the return type of the method is of `dict` type.
 - if the item in the `dict` is a `Rod` type.
 - if the rod A in the output dict is filled and all other rods (B and C) are empty.
 
-#### Testing `askForMove()` function
+#### Testing make_a_move() method in Player class
 ```py
-def test_askFormove_funtion() -> None:
-    level = 2
-    towers = playgame.initial_setup(level)
+# We create a fixture first
+@pytest.fixture
+def setup():
+    """this fixture creates a setup object"""
+    setUp = SetUp(n=3, disc_class=Disc, rod_class=Rod)
+    towers = setUp.prepare_setup()
+    return towers
 
-    tuple_rods = playgame.askForMove(towers)
-    assert isinstance(tuple_rods, tuple)
-    assert len(tuple_rods) == 2
-    assert isinstance(tuple_rods[0], Rod)
-    assert isinstance(tuple_rods[1], Rod)
+# testing make_a_move method
+def test_make_a_move_method(setup) -> None:
+    player = Player(name='Jack Sparrow')
+    
+    rod1, rod2 = player.make_a_move(setup)
+    
+    # checking the return type of method
+    assert isinstance(player.make_a_move(setup), tuple)
+
+    # checking the type of the value in tuple returned
+    assert isinstance(rod1, Rod)
+    assert isinstance(rod2, Rod)
+
+    # checking the length of the tuple returned
+    assert len(player.make_a_move(setup)) == 2
 ```
-In the above code, we are testing the functionality of `askForMove()` function. We are testing following things:
+In the above code, we are testing the functionality of `make_a_move()` method of `Player` class. We are testing following things:
 - if the return type of the function is a `tuple`.
+- if the `rod1` object in the tuple is object of `Rod`
+- if the `rod2` object in the tuple is object of `Rod`
 - if the length of the returned object is 2
-- if the value at index 0 in the returned tuple is object of `Rod`
-- if the value at index 1 in the returned tuple is object of `Rod`
 
-#### Testing the `main()` function
+#### Testing display_menu() method of Game class
 ```py
-def test_main_function() -> None:
+# testing the display_menu() method of Game class
+def test_display_menu(setup) -> None:
+    g = Game
+
+    # takes input from the user and returns values
+    level, player = g.display_menu(g)
+
+    assert len(g.display_menu(g)) == 2
+    assert isinstance(level, int)
+    assert isinstance(player, Player)
+```
+The above code tests the `display_menu()` method of `Game` class. It calls the method and checks the return value of the method. It checks following things:
+- If the return value is tuple type.
+- If the size of the tuple is 2.
+- If the first value in tuple is `int` type.
+- If the second value in the tuple is an object of `Player` class.
+
+#### Testing the whole Game class (Integration Test)
+```py
+@pytest.fixture
+def game_object() -> None:
+    g = Game()
+
+    return g
+
+def test_Game_class(game_object: Game) -> None:
     try:
-        playgame.main()
+        game_object.run()
+
+    # if the game successfully runs
+    # it stops with sys.exit()
+    # this test passes
     except SystemExit:
         assert True
 ```
-The above code is the integration test, we are testing functionality of the whole module by testing the `main()` function which is the driver function for our game. This test will pass if the player successfully clears the puzzle, and the program exits with `SystemExit` exception.
+The above test code, is an integration test of all the other class. We are testing the `Game` class which combines objects of all the other classes run the game. This test passes if the game successfully exits with raise of `SystemExit` exception.
 
 <a name='demo'>
 <h1> Demonstration </h1>
@@ -496,4 +506,4 @@ I have acquired the following skills from this project:
 
 - **Unit Testing with `pytest` library**: The most valuable skill I have learnt is unit testing using `pytest` library. Testing my code pointed out a few loopholes in my code which I fixed and ensured that my code is free of bugs.
 
-- **Using functional programming to make a highly interactive command line display**: I learnt how we can make our command line prompt so interactive and also display our objects in such easy way.
+- **Making highly interactive command line display**: I learnt how we can make our command line prompt interactive and also display our objects on the screen in a simple but interactive way.
