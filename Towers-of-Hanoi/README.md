@@ -14,9 +14,6 @@ In this project, I have turned the famous Towers of Hanoi problem into a very in
 - [Object Oriented Programming (OOP)](#oop)
     - Documentation
     - Examples
-- [Functional Programming](#functional)
-    - Using Rod and Disc classes
-    - Functions in the program
 - [Testing](#testing)
     - Testing error raise
     - Testing objects
