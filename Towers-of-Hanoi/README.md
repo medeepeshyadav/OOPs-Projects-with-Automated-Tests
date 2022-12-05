@@ -18,7 +18,7 @@ In this project, I have turned the famous Towers of Hanoi problem into a very in
 - [Testing](#testing)
     - Testing error raise
     - Testing objects and methods
-    
+
 - [Demonstration](#demo)
 - [Things that I learnt from this Project](#lessons)
 
@@ -316,17 +316,7 @@ def test_type_error(rod_object, val) -> None:
 ```
 The above code will test if pushing an `int` type object will raise a `TypeError` or not. Since, we expect our test to raise the error, it will pass if the `TypeError` does raise. We have passed a parameter list which consists of 4 `int` objects and 1 `Disc` type object, the test will pass for the `int` values since they will raise `TypeError` and fail for the `Disc` type.
 
-#### Testing Push method 1
-```py
-@pytest.mark.parametrize("val", [Disc(2), Disc(3), Disc(100)])
-def test_push_method1(rod_object, val) -> None:
-    rod_object.push(val)
-    assert isinstance(rod_object[0], Disc)
-
-```
-The above test code will check if the `rod_object` consists an object of `Disc` type. Since in the parameter list we are passing only `Disc` type objects. This test will pass for all parameters.
-
-#### Testing Push method 2
+#### Testing InvalidError
 ```py
 def test_push_method(rod_object) -> None:
     try:
@@ -343,7 +333,7 @@ def test_push_method(rod_object) -> None:
 ```
 The above code tests the raising of `InvalidMove` error. Since, we are trying to push a bigger size disc on top of small disc, we expect this to raise `InvalidMove` error. If it does raise this error, the test will pass.
 
-#### Testing  IndexError
+#### Testing IndexError
 ```py
 def test_pop_and_put_method() -> None:
     try:
@@ -369,6 +359,17 @@ def test_pop_and_put_method() -> None:
         assert False
 ```
 The above code tests the raising of `IndexError`. If the user calls `pop_and_put(rod)` method on an empty rod object. This is expected to raise `IndexError` if the error does raise, the test will pass. The test will also pass if the user doesn't raise the error. The test will fail otherwize.
+
+### Testing objects and methods
+#### Testing Push method
+```py
+@pytest.mark.parametrize("val", [Disc(2), Disc(3), Disc(100)])
+def test_push_method1(rod_object, val) -> None:
+    rod_object.push(val)
+    assert isinstance(rod_object[0], Disc)
+
+```
+The above test code will check if the `rod_object` consists an object of `Disc` type. Since in the parameter list we are passing only `Disc` type objects. This test will pass for all parameters.
 
 #### Testing SetUp class
 ```py
