@@ -14,10 +14,11 @@ In this project, I have turned the famous Towers of Hanoi problem into a very in
 - [Object Oriented Programming (OOP)](#oop)
     - Documentation
     - Examples
+
 - [Testing](#testing)
     - Testing error raise
-    - Testing objects
-    - Testing functionality of playgame.py
+    - Testing objects and methods
+    
 - [Demonstration](#demo)
 - [Things that I learnt from this Project](#lessons)
 
