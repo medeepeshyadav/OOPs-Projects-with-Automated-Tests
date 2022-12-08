@@ -1,9 +1,6 @@
 # Soroban Japanese Abacus
-from __future__ import annotations
-import typing
-
 class Rod:
-    def __init__(self, name: str):
+    def __init__(self, name: str) -> None:
         self.name = name
         self.earth = 0
         self.heaven = 0
@@ -63,6 +60,7 @@ class Rod:
 
 class Abacus:
     def __init__(self) -> None:
+        # initializing 10 rod objects
         self.rodP = Rod(name='p')
         self.rodO = Rod(name='o')
         self.rodI = Rod(name='i')
@@ -74,6 +72,7 @@ class Abacus:
         self.rodW = Rod(name='w')
         self.rodQ = Rod(name='q')
 
+        # mapping the rods with commands
         self.rods = {
             'p': self.rodP,
             'o': self.rodO,
@@ -87,6 +86,7 @@ class Abacus:
             'q': self.rodQ,
         }
 
+        # mapping the values in each rod
         self.vals = {
             'p': 0,
             'o': 0,
@@ -101,9 +101,15 @@ class Abacus:
         }
 
     def input(self, command: str) -> int:
-        """ takes a string input of rod names
-            returns total
+        """ 
+        Takes a string input of rod names
+        returns total
+        :param command: (str) stream of characters
+        :rtype: (int) sum of values in each rod
         """
+
+        # mapping for commands to move
+        # down the bead
         decrement_commands = {
             ';':'p',
             'l':'o',
@@ -136,7 +142,7 @@ class Abacus:
         """
         This method designs each column for abacus
         :param rod: object of Rod class
-        :rtype: list
+        :rtype: (list) list of charcters to be displayed
         """
         # initial character list
         char_list = [['0','0','0','0','|','|'],['|','0']]
