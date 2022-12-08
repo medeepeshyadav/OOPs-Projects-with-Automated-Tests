@@ -77,39 +77,36 @@ Now, let's move further and see what kind of attributes and methods we can defin
 
 ### 2. `Abacus` class
 #### Attributes:
-Since, our `Abacus` is composed of 10 rod type objects, we instantiate 10 objects of `Rod` class to form our abacus.\ 
-**`rodQ`**: An object of `Rod` class to represent the rod 'Q' in the `Abacus`.
-**`rodW`**: An object of `Rod` class to represent the rod 'W' in the `Abacus`.
-**`rodE`**: An object of `Rod` class to represent the rod 'E' in the `Abacus`.
-**`rodR`**: An object of `Rod` class to represent the rod 'R' in the `Abacus`.
-**`rodT`**: An object of `Rod` class to represent the rod 'T' in the `Abacus`.
-**`rodY`**: An object of `Rod` class to represent the rod 'Y' in the `Abacus`.
-**`rodU`**: An object of `Rod` class to represent the rod 'U' in the `Abacus`.
-**`rodI`**: An object of `Rod` class to represent the rod 'I' in the `Abacus`.
-**`rodO`**: An object of `Rod` class to represent the rod 'O' in the `Abacus`.
+Since, our `Abacus` is composed of 10 rod type objects, we instantiate 10 objects of `Rod` class to form our abacus.\
+**`rodQ`**: An object of `Rod` class to represent the rod 'Q' in the `Abacus`.\
+**`rodW`**: An object of `Rod` class to represent the rod 'W' in the `Abacus`.\
+**`rodE`**: An object of `Rod` class to represent the rod 'E' in the `Abacus`.\
+**`rodR`**: An object of `Rod` class to represent the rod 'R' in the `Abacus`.\
+**`rodT`**: An object of `Rod` class to represent the rod 'T' in the `Abacus`.\
+**`rodY`**: An object of `Rod` class to represent the rod 'Y' in the `Abacus`.\
+**`rodU`**: An object of `Rod` class to represent the rod 'U' in the `Abacus`.\
+**`rodI`**: An object of `Rod` class to represent the rod 'I' in the `Abacus`.\
+**`rodO`**: An object of `Rod` class to represent the rod 'O' in the `Abacus`.\
 **`rodP`**: An object of `Rod` class to represent the rod 'P' in the `Abacus`.\
 **`rods`**: A mapping to map the commands with the respective `Rod` objects. For example: `{'q': self.rodQ, . . . 'p': self.rodP}`.\
 **`vals`**: A dictionary object to keep the values of each rod.
 
-### 4. `Display` class
 #### Methods:
-**`display_rules()`**: The `Display` class can have a `display_rules()` method to display the rules on the user screen, and ask player to enter their name. It will return a player object with its name.
+**`input()`**: The `Abacus` class can have an `input()` method to take the stream of commands (str type) and return the total. Each character in the command tells the abacus to move a bead up or down on a rod.
 
-### 5. `Game` class
-#### Methods:
-**`appender()`**: The `Game` class can have a `appender()` method to append a random letter after each correct input from player. It updates the `SoundList` object.
+**`get_char_list()`**: A `get_char_list()` method to get a list of characters ('0' for bead '|' for no bead) to display the abacus on the screen of user.
 
-**`sound_player()`**: The `sound_player()` method to play the sound of each `Sound` object stored in the `SoundList` object.
+**`display_abacus()`**: Finally, we need a `display_abacus()` method to display the whole abacus on the user's screen.
 
-**`run()`**: The `run()` method will integrate each of the objects and run the whole program.
+**`run()`**: The `run()` method will integrate each of the objects and methods and run the whole program.
 
 ### The updated UML diagram
 Now, our UML diagram looks like this:
 
-![](./images/attributes_and_methods2.png)
+![](./images/attributes_and_methods.png)
 
 ### Result of OOD stage
-As a result of OOD stage, we discovered: what classes we need to implement for our system. We also discovered the associated attributes and methods for the respective classes. We now have the requirements for our Object Oriented Programming stage. We can now implement these classes in any Object Oriented language, we will use Python.
+As a result of OOD stage, we discovered; What classes we need to implement for our system. We also discovered the associated attributes and methods for the respective classes. We now have the requirements for our Object Oriented Programming stage. We can now implement these classes in any Object Oriented language, we will use Python.
 
 <a name = "oop">
 <h1> Object Oriented Programming (OOP)</h1>
