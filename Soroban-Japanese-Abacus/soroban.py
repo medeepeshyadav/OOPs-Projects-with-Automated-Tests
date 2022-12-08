@@ -20,7 +20,10 @@ class Rod:
                     'q': 10**9,
                 }
 
-    def move_beads_up(self):
+    def move_beads_up(self) -> int:
+        """
+        Moves up the beads in abacus
+        """
         if self.earth != 4:
             self.earth += 1
 
@@ -37,7 +40,10 @@ class Rod:
 
         return res
 
-    def move_beads_down(self):
+    def move_beads_down(self) -> int:
+        """
+        Moves down the beads in abacus
+        """
         if self.earth != 0:
             self.earth -= 1
 
@@ -112,63 +118,51 @@ class Abacus:
         }
 
         for c in command:
+            # If a character in command is in 
+            # 'qwertyuiop' then move a bead up
             if c in 'qwertyuiop':
                 self.vals[c] = self.rods[c].move_beads_up()
             
+            # If a character in command is in 
+            # 'asdfghjkl' then move a bead down
             elif c in 'asdfghjkl;':
                 c = decrement_commands[c]
                 self.vals[c] = self.rods[c].move_beads_down()
 
+        # return the sun of all the values
         return sum(self.vals.values())
 
-    def get_char_list(self, rod: Rod):
+    def get_char_list(self, rod: Rod) -> list:
+        """
+        This method designs each column for abacus
+        :param rod: object of Rod class
+        :rtype: list
+        """
+        # initial character list
         char_list = [['0','0','0','0','|','|'],['|','0']]
-        earth = rod.earth
-        heaven = rod.heaven
+
+        # get earth value and heaven value
+        earth, heaven = rod.earth, rod.heaven
+        
+        # if earth is not zero
         if earth:
-            for i in range(earth):
+            # update the character list
+            for _ in range(earth):
                 char_list[0].insert(5, char_list[0].pop(4-earth))
 
+        # if heaven is not zero
         if heaven:
+            # update the character list
             char_list[1].insert(1,char_list[1].pop(1-heaven))
 
+        # return the character list
         return char_list
 
     def display_abacus(self):
-        # print("="*13)
-        # print(self.rodQ.name+" |"+"{}{}{}{}{}{}".format(*self.get_char_list(self.rodQ)[0])
-        #         + "|" + "{}{}".format(*self.get_char_list(self.rodQ)[1])+"|")
-
-        # print(self.rodW.name+" |"+"{}{}{}{}{}{}".format(*self.get_char_list(self.rodW)[0]) 
-        #         + "|" + "{}{}".format(*self.get_char_list(self.rodW)[1])+"|")
-
-        # print(self.rodE.name+" |"+"{}{}{}{}{}{}".format(*self.get_char_list(self.rodE)[0]) 
-        #         + "|" + "{}{}".format(*self.get_char_list(self.rodE)[1])+"|")
-
-        # print(self.rodR.name+" |"+"{}{}{}{}{}{}".format(*self.get_char_list(self.rodR)[0]) 
-        #         + "|" + "{}{}".format(*self.get_char_list(self.rodR)[1])+"|")
-
-        # print(self.rodT.name+" |"+"{}{}{}{}{}{}".format(*self.get_char_list(self.rodT)[0]) 
-        #         + "|" + "{}{}".format(*self.get_char_list(self.rodT)[1])+"|")
-
-        # print(self.rodY.name+" |"+"{}{}{}{}{}{}".format(*self.get_char_list(self.rodY)[0]) 
-        #         + "|" + "{}{}".format(*self.get_char_list(self.rodY)[1])+"|")
-
-        # print(self.rodU.name+" |"+"{}{}{}{}{}{}".format(*self.get_char_list(self.rodU)[0]) 
-        #         + "|" + "{}{}".format(*self.get_char_list(self.rodU)[1])+"|")
-
-        # print(self.rodI.name+" |"+"{}{}{}{}{}{}".format(*self.get_char_list(self.rodI)[0]) 
-        #         + "|" + "{}{}".format(*self.get_char_list(self.rodI)[1])+"|")
-
-        # print(self.rodO.name+" |"+"{}{}{}{}{}{}".format(*self.get_char_list(self.rodO)[0]) 
-        #         + "|" + "{}{}".format(*self.get_char_list(self.rodO)[1])+"|")
-
-        # print(self.rodP.name+" |"+"{}{}{}{}{}{}".format(*self.get_char_list(self.rodP)[0]) 
-        #         + "|" + "{}{}".format(*self.get_char_list(self.rodP)[1])+"|")
-                
-        # print("="*13+"\n")
-
+        """Displays the whole abacus on the screen"""
         print("+=====================+")
+
+        # 1st heaven row
         print("I"+" {} {} {} {} {} {} {} {} {} {}".format(
         self.get_char_list(self.rodQ)[1][1], 
         self.get_char_list(self.rodW)[1][1],
@@ -181,6 +175,7 @@ class Abacus:
         self.get_char_list(self.rodO)[1][1],
         self.get_char_list(self.rodP)[1][1])+" I")
 
+        # 2nd heaven row
         print("I"+" {} {} {} {} {} {} {} {} {} {}".format(
         self.get_char_list(self.rodQ)[1][0], 
         self.get_char_list(self.rodW)[1][0],
@@ -195,6 +190,7 @@ class Abacus:
 
         print("+=====================+")
 
+        # 1st earth row
         print("I"+" {} {} {} {} {} {} {} {} {} {}".format(
         self.get_char_list(self.rodQ)[0][5], 
         self.get_char_list(self.rodW)[0][5],
@@ -207,6 +203,7 @@ class Abacus:
         self.get_char_list(self.rodO)[0][5],
         self.get_char_list(self.rodP)[0][5])+" I")
 
+        # 2nd earth row
         print("I"+" {} {} {} {} {} {} {} {} {} {}".format(
         self.get_char_list(self.rodQ)[0][4], 
         self.get_char_list(self.rodW)[0][4],
@@ -219,6 +216,7 @@ class Abacus:
         self.get_char_list(self.rodO)[0][4],
         self.get_char_list(self.rodP)[0][4])+" I")
 
+        # 3rd earth row
         print("I"+" {} {} {} {} {} {} {} {} {} {}".format(
         self.get_char_list(self.rodQ)[0][3], 
         self.get_char_list(self.rodW)[0][3],
@@ -231,6 +229,7 @@ class Abacus:
         self.get_char_list(self.rodO)[0][3],
         self.get_char_list(self.rodP)[0][3])+" I")
 
+        # 4th earth row
         print("I"+" {} {} {} {} {} {} {} {} {} {}".format(
         self.get_char_list(self.rodQ)[0][2], 
         self.get_char_list(self.rodW)[0][2],
@@ -243,6 +242,7 @@ class Abacus:
         self.get_char_list(self.rodO)[0][2],
         self.get_char_list(self.rodP)[0][2])+" I")
 
+        # 5th earth row
         print("I"+" {} {} {} {} {} {} {} {} {} {}".format(
         self.get_char_list(self.rodQ)[0][1], 
         self.get_char_list(self.rodW)[0][1],
@@ -255,6 +255,7 @@ class Abacus:
         self.get_char_list(self.rodO)[0][1],
         self.get_char_list(self.rodP)[0][1])+" I")
 
+        # 6th earth row
         print("I"+" {} {} {} {} {} {} {} {} {} {}".format(
         self.get_char_list(self.rodQ)[0][0], 
         self.get_char_list(self.rodW)[0][0],
@@ -266,6 +267,9 @@ class Abacus:
         self.get_char_list(self.rodI)[0][0],
         self.get_char_list(self.rodO)[0][0],
         self.get_char_list(self.rodP)[0][0])+" I")
+
+        # last row to display numbers
+        # in respective columns
         print("+={}={}={}={}={}={}={}={}={}={}=+".format(
             self.vals['q']//(10**9),
             self.vals['w']//(10**8),
@@ -279,11 +283,15 @@ class Abacus:
             self.vals['p']//(10**0),
             ))
 
+        # Controls/Instructions
         print(' +q w e r t y u i o p')
         print(' -a s d f g h j k l ;')
         print('(Enter a stream of up/down letters or "quit" to stop.)')
 
     def run(self):
+        """
+        a method to run the abacus
+        """
         print("SOROBAN JAPANESE ABACUS")
         while True:
             self.display_abacus()
@@ -297,26 +305,3 @@ class Abacus:
 if __name__ == "__main__":
     a = Abacus()
     a.run()
-#     print("""
-# +==================+
-# p{}{}{}{}{}{}||{}{}{}
-#     """.format())
-
-#     print("""
-# +================================+
-# I  {} {} {} {} {} {} {} {} {} {} I
-# I  |  | | | | | | | | | I
-# I  {} {} {} {} {} {} {} {} {} {} I
-# +================================+
-# I  {}  {}  {}  {}  {}  {}  {}  {}  {}  {}  I
-# I  {}  {}  {}  {}  {}  {}  {}  {}  {}  {}  I
-# I  {}  {}  {}  {}  {}  {}  {}  {}  {}  {}  I
-# I  {}  {}  {}  {}  {}  {}  {}  {}  {}  {}  I
-# I  {}  {}  {}  {}  {}  {}  {}  {}  {}  {}  I
-# I  {}  {}  {}  {}  {}  {}  {}  {}  {}  {}  I
-# +=={}=={}=={}=={}=={}=={}=={}=={}=={}=={}==+""".format(*chars))
-
-# def displayControls():
-#     print(' +q w e r t y u i o p')
-#     print(' -a s d f g h j k l ;')
-#     print('(Enter a number, "quit", or a stream of up/down letters.)')
