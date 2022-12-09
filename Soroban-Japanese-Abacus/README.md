@@ -113,167 +113,191 @@ As a result of OOD stage, we discovered; What classes we need to implement for o
 </a>
 
 ## Documentation
-### *class* `Sound(sound_path: Path, sound_name: str)` 
-A class to construct an object of `Sound` type.
-
-**Parameters:**\
-**sound_path**: ***str type or Path object***\
-            It represents the path of the sound object.
-
-**sound_name**: ***str type***\
-            It represents the name of the sound object.
-
-### *class* `SoundList(sound: Sound)`
-The **`SoundList`** class extends the buit-in `List` class, and stores only object of `Sound` type.
-
-**Methods:**\
-**append()**: ***sound: Sound type***\
-            Appends the object of `Sound` to self.
-
-### *class* `Player(name: str)` 
-A class to construct an object of `Player` type.
+### *class* `Rod` 
+A class to construct an object of `Rod` type.
 
 **Parameters:**\
 **name**: ***str type***\
-            It represents the name of the player.
-            
-**Attributes**:\
-**score**: ***int type***\
-            represents the score of the player.
-
-### *class* `Display()`
-The **`Display`** creates an object of `Display` type having method to display the rules and ask player for their name to create an objec of `Player` class.
+It represents the name of the `Rod` object.
 
 **Methods:**\
-**display_rules()**:\
-            Displays the rules on user's screen and asks user for their name to create a Player object.
+**move_beads_up()**:\
+Moves the bead up on the given rod object.
 
-### *class* `Game()`
-The **`Game`** creates a composite object of all the other classes in the program. It takes the objects of each class and run the game.
+**move_beads_down()**:\
+Moves the bead down on the given rod object.
+
+### *class* `Abacus`
+This class is a composite class which is composed of 10 `Rod` objects to form an abacus. 
 
 **Methods:**\
-**appender()**: ***sound_list: SoundList, sounds: list, pattern: str***\
-                This method appends the random sound objects form `sounds` to the `sound_list` and also updates the `pattern`. 
-            
-**sound_player()**: ***sound_list: SoundList***\
-                This method goes over each sound object in the `sound_list` and plays its associated sound located at the `sound_path`.
+**input()**: ***command: str type***\
+ Takes a `command` argument which is `str` type. Each character in the command is the name of the rod on which the bead is moved. It returns the value of the rod after moving the bead.
+
+**get_char_list()**: ***rod: Rod type object***\
+Takes a rod type object, and creates a list of characters ('0' representing a bead and '|' representing no bead) to display the abacus on user's screen.
 
 **run()**:\
-            Combines all the objects in the program and run the `Game` object.
-
-### Exceptions
-#### `TypeError`
-This exception is raised when a parameter is passed in the `SoundList` class which is not of type `Sound`.
-
-## Examples:
-Appending `Sound` object in a `SoundList`.
-```py
-# instantiating object of Sound class
-# passing the sound_path and sound_name parameters
-s1 = Sound(sound_path= "Repeat-After-Me/sounds/soundA.wav", sound_name='A')
-
-# instantiating object of SoundList
-sl = SoundList()
-
-# appending s1 in sl
-sl.append(s1)
-```
+Runs the whole program.
 
 <a name = "testing">
 <h1> Testing </h1>
 </a>
 
 For testing our program I have used **`pytest`** library. 
-#### Testing error raise
+### Testing Rod class and its methods
+#### Testing Rod class objects
 ```py
 import pytest
-from repeatafterme import Sound, SoundList, Player, Display, Game
+from soroban import Rod, Abacus
 
-# Testing Error
-@pytest.fixture
-def sound_list() -> None:
-    sl = SoundList()
+# Testing Rod class
+def test_Rod_class() -> None:
+    # creating a Qth rod of abacus
+    # moving up beads at Qth place
+    # adds billion in each move
+    rodQ = Rod('q')
+    result_rod_Q = rodQ.move_beads_up()
 
-    return sl
+    # creating a Pth rod of abacus
+    # moving up beads at Pth place
+    # adds 1 in each move
+    rodP = Rod('p')
+    result_rod_P = rodP.move_beads_up()
+
+    assert isinstance(rodQ, Rod)
+    assert isinstance(rodP, Rod)
+    assert 1_000_000_000 == result_rod_Q
+    assert 1 == result_rod_P
 ```
-We create a fixture to instantiate an object of class `SoundList` for checking if the SoundList class raise an error if we append an object of any kind other than `Sound` type.
+In the above test code, we create two objects `rodQ` and `rodP`of `Rod` class and do the following tests:
+- We check if the rod object is the instance of `Rod` class.
+- We check if we move one bead on `rodQ` the value at that rod will be 1 Billion.
+- We also check if we move one bead on `rodP` the value at that rod will be 1.
 
-#### Testing TypeError
+#### Testing move_beads_up() method of Rod class
 ```py
-def test_SoundList_classV1(sound_list: SoundList) -> None:
-    try:
-        sound_list.append(12)
+def test_move_beads_up() -> None:
+    # creating a Qth rod of abacus
+    # moving up beads at Qth place
+    # adds billion in each move
+    rodQ = Rod('q')
+    # moving 4 beads up
+    rodQ.move_beads_up()
+    rodQ.move_beads_up()
+    rodQ.move_beads_up()
+    result_for_Q = rodQ.move_beads_up()
 
-    except TypeError:
-        assert True
+    # creating a Pth rod of abacus
+    # moving up beads at Pth place
+    # adds 1 in each move
+    rodP = Rod('p')
+    # moving 5 beads up
+    # this will activate the
+    # the heaven bead
+    # and reset the earth beads
+    rodP.move_beads_up()
+    rodP.move_beads_up()
+    rodP.move_beads_up()
+    rodP.move_beads_up()
+    result_for_P = rodP.move_beads_up()
+
+    # asserting moving 4 beads up on Qth rod will result in 4 billion
+    assert 4_000_000_000 == result_for_Q
+
+    # asserting moving 5 beads up on rod will activate Heaven bead
+    assert rodP.heaven == 1
+    # asserting moving 5 beads up on rod will reset Earth beads
+    assert rodP.earth == 0
+
+    # asserting moving 5 beads up on rod will activate Heaven bead and
+    # result in 5
+    assert 5 == result_for_P
 ```
-The above code will test if appending an `int` type object will raise a `TypeError` or not. Since, we expect our test to raise the error, it will pass if the `TypeError` does raise.
+The above code will test:
+- When we move 4 beads up on `rodQ` the value at that rod will be 4 Billion
+- Calling `move_beads_up()` method 5 times will activate the `heaven` bead and reset the `earth` row beads.
+- The value after activating heaven bead on `rodP`, the value at `rodP` will be equal to 5. 
 
-#### Testing SoundList class's append() method
+#### Testing move_beads_down() method of Rod class
 ```py
-def test_SoundList_classV2(sound_list: SoundList) -> None:
-    sound = Sound("Repeat-After-Me/sounds/soundA", 'A')
-    sound_list.append(sound)
+def test_move_beads_down() -> None:
+    # creating a Pth rod of abacus
+    # moving up beads at Pth place
+    # adds 1 in each move
+    rodP = Rod('p')
+    # moving 5 beads up
+    # will result in 5
+    rodP.move_beads_up()
+    rodP.move_beads_up()
+    rodP.move_beads_up()
+    rodP.move_beads_up()
+    rodP.move_beads_up()
 
-    assert isinstance(sound_list[-1], Sound)
+    # moving 1 bead down on rod P
+    # will deativate the Heaven bead
+    # and Earth beads will be 4
+
+    # result will be 4
+    result_for_P = rodP.move_beads_down()
+
+    # asserting moving 1 bead down on rod will deactivate Heaven bead
+    assert rodP.heaven == 0
+
+    # asserting moving 1 bead down on rod will reset Earth beads to 4
+    assert rodP.earth == 4
+
+    # asserting moving 1 beads up on rod will deativate Heaven bead and
+    # result in 4
+    assert 4 == result_for_P
 ```
-The above code tests, if the object appended to the `SoundList` type object is an instance of `Sound` class. This test will pass if the object is an instance of `Sound` class.
+The above code we move 5 beads up on `rodP` and then we call `move_beads_down()` method to move 1 bead down on `rodP`. We test the following things:
+- Moving 1 bead down on `rodP` will reset the heaven bead and make it 0
+- Value on earth row is equal to 4
+- The value at the rod is equal to 4.
 
-#### Testing Display class's display_rules() method
+### Testing Abacus class
+#### Testing the get_char_list() method of Abacus class.
 ```py
-def test_Display_class() -> None:
-    d = Display
-    player = d.display_rules(d)
+# testing Abacus class
+def test_get_char_list(rod:Rod) -> None:
+    a = Abacus()
 
-    assert isinstance(player, Player)
-    assert isinstance(player.player_name, str)
+    # moving 3 beads up on rod object
+    rod.move_beads_up()
+    rod.move_beads_up()
+    rod.move_beads_up()
+    char_list =  a.get_char_list(rod)
+
+    # asserting the char_list is instance of list type
+    assert isinstance(char_list, list)
+
+    # asserting the char_list will look like this
+    assert [['0','|','|','0','0','0'],['|','0']] == char_list
 ```
-The above code tests, if the return type of the `display_rules()` method is an instance of `Player` class and if the object is an instance of `Player` class, check if the `player_name` is `str` type.
-
-#### Testing the `appender()` method of Game class
-```py
-def test_appender_method(sound_list: SoundList) -> None:
-    sl = sound_list
-    sound_A = Sound(sound_path="Repeat-After-Me/sounds/soundA.wav", sound_name='A')
-    sound_S = Sound(sound_path="Repeat-After-Me/sounds/soundS.wav", sound_name='S')
-    sound_D = Sound(sound_path="Repeat-After-Me/sounds/soundD.wav", sound_name='D')
-    sound_F = Sound(sound_path="Repeat-After-Me/sounds/soundF.wav", sound_name='F')
-
-    sounds = [sound_A, sound_S, sound_D, sound_F]
-    g = Game
-    pattern = ""
-    p = g.appender(g, sl, sounds, pattern)
-
-    assert len(sound_list) != 0
-    assert isinstance(p, str)
-    assert p[-1] == sound_list[-1].sound_name
-
-```
-The above test code, tests the `appender()` method of Game class. It tests, after appending a sound object to the `sound_list` the length of the `sound_list` is not zero (i.e., the sound list is not empty). It also checks if the return type of the object returned by the `appender()` method is `str` type (which is a pattern string). And it checks if the last last letter added to the `pattern` is same as the name of the sound object in the `sound_list`.
+In the above code we are testing the `get_char_list()` method. We check if the return type of the `get_char_list()` is of `list` type. We also check what kind list we will get after moving 3 beads up on the `rod`(rod at 'u' position).
 
 <a name='demo'>
 <h1> Demonstration </h1>
 </a>
 Given below are some of the snapshots of the final output of the progam.
 
-#### The initial state of the game
-Here, I have first shown the rules of the game. and a small Menu, to ask the player for the level of difficulty.
+#### The initial state of the Abacus
+The first snapshot shows the, title of the program. Then the abacus itself and some controls to move beads up and down.
 
-![](./images/initial_interface.png)
-
-
-#### The state after the user inputs the level of difficulty
-After the user inputs the level of difficulty (3 in the snapshot below) the initial state of the game is diplayed as shown below.
-
-![](./images/intermediate_interface.png)
+![](./images/soroban1.png)
 
 
-#### The final state of the game when user successfully solves the puzzle
-After the user successfully solves the puzzle in the given number of moves, by giving their response through keyboard input. They see the following display.
+#### The state after we input a command of up/down characters
+In the snapshot given below, we have given the command "uoppp", which moves up 1 bead on thousands' place, 1 bead on tens' place and 3 beads on ones' place. And the result of the command is `Total: 1013`. 
 
-![](./images/final_interface.png)
+![](./images/soroban2.png)
 
-and the game exits successfully with SystemExit.
+
+#### Activation of heaven bead
+After giving the last input (i.e., "uoppp") if we give "ppp" as our new command to the abacus, it will activate the heaven bead and the value on ones' place will be equal to 6, and hence, the total will be equal to `Total: 1016`.
+
+![](./images/soroban3.png)
 
 <a name = 'lessons'>
 <h1> Things that I learnt from this project</h1>
@@ -284,10 +308,6 @@ I have acquired the following skills from this project:
 
 - **UML Diagrams**: I have learnt how to draw the basic UML diagrams before jumping into programming step. UML diagrams do really makes implementation easy, when we sit and write the code for the Object Oriented Programming project.
 
-- **Exception Handling**: In this project I have used some of the exception classes and also coded my own simple exception `InvalidMove`. Doing this I have developed a good understanding of the concept of Exception Handling.
-
-- **Extending built-in types**: In my project I extended the built-in `list` type for our new class `Rod`. Which makes things quite easy.
+- **Using `dict` for mapping objects**: In this project I have used python dictionaries for mapping objects with the input commands.
 
 - **Unit Testing with `pytest` library**: The most valuable skill I have learnt is unit testing using `pytest` library. Testing my code pointed out a few loopholes in my code which I fixed and ensured that my code is free of bugs.
-
-- **Using functional programming to make a highly interactive command line display**: I learnt how we can make our command line prompt so interactive and also display our objects in such easy way.
