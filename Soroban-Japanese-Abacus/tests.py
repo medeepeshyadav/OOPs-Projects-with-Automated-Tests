@@ -12,18 +12,18 @@ def test_Rod_class() -> None:
     # moving up beads at Qth place
     # adds billion in each move
     rodQ = Rod('q')
-    rodQ.move_beads_up()
+    result_rod_Q = rodQ.move_beads_up()
 
     # creating a Pth rod of abacus
     # moving up beads at Pth place
     # adds 1 in each move
     rodP = Rod('p')
-    rodP.move_beads_up()
+    result_rod_P = rodP.move_beads_up()
 
     assert isinstance(rodQ, Rod)
     assert isinstance(rodP, Rod)
-    assert 1_000_000_000 == rodQ.earth*rodQ.mapping[rodQ.name]
-    assert 1 == rodP.earth*rodP.mapping[rodP.name]
+    assert 1_000_000_000 == result_rod_Q
+    assert 1 == result_rod_P
 
 def test_move_beads_up() -> None:
     # creating a Qth rod of abacus
