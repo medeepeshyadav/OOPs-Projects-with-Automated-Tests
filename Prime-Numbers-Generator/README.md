@@ -3,16 +3,13 @@ In this OOP project, I have implemented various primality test algorithms like, 
 
 ## Project Procedure
 - [Problem Description](#description)
-    - Primality Test Algorithms
+    - [Primality Test Algorithms](#algo)
 - [Object Oriented Design (OOD)](#ood)
-    - UML Diagram
+    - [Identifying the Attributes and Methods](#identfying)
 - [Object Oriented Programming (OOP)](#oop)
-    - Documentation
-    - Examples
+    - [Documentation](#document)
 - [Testing](#testing)
-    - Testing Rod class
-    - Testing Abacus Class
-
+    - [Testing The Program](#test_program)
 - [Demonstration](#demo)
 - [Things that I learnt from this Project](#lessons)
 
@@ -27,7 +24,10 @@ A prime number is a natural number greater than 1 that has no positive divisors 
 - Sieve of Sundaram
 - Millar Rabin Primality Test
 
-### Primality Test Algorithms
+<a name = "algo">
+<h3> Primality Test Algorithms</h3>
+</a>
+
 1. **School Method**: It is the most simple solution, we iterate through all the numbers from 2 to n-1 and for every number we check if it divides n. If we find any number that divides, we return `False` meaning the number failed the primality test. Instead of checking till `n`, we can check till `√n` because a larger factor of `n` must be a multiple of a smaller factor that has been already checked.
 
 Time Complexity: O(√n)
@@ -109,7 +109,10 @@ Time Complexity: O(√n)
 
 In this project we are going to implement a class for each of the primality test algorithms mentioned above. Each class will consist of a `get_primes()` method and a `isPrime()` method. `get_primes()` method uses the algorithm defined in `isPrime()` method to check if a number is prime or not and return a list of prime numbers smaller than a given number.
 
-## Identifying the Attributes and Methods
+<a name = "identifying">
+<h3> Identifying the Attributes and Methods</h3>
+</a>
+
 ### 1. `SchoolMethod` class
 #### Methods:
 **`get_primes()`**: This method returns the list of all prime numbers smaller than the given number with the help of `isPrime()` method.
@@ -144,18 +147,16 @@ In this project we are going to implement a class for each of the primality test
 
 **`miller_test()`**: This method consists of the definition of Miller Rabin primality test algorithm.
 
-### The UML diagram
-Now, our UML diagram looks like this:
-
-![](./images/attributes_and_methods.png)
-
-Now, we can implement these classes and algorithms in Python.
+Now, we can implement these classes and algorithms in any OOP language. I prefer Python.
 
 <a name = "oop">
 <h1> Object Oriented Programming (OOP)</h1>
 </a>
 
-## Documentation
+<a name = "document">
+<h3> Documentation </h3>
+</a>
+
 ### *class* `SchoolMethod`
 This is a class for School Method of primality test.
 
@@ -211,8 +212,12 @@ Takes a number and returns a boolean value; `True` if the number is "probably" p
 <h1> Testing </h1>
 </a>
 
-For testing our program I have used **`pytest`** library. 
-### Testing the `primenumbers` module
+For testing our program I have used **`pytest`** library.
+
+<a name = "test_program">
+<h3> Testing the Program </h3>
+</a>
+
 ```py
 # Testing primenumbers module
 import pytest
@@ -364,8 +369,6 @@ Using Miller Rabin primality test algorithm to generate prime numbers smaller th
 </a>
 
 I have learnt following things from this project:
-- **UML Diagrams**: I have learnt how to draw the basic UML diagrams before jumping into programming step. UML diagrams do really makes implementation easy when we sit and write the code for the Object Oriented Programming project.
-
 - **Primality Test Algorithms**: Prime number genrators are helful for **cryptography** there is no such algorithm to predict prime numbers. Only way to generate prime numbers is by using primality test, by testing each number using primality test one by one. In this project I have learnt various primality test algorithms like, School Method, Fermat Method, Sieve of Eratosthenes and more advanced version of it Sieve of Sundaram and the more advanced version of Fermat Primality test the Miller Rabin method.
 
 - **Unit Testing with `pytest` library**: The most valuable skill I have learnt is unit testing using `pytest` library. Testing my code pointed out a few loopholes in my code which I fixed and ensured that my code is free of bugs.
