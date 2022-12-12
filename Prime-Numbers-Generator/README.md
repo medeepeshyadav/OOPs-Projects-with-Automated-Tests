@@ -32,18 +32,19 @@ A prime number is a natural number greater than 1 that has no positive divisors 
 
 Time Complexity: O(√n)
 
-2. **Fermat Method**: It is a probabilistic method, it tests if a number is probably a prime or a composite number. For prime number it will always return `True` but for composite number it may return either `True` or `False`, hence, this method is not very accurate. However, if we increase the iterations for test `k` the algorithm gets more accurate.\
-    Algorithm:
+2. **Fermat Method**: It is a probabilistic method, it tests if a number is probably a prime or a composite number. For prime number it will always return `True` but for composite number it may return either `True` or `False`, hence, this method is not very accurate. However, if we increase the iterations for test `k` the algorithm gets more accurate.
+
+    **Algorithm:**
     1)  Repeat following k times:
-        a) Pick a randomly in the range [2, n - 2]
-        b) If gcd(a, n) ≠ 1, then return False
+        a) Pick a randomly in the range [2, n - 2]\
+        b) If gcd(a, n) ≠ 1, then return False\
         c) If an-1 &nequiv; 1 (mod n), then return False
     2) Return True [probably prime].
 
     Where, Higher value of k indicates, probability of correct results for composite inputs become higher and hence, the tests for prime numbers are more accurate.
 
 3. **Sieve of Eratosthenes**: The Sieve of Eratosthenes is one of the most efficient ways to find all primes smaller than `n`, when `n` is smaller than 10 million or so.
-    Algorithm:
+    **Algorithm:**
     1) We create a list of all numbers from 2 to n. Let `n = 10` for simplicity.
         [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -83,7 +84,7 @@ Time Complexity: O(√n)
     6) Remaining primes are of the form (2i + 1) where i is index of `NOT marked` numbers. So print (2i + 1) for all i such that marked[i] is 0 (False).\
 
 5. **Miller Rabin Primality Test**: This algorithm, is more advanced form of Fermat Method of primality test. It is based on the same Fermat's Little Theorem. It return False for composite prime and True for prime numbers.
-    Algorithm:
+    **Algorithm:**
     k is an input parameter that determines accuracy level. Higher value of k indicates more accuracy.
 
     A function to check if a number is prime or not:
