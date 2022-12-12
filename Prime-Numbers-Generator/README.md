@@ -48,7 +48,8 @@ Time Complexity: O(√n)
     **Algorithm:**
     1) We create a list of all numbers from 2 to n. Let `n = 10` for simplicity.\
         [2, 3, 4, 5, 6, 7, 8, 9, 10]\
-        Then, we repeat the following steps until the square of current element is smaller than the input `n`.
+
+    Then, we repeat the following steps until the square of current element is smaller than the input `n`.
 
     2) n = 10, current element = 2, Since, 2*2 < 10 we remove all the numbers that are multiples of 2, except itself.\
         [2, 3, 5, 7, 9]
@@ -60,28 +61,23 @@ Time Complexity: O(√n)
         Answer: [2, 3, 5, 7]
 
 4. **Sieve of Sundaram**: Sieve of Sundaram is more efficient method than Sieve of Eratosthenes method. It allows us to find the prime numbers smaller than 1 Billion.
-    Algorithms:
-    1) In general Sieve of Sundaram, produces primes smaller than 
-    (2*x + 2) for a number given number x. Since we want primes 
-    smaller than n, we reduce n to half. We call it nNew.
-        nNew = n//2
 
-    For example, if n = 102, then nNew = 50.
-                    if n = 103, then nNew = 51
+    **Algorithm:**
+    1) In general Sieve of Sundaram, produces primes smaller than (2*x + 2) for a number given number x. Since we want primes smaller than n, we reduce n to half. We call it `nNew`.\
+        `nNew = n//2`\
+        For example, if n = 102, then nNew = 50. if n = 103, then nNew = 51
 
-    2) Create an array `marked[n]` that is going\
-    to be used to separate numbers of the form (i + j + 2ij) from\
-    others where  (1 <= i <= j)\
+    2) Create an array `marked[n]` that is going to be used to separate numbers of the form (i + j + 2ij) from others where  (1 <= i <= j)
 
-    3) Initialize all entries of `marked[]` as 0 (False).\
+    3) Initialize all entries of `marked[]` as 0 (False).
 
-    4) // Mark all numbers of the form (i + j + 2ij) as 1 (True)\
-    // where (1 <= i <= j)\
-    Loop for i=1 to nNew\
-            a) j = i\
-            b) Loop while (i + j + 2*i*j),  if 2 then append 2 as first prime.\
+    4) Mark all numbers of the form (i + j + 2ij) as 1 (True) where (1 <= i <= j)\
+        Loop for i=1 to `nNew`\
+        a) j = i\
+        b) Loop while (i + j + 2*i*j)\  
+            if 2 then append 2 as first prime.
 
-    6) Remaining primes are of the form (2i + 1) where i is index of `NOT marked` numbers. So print (2i + 1) for all i such that marked[i] is 0 (False).\
+    6) Remaining primes are of the form (2i + 1) where i is index of `NOT marked` numbers. So print (2i + 1) for all i such that `marked[i]` is 0 (False).\
 
 5. **Miller Rabin Primality Test**: This algorithm, is more advanced form of Fermat Method of primality test. It is based on the same Fermat's Little Theorem. It return False for composite prime and True for prime numbers.
     **Algorithm:**
