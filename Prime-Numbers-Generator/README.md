@@ -47,7 +47,7 @@ Time Complexity: O(√n)
 
     **Algorithm:**
     1) We create a list of all numbers from 2 to n. Let `n = 10` for simplicity.\
-        [2, 3, 4, 5, 6, 7, 8, 9, 10]\
+        [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     Then, we repeat the following steps until the square of current element is smaller than the input `n`.
 
@@ -67,14 +67,14 @@ Time Complexity: O(√n)
         `nNew = n//2`\
         For example, if n = 102, then nNew = 50. if n = 103, then nNew = 51
 
-    2) Create an array `marked[n]` that is going to be used to separate numbers of the form (i + j + 2ij) from others where  (1 <= i <= j)
+    2) Create an array `marked[n]` that is going to be used to separate numbers of the form `(i + j + 2ij)` from others where `(1 <= i <= j)`
 
     3) Initialize all entries of `marked` as 0 (False).
 
-    4) Mark all numbers of the form (i + j + 2ij) as 1 (True) where (1 <= i <= j)\
-        Loop for i=1 to `nNew`\
-        a) j = i\
-        b) Loop while (i + j + 2*i*j)\  
+    4) Mark all numbers of the form `(i + j + 2ij)` as 1 (True) where `1 <= i <= j`\
+        Loop for `i=1` to `nNew`\
+        a) `j = i`\
+        b) Loop while `(i + j + 2*i*j)`\
             if 2 then append 2 as first prime.
 
     6) Remaining primes are of the form (2i + 1) where i is index of `NOT marked` numbers. So print (2i + 1) for all i such that `marked[i]` is 0 (False).\
