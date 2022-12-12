@@ -82,19 +82,19 @@ Time Complexity: O(√n)
 5. **Miller Rabin Primality Test**: This algorithm, is more advanced form of Fermat Method of primality test. It is based on the same Fermat's Little Theorem. It return False for composite prime and True for prime numbers.
 
     **Algorithm:**\
-    isPrime(n : int, k: int) -> bool\
+    **isPrime(n : int, k: int) -> bool**
     1) Handle base cases for n < 3
     2) If n is even, return False.
     3) Find an odd number d such that `n-1` can be written as `d*2r`.\
     Note that since `n` is odd, `(n-1)` must be even and `r` must be greater than 0.
     4) Do following k times\
         if (millerTest(n, d) == False)\
-            return False\
-    5) Return True.\
+            return False
+    5) Return True.
 
-    This `isPrime()` method is called for all `k` trials. It returns `False` if n is composite and returns `True` if n is probably prime. `d` is an odd number such that `d*2r = n-1` for some `r >= 1`.\
+    This `isPrime()` method is called for all `k` trials. It returns `False` if n is composite and returns `True` if n is probably prime. `d` is an odd number such that `d*2r = n-1` for some `r >= 1`.
     
-    bool millerTest(int n, int d)\
+    **millerTest(n: int, d: int) -> bool**
     1) Pick a random number 'a' in range `[2, n-2]`
     2) Compute: x = a^d % n
     3) If x == 1 or x == n-1, return True.
