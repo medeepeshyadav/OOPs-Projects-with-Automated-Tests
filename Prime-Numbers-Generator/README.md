@@ -25,7 +25,7 @@ A prime number is a natural number greater than 1 that has no positive divisors 
 - Millar Rabin Primality Test
 
 <a name = "algo">
-<h3> Primality Test Algorithms</h3>
+<h2> Primality Test Algorithms</h2>
 </a>
 
 1. **School Method**: It is the most simple solution, we iterate through all the numbers from 2 to n-1 and for every number we check if it divides n. If we find any number that divides, we return `False` meaning the number failed the primality test. Instead of checking till `n`, we can check till `√n` because a larger factor of `n` must be a multiple of a smaller factor that has been already checked.
@@ -110,7 +110,7 @@ Time Complexity: O(√n)
 In this project we are going to implement a class for each of the primality test algorithms mentioned above. Each class will consist of a `get_primes()` method and a `isPrime()` method. `get_primes()` method uses the algorithm defined in `isPrime()` method to check if a number is prime or not and return a list of prime numbers smaller than a given number.
 
 <a name = "identifying">
-<h3> Identifying the Attributes and Methods </h3>
+<h2> Identifying the Attributes and Methods </h2>
 </a>
 
 ### 1. `SchoolMethod` class
@@ -154,7 +154,7 @@ Now, we can implement these classes and algorithms in any OOP language. I prefer
 </a>
 
 <a name = "document">
-<h3> Documentation </h3>
+<h2> Documentation </h2>
 </a>
 
 ### *class* `SchoolMethod`
@@ -215,7 +215,7 @@ Takes a number and returns a boolean value; `True` if the number is "probably" p
 For testing our program I have used **`pytest`** library.
 
 <a name = "test_program">
-<h3> Testing the Program </h3>
+<h2> Testing the Program </h2>
 </a>
 
 ```py
@@ -369,6 +369,6 @@ Using Miller Rabin primality test algorithm to generate prime numbers smaller th
 </a>
 
 I have learnt following things from this project:
-- **Primality Test Algorithms**: Prime number genrators are helful for **cryptography** there is no such algorithm to predict prime numbers. Only way to generate prime numbers is by using primality test, by testing each number using primality test one by one. In this project I have learnt various primality test algorithms like, School Method, Fermat Method, Sieve of Eratosthenes and more advanced version of it Sieve of Sundaram and the more advanced version of Fermat Primality test the Miller Rabin method.
+- **Primality Test Algorithms**: Prime number genrators are helful for **cryptography**, there is no such algorithm to predict prime numbers. The only way to generate prime numbers is by using primality test, by testing each number using primality test one by one. In this project I have learnt various primality test algorithms like, School Method, Fermat Method, Sieve of Eratosthenes and more advanced version of it Sieve of Sundaram and the more advanced version of Fermat primality test the Miller Rabin method.
 
 - **Unit Testing with `pytest` library**: The most valuable skill I have learnt is unit testing using `pytest` library. Testing my code pointed out a few loopholes in my code which I fixed and ensured that my code is free of bugs.
