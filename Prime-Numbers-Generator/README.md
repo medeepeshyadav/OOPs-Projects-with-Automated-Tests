@@ -5,7 +5,7 @@ In this OOP project, I have implemented various primality test algorithms like, 
 - [Problem Description](#description)
     - [Primality Test Algorithms](#algo)
 - [Object Oriented Design (OOD)](#ood)
-    - [Identifying the Attributes and Methods](#identfying)
+    - [Identifying the Attributes and Methods](#identifying)
 - [Object Oriented Programming (OOP)](#oop)
     - [Documentation](#document)
 - [Testing](#testing)
