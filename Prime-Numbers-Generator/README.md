@@ -81,29 +81,28 @@ Time Complexity: O(√n)
 
 5. **Miller Rabin Primality Test**: This algorithm, is more advanced form of Fermat Method of primality test. It is based on the same Fermat's Little Theorem. It return False for composite prime and True for prime numbers.
 
-    **Algorithm:**
-    A `isPrime()` a method to check if a number is prime or not. Here, `k` is an input parameter that determines accuracy level. Higher value of `k` indicates more accurate result.
-
+    **Algorithm:**\
     isPrime(n : int, k: int) -> bool\
-        1) Handle base cases for n < 3
-        2) If n is even, return False.
-        3) Find an odd number d such that `n-1` can be written as `d*2r`.\
-            Note that since `n` is odd, `(n-1)` must be even and `r` must be greater than 0.
-        4) Do following k times\
-            if (millerTest(n, d) == False)\
-                return False\
-        5) Return True.
+    1) Handle base cases for n < 3
+    2) If n is even, return False.
+    3) Find an odd number d such that `n-1` can be written as `d*2r`.\
+    Note that since `n` is odd, `(n-1)` must be even and `r` must be greater than 0.
+    4) Do following k times\
+        if (millerTest(n, d) == False)\
+            return False\
+    5) Return True.\
 
-This function is called for all k trials. It returns `False` if n is composite and returns `True` if n is probably prime. `d` is an odd number such that `d*2r = n-1` for some `r >= 1`.\
-bool millerTest(int n, int d)
-1) Pick a random number 'a' in range `[2, n-2]`
-2) Compute: x = a^d % n
-3) If x == 1 or x == n-1, return True.
+    This `isPrime()` method is called for all `k` trials. It returns `False` if n is composite and returns `True` if n is probably prime. `d` is an odd number such that `d*2r = n-1` for some `r >= 1`.\
+    
+    bool millerTest(int n, int d)\
+    1) Pick a random number 'a' in range `[2, n-2]`
+    2) Compute: x = a^d % n
+    3) If x == 1 or x == n-1, return True.
 
-4) Do following while d doesn't become `n-1`.
-     a) x = (x*x) % n.
-     b) If (x == 1) return False.
-     c) If (x == n-1) return True. 
+    4) Do following while d doesn't become `n-1`.\
+        a) x = (x*x) % n.\
+        b) If (x == 1) return False.\
+        c) If (x == n-1) return True. 
 
 <a name = "ood">
 <h1> Object Oriented Design (OOD)</h1>
