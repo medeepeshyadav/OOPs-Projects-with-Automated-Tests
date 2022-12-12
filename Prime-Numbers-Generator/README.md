@@ -33,74 +33,70 @@ A prime number is a natural number greater than 1 that has no positive divisors 
 Time Complexity: O(√n)
 
 2. **Fermat Method**: It is a probabilistic method, it tests if a number is probably a prime or a composite number. For prime number it will always return `True` but for composite number it may return either `True` or `False`, hence, this method is not very accurate. However, if we increase the iterations for test `k` the algorithm gets more accurate. 
+    Algorithm:
+    1)  Repeat following k times:\
+        a) Pick a randomly in the range [2, n - 2]\
+        b) If gcd(a, n) ≠ 1, then return False\
+        c) If an-1 &nequiv; 1 (mod n), then return False\
+    2) Return True [probably prime].\
 
-Algorithm:
-1)  Repeat following k times:\
-    a) Pick a randomly in the range [2, n - 2]\
-    b) If gcd(a, n) ≠ 1, then return False\
-    c) If an-1 &nequiv; 1 (mod n), then return False\
-2) Return True [probably prime].\
+    Where, Higher value of k indicates, probability of correct results for composite inputs become higher and hence, the tests for prime numbers are more accurate.
 
-Where, Higher value of k indicates, probability of correct results for composite inputs become higher and henve,  prime inputs result is more correct.
+3. **Sieve of Eratosthenes**: The Sieve of Eratosthenes is one of the most efficient ways to find all primes smaller than `n`, when `n` is smaller than 10 million or so.
+    Algorithm:
+    1) We create a list of all numbers from 2 to n. Let `n = 10` for simplicity.
+        [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-3. **Sieve of Eratosthenes**: The Sieve of Eratosthenes is one of the most efficient ways to find all primes smaller than `n` when `n` is smaller than 10 million or so.
+    Then, we repeat the following steps until the square of current element is smaller than the input `n`.
 
-Algorithm:
-1) We create a list of all numbers from 2 to n. Let `n = 10` for simplicity.
-    [2, 3, 4, 5, 6, 7, 8, 9, 10]
+    2) n = 10, current element = 2, Since, 2*2 < 10 we remove all the numbers that are multiples of 2, except itself.
+        [2, 3, 5, 7, 9]
 
-Then, we repeat the following steps until the square of current element is smaller than the input `n`.
+    3) n = 10, current element = 3, Since, 3*3 < 10 we remove all the number that are multiples of 3, except itself.
+        [2, 3, 5, 7]
 
-2) n = 10, current element = 2, Since, 2*2 < 10 we remove all the numbers that are multiples of 2, except itself.
-    [2, 3, 5, 7, 9]
-
-3) n = 10, current element = 3, Since, 3*3 < 10 we remove all the number that are multiples of 3, except itself.
-    [2, 3, 5, 7]
-
-4) n = 10, current element = 5, Since, 5*5 > 10 we stop here, and the elements in the list are the prime numbers less than 10.
-    Answer: [2, 3, 5, 7]
+    4) n = 10, current element = 5, Since, 5*5 > 10 we stop here, and the elements in the list are the prime numbers less than 10.
+        Answer: [2, 3, 5, 7]
 
 4. **Sieve of Sundaram**: Sieve of Sundaram is more efficient method than Sieve of Eratosthenes method. It allows us to find the prime numbers smaller than 1 Billion.
+    Algorithms:
+    1) In general Sieve of Sundaram, produces primes smaller than 
+    (2*x + 2) for a number given number x. Since we want primes 
+    smaller than n, we reduce n to half. We call it nNew.
+        nNew = n//2
 
-Algorithms:
-1) In general Sieve of Sundaram, produces primes smaller than 
-   (2*x + 2) for a number given number x. Since we want primes 
-   smaller than n, we reduce n to half. We call it nNew.
-       nNew = n//2
+    For example, if n = 102, then nNew = 50.
+                    if n = 103, then nNew = 51
 
-   For example, if n = 102, then nNew = 50.
-                if n = 103, then nNew = 51
+    2) Create an array `marked[n]` that is going\
+    to be used to separate numbers of the form (i + j + 2ij) from\
+    others where  (1 <= i <= j)\
 
-2) Create an array `marked[n]` that is going\
-   to be used to separate numbers of the form (i + j + 2ij) from\
-   others where  (1 <= i <= j)\
+    3) Initialize all entries of `marked[]` as 0 (False).\
 
-3) Initialize all entries of `marked[]` as 0 (False).\
+    4) // Mark all numbers of the form (i + j + 2ij) as 1 (True)\
+    // where (1 <= i <= j)\
+    Loop for i=1 to nNew\
+            a) j = i\
+            b) Loop while (i + j + 2*i*j),  if 2 then append 2 as first prime.\
 
-4) // Mark all numbers of the form (i + j + 2ij) as 1 (True)\
-   // where (1 <= i <= j)\
-   Loop for i=1 to nNew\
-        a) j = i\
-        b) Loop while (i + j + 2*i*j),  if 2 then append 2 as first prime.\
-
-6) Remaining primes are of the form (2i + 1) where i is index of `NOT marked` numbers. So print (2i + 1) for all i such that marked[i] is 0 (False).\
+    6) Remaining primes are of the form (2i + 1) where i is index of `NOT marked` numbers. So print (2i + 1) for all i such that marked[i] is 0 (False).\
 
 5. **Miller Rabin Primality Test**: This algorithm, is more advanced form of Fermat Method of primality test. It is based on the same Fermat's Little Theorem. It return False for composite prime and True for prime numbers.
+    Algorithm:
+    k is an input parameter that determines accuracy level. Higher value of k indicates more accuracy.
 
-Algorithm:
-k is an input parameter that determines accuracy level. Higher value of k indicates more accuracy.
-
-A function to check if a number is prime or not:
-isPrime(n : int, k: int) -> bool
-1) Handle base cases for n < 3\
-2) If n is even, return False.\
-3) Find an odd number d such that `n-1` can be written as `d*2r`.\
-   Note that since `n` is odd, `(n-1)` must be even and `r` must be\
-   greater than 0.\
-4) Do following k times\
-     if (millerTest(n, d) == False)\
-          return False\
-5) Return True.\
+    A function to check if a number is prime or not:
+    isPrime(n : int, k: int) -> bool
+    1) Handle base cases for n < 3\
+    2) If n is even, return False.\
+    3) Find an odd number d such that `n-1` can be written as `d*2r`.\
+    Note that since `n` is odd, `(n-1)` must be even and `r` must be\
+    greater than 0.\
+    4) Do following k times\
+        if (millerTest(n, d) == False)\
+            return False\
+    5) Return True.\
 
 This function is called for all k trials. It returns `False` if n is composite and returns `True` if n is probably prime. `d` is an odd number such that `d*2r = n-1` for some `r >= 1`.\
 bool millerTest(int n, int d)
@@ -145,7 +141,7 @@ In this project we are going to implement a class for each of the primality test
 
 ### 5. `MillerRabin` class
 #### Attributes:
-**`k`**: It is the number of iterations to run the Fermat Test on a number. Greater the `k` more will be the accuracy.
+**`k`**: It is the number of iterations to run the Miller Test on a number. Greater the `k` more will be the accuracy.
 
 #### Methods:
 **`get_primes()`**: This method returns the list of all prime numbers smaller than the given number with the help of `isPrime()` method.
@@ -159,209 +155,223 @@ Now, our UML diagram looks like this:
 
 ![](./images/attributes_and_methods.png)
 
-### Result of OOD stage
-As a result of OOD stage, we discovered; What classes we need to implement for our system. We also discovered the associated attributes and methods for the respective classes. We now have the requirements for our Object Oriented Programming stage. We can now implement these classes in any Object Oriented language, we will use Python.
+Now, we can implement these classes and algorithms in Python.
 
 <a name = "oop">
 <h1> Object Oriented Programming (OOP)</h1>
 </a>
 
 ## Documentation
-### *class* `Rod` 
-A class to construct an object of `Rod` type.
+### *class* `SchoolMethod`
+This is a class for School Method of primality test.
+
+**Methods:**\
+**get_primes()**: ***arguments: n (int)***\
+A method to get the list of all prime numbers smaller than a number `n`.
+
+**isPrime()**: ***arguments: num (int)***\
+Takes a number and returns a boolean value; `True` if the number is prime else `False`. 
+
+### *class* `FermatMethod`
+This is a class to generate prime numbers using Fermat Method of primality test.
+
+**Methods:**\
+**get_primes()**: ***arguments: n (int)***\
+A method to get the list of all prime numbers smaller than a number `n`.
+
+**isPrime()**: ***arguments: num (int)***\
+Takes a number and returns a boolean value; `True` if the number is "probably" prime else `False`. 
+
+### *class* `SieveOfEratosthenes`
+This is a class for Sieve of Eratosthenes Method to generate prime numbers.
+
+**Methods:**\
+**get_primes()**: ***arguments: n (int)***\
+A method to get the list of all prime numbers smaller than a number `n`.
+
+### *class* `SieveOfSundaram`
+This is a class for Sieve of Sundaram Method to generate prime numbers.
+
+**Methods:**\
+**get_primes()**: ***arguments: n (int)***\
+A method to get the list of all prime numbers smaller than a number `n`.
+
+### *class* `MillerRabin`
+This is a class to generate prime numbers using Miller Rabin Method of primality test.
 
 **Parameters:**\
-**name**: ***str type***\
-It represents the name of the `Rod` object.
+**k**: ***int type***\
+Number of iterations for primality test. More iterations means more accurate test for a number.
 
 **Methods:**\
-**move_beads_up()**:\
-Moves the bead up on the given rod object.
+**get_primes()**: ***arguments: n (int)***\
+A method to get the list of all prime numbers smaller than a number `n`.
 
-**move_beads_down()**:\
-Moves the bead down on the given rod object.
+**miller_test()**: ***arguments: n (int)***\
+This method defines the Miller-Rabin primality test algorithm. It takes a number `n` and returns `True` if number is prime (probably) or `False` if number is composite prime or not prime.
 
-### *class* `Abacus`
-This class is a composite class which is composed of 10 `Rod` objects to form an abacus. 
-
-**Methods:**\
-**input()**: ***command: str type***\
- Takes a `command` argument which is `str` type. Each character in the command is the name of the rod on which the bead is moved. It returns the value of the rod after moving the bead.
-
-**get_char_list()**: ***rod: Rod type object***\
-Takes a rod type object, and creates a list of characters ('0' representing a bead and '|' representing no bead) to display the abacus on user's screen.
-
-**run()**:\
-Runs the whole program.
+**isPrime()**: ***arguments: num (int)***\
+Takes a number and returns a boolean value; `True` if the number is "probably" prime else `False`. 
 
 <a name = "testing">
 <h1> Testing </h1>
 </a>
 
 For testing our program I have used **`pytest`** library. 
-### Testing Rod class and its methods
-#### Testing Rod class objects
+### Testing the `primenumbers` module
 ```py
+# Testing primenumbers module
 import pytest
-from soroban import Rod, Abacus
+from primenumbers import (SchoolMethod, FermatMethod, 
+SieveOfEratosthenes, SieveOfSundaram, MillerRabin)
 
-# Testing Rod class
-def test_Rod_class() -> None:
-    # creating a Qth rod of abacus
-    # moving up beads at Qth place
-    # adds billion in each move
-    rodQ = Rod('q')
-    result_rod_Q = rodQ.move_beads_up()
+# creating fixtures of each primality test classes
+@pytest.fixture
+def school_method_obj() -> SchoolMethod:
+    sm = SchoolMethod()
+    return sm
 
-    # creating a Pth rod of abacus
-    # moving up beads at Pth place
-    # adds 1 in each move
-    rodP = Rod('p')
-    result_rod_P = rodP.move_beads_up()
+@pytest.fixture
+def fermat_method_obj() -> SchoolMethod:
+    fm = FermatMethod(k=50)
+    return fm
 
-    assert isinstance(rodQ, Rod)
-    assert isinstance(rodP, Rod)
-    assert 1_000_000_000 == result_rod_Q
-    assert 1 == result_rod_P
+@pytest.fixture
+def sieve_of_eratosthenes_obj() -> SchoolMethod:
+    soe = SieveOfEratosthenes()
+    return soe
+
+@pytest.fixture
+def sieve_of_sundaram_obj() -> SchoolMethod:
+    sos = SieveOfSundaram()
+    return sos
+
+@pytest.fixture
+def miller_rabin_obj() -> SchoolMethod:
+    mr = MillerRabin(k=50)
+    return mr
+
+# Testing SchoolMethod class
+@pytest.mark.parametrize("numbers", [10, 100, 1000, 10000, 100000])
+def test_SchoolMethod(school_method_obj: SchoolMethod, numbers) -> None:
+    list_of_primes = school_method_obj.get_primes(numbers)
+    
+    if numbers == 10:
+        assert 4 == len(list_of_primes)
+    if numbers == 100:
+        assert 25 == len(list_of_primes)
+    if numbers == 1000:
+        assert 168 == len(list_of_primes)
+    if numbers == 10000:
+        assert 1229 == len(list_of_primes)
+    if numbers == 100000:
+        assert 9592 == len(list_of_primes)
+
+# Testing FermatMethod class
+@pytest.mark.parametrize("numbers", [10, 100, 1000, 10000])
+def test_FermatMethod(fermat_method_obj: FermatMethod, numbers) -> None:
+    list_of_primes = fermat_method_obj.get_primes(numbers)
+    
+    if numbers == 10:
+        assert 4 == len(list_of_primes)
+    if numbers == 100:
+        assert 25 == len(list_of_primes)
+    if numbers == 1000:
+        assert 168 == len(list_of_primes)
+    if numbers == 10000:
+        assert 1229 == len(list_of_primes)
+
+# Testing SieveOfEratosthenes class
+@pytest.mark.parametrize("numbers", [10, 100, 1000, 10000, 100000])
+def test_SieveOfEratosthenes(sieve_of_eratosthenes_obj: SieveOfSundaram, numbers) -> None:
+    list_of_primes = sieve_of_eratosthenes_obj.get_primes(numbers)
+    
+    if numbers == 10:
+        assert 4 == len(list_of_primes)
+    if numbers == 100:
+        assert 25 == len(list_of_primes)
+    if numbers == 1000:
+        assert 168 == len(list_of_primes)
+    if numbers == 10000:
+        assert 1229 == len(list_of_primes)
+    if numbers == 100000:
+        assert 9592 == len(list_of_primes)
+
+# Testing SieveOfSundaram class
+@pytest.mark.parametrize("numbers", [10, 100, 1000, 10000, 100000])
+def test_SieveOfSundaram(sieve_of_sundaram_obj: SieveOfSundaram, numbers) -> None:
+    list_of_primes = sieve_of_sundaram_obj.get_primes(numbers)
+    
+    if numbers == 10:
+        assert 4 == len(list_of_primes)
+    if numbers == 100:
+        assert 25 == len(list_of_primes)
+    if numbers == 1000:
+        assert 168 == len(list_of_primes)
+    if numbers == 10000:
+        assert 1229 == len(list_of_primes)
+    if numbers == 100000:
+        assert 9592 == len(list_of_primes)
+
+# Testing MillerRabin class
+@pytest.mark.parametrize("numbers", [10, 100, 1000, 10000])
+def test_MillerRabin(miller_rabin_obj: MillerRabin, numbers) -> None:
+    list_of_primes = miller_rabin_obj.get_primes(numbers)
+    
+    if numbers == 10:
+        assert 4 == len(list_of_primes)
+    if numbers == 100:
+        assert 25 == len(list_of_primes)
+    if numbers == 1000:
+        assert 168 == len(list_of_primes)
+    if numbers == 10000:
+        assert 1229 == len(list_of_primes)
 ```
-In the above test code, we create two objects `rodQ` and `rodP`of `Rod` class and do the following tests:
-- We check if the rod object is the instance of `Rod` class.
-- We check if we move one bead on `rodQ` the value at that rod will be 1 Billion.
-- We also check if we move one bead on `rodP` the value at that rod will be 1.
+In the above code, we are testing whole `primenumbers` module by unit testing of each classes. Firstly, we are creating pytest fixtures for instantiating classes. Notice, we have passed the parameter `k` for `FermatMethod` class and `MillerRabin` class. And then we are testing each classes by generating prime numbers for values (10, 100, 1000, 10000, 100000*) and checking length of lists for each input. For example: for input 10, the number of prime numbers smaller than 10 are 4. Similarly, for 100 number of prime numbers smaller than 100 are 25. All tests pass if length of the generated prime number lists is equal to the given number.
 
-#### Testing move_beads_up() method of Rod class
-```py
-def test_move_beads_up() -> None:
-    # creating a Qth rod of abacus
-    # moving up beads at Qth place
-    # adds billion in each move
-    rodQ = Rod('q')
-    # moving 4 beads up
-    rodQ.move_beads_up()
-    rodQ.move_beads_up()
-    rodQ.move_beads_up()
-    result_for_Q = rodQ.move_beads_up()
-
-    # creating a Pth rod of abacus
-    # moving up beads at Pth place
-    # adds 1 in each move
-    rodP = Rod('p')
-    # moving 5 beads up
-    # this will activate the
-    # the heaven bead
-    # and reset the earth beads
-    rodP.move_beads_up()
-    rodP.move_beads_up()
-    rodP.move_beads_up()
-    rodP.move_beads_up()
-    result_for_P = rodP.move_beads_up()
-
-    # asserting moving 4 beads up on Qth rod will result in 4 billion
-    assert 4_000_000_000 == result_for_Q
-
-    # asserting moving 5 beads up on rod will activate Heaven bead
-    assert rodP.heaven == 1
-    # asserting moving 5 beads up on rod will reset Earth beads
-    assert rodP.earth == 0
-
-    # asserting moving 5 beads up on rod will activate Heaven bead and
-    # result in 5
-    assert 5 == result_for_P
-```
-The above code will test:
-- When we move 4 beads up on `rodQ` the value at that rod will be 4 Billion
-- Calling `move_beads_up()` method 5 times will activate the `heaven` bead and reset the `earth` row beads.
-- The value after activating heaven bead on `rodP`, the value at `rodP` will be equal to 5. 
-
-#### Testing move_beads_down() method of Rod class
-```py
-def test_move_beads_down() -> None:
-    # creating a Pth rod of abacus
-    # moving up beads at Pth place
-    # adds 1 in each move
-    rodP = Rod('p')
-    # moving 5 beads up
-    # will result in 5
-    rodP.move_beads_up()
-    rodP.move_beads_up()
-    rodP.move_beads_up()
-    rodP.move_beads_up()
-    rodP.move_beads_up()
-
-    # moving 1 bead down on rod P
-    # will deativate the Heaven bead
-    # and Earth beads will be 4
-
-    # result will be 4
-    result_for_P = rodP.move_beads_down()
-
-    # asserting moving 1 bead down on rod will deactivate Heaven bead
-    assert rodP.heaven == 0
-
-    # asserting moving 1 bead down on rod will reset Earth beads to 4
-    assert rodP.earth == 4
-
-    # asserting moving 1 beads up on rod will deativate Heaven bead and
-    # result in 4
-    assert 4 == result_for_P
-```
-The above code we move 5 beads up on `rodP` and then we call `move_beads_down()` method to move 1 bead down on `rodP`. We test the following things:
-- Moving 1 bead down on `rodP` will reset the heaven bead and make it 0
-- Value on earth row is equal to 4
-- The value at the rod is equal to 4.
-
-### Testing Abacus class
-#### Testing the get_char_list() method of Abacus class.
-```py
-# testing Abacus class
-def test_get_char_list(rod:Rod) -> None:
-    a = Abacus()
-
-    # moving 3 beads up on rod object
-    rod.move_beads_up()
-    rod.move_beads_up()
-    rod.move_beads_up()
-    char_list =  a.get_char_list(rod)
-
-    # asserting the char_list is instance of list type
-    assert isinstance(char_list, list)
-
-    # asserting the char_list will look like this
-    assert [['0','|','|','0','0','0'],['|','0']] == char_list
-```
-In the above code we are testing the `get_char_list()` method. We check if the return type of the `get_char_list()` is of `list` type. We also check what kind list we will get after moving 3 beads up on the `rod`(rod at 'u' position).
+*Note: We are not testing classes `FermatMethod` and `MillerRabin` for value 100000 because it is very time consuming.
 
 <a name='demo'>
 <h1> Demonstration </h1>
 </a>
 Given below are some of the snapshots of the final output of the progam.
 
-#### The initial state of the Abacus
-The first snapshot shows the, title of the program. Then the abacus itself and some controls to move beads up and down.
+### School Method of primality test
+Using School Method of primality test algorithm to generate prime numbers smaller than 1000.
 
-![](./images/soroban1.png)
-
-
-#### The state after we input a command of up/down characters
-In the snapshot given below, we have given the command "uoppp", which moves up 1 bead on thousands' place, 1 bead on tens' place and 3 beads on ones' place. And the result of the command is `Total: 1013`. 
-
-![](./images/soroban2.png)
+![](./images/schoolmethod.png)
 
 
-#### Activation of heaven bead
-After giving the last input (i.e., "uoppp") if we give "ppp" as our new command to the abacus, it will activate the heaven bead and the value on ones' place will be equal to 6, and hence, the total will be equal to `Total: 1016`.
+### Fermat Method of primality test
+Using Fermat Method of primality test algorithm to generate prime numbers smaller than 1000. 
 
-![](./images/soroban3.png)
+![](./images/fermatmethod.png)
+
+
+### Sieve of Eratosthenes
+Using Sieve of Eratosthenes algorithm to generate prime numbers smaller than 1000.
+
+![](./images/sieveoferatosthenes.png)
+
+
+### Sieve of Eratosthenes
+Using Sieve of Sundaram algorithm to generate prime numbers smaller than 1000.
+
+![](./images/sieveofsundaram.png)
+
+
+### Miller Rabin primality test
+Using Miller Rabin primality test algorithm to generate prime numbers smaller than 1000.
+
+![](./images/millerrabin.png)
 
 <a name = 'lessons'>
 <h1> Things that I learnt from this project</h1>
 </a>
 
-I have acquired the following skills from this project:
-- **Object Oriented Designing**: I have learnt how to approach an OOPs project as a step-by-step procedure, by first analysing the problem at hand from object oriented point of view, finding the objects and the relations between those objects.
+I have learnt following things from this project:
+- **UML Diagrams**: I have learnt how to draw the basic UML diagrams before jumping into programming step. UML diagrams do really makes implementation easy when we sit and write the code for the Object Oriented Programming project.
 
-- **UML Diagrams**: I have learnt how to draw the basic UML diagrams before jumping into programming step. UML diagrams do really makes implementation easy, when we sit and write the code for the Object Oriented Programming project.
-
-- **Using `dict` for mapping objects**: In this project I have used python dictionaries for mapping objects with the input commands.
+- **Primality Test Algorithms**: Prime number genrators are helful for **cryptography** there is no such algorithm to predict prime numbers. Only way to generate prime numbers is by using primality test, by testing each number using primality test one by one. In this project I have learnt various primality test algorithms like, School Method, Fermat Method, Sieve of Eratosthenes and more advanced version of it Sieve of Sundaram and the more advanced version of Fermat Primality test the Miller Rabin method.
 
 - **Unit Testing with `pytest` library**: The most valuable skill I have learnt is unit testing using `pytest` library. Testing my code pointed out a few loopholes in my code which I fixed and ensured that my code is free of bugs.
