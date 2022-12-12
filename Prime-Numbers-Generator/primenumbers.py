@@ -220,11 +220,8 @@ class MillerRabin:
         return True
 
 if __name__ == "__main__":
-    p1 = FermatMethod(k=50)
-    p2 = SieveOfSundaram()
-    primes1 = p1.get_primes(10000)
-    primes2 = p2.get_primes(10000)
-
-    print(primes1 == primes2)
-
-    print(primes1)
+    p = SieveOfSundaram()
+    primes = p.get_primes(1000)
+    print(primes, '\n')
+    print(f"Number of prime numbers smaller than 1000, \
+generated using {p.__class__.__name__}: {len(primes)}")
