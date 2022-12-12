@@ -84,21 +84,21 @@ Time Complexity: O(√n)
     **Algorithm:**
 
     **isPrime(n : int, k: int) -> bool**
-    1) Handle base cases for n < 3
-    2) If n is even, return False.
+    1) Handle base cases for `n<3`
+    2) If n is even, return `False`.
     3) Find an odd number d such that `n-1` can be written as `d*2r`.\
-    Note that since `n` is odd, `(n-1)` must be even and `r` must be greater than 0.
+    Note that since `n` is odd, `(n-1)` must be even and `r` must be greater than `0`.
     4) Do following k times\
-        if (millerTest(n, d) == False)\
-            return False
-    5) Return True.
+        `if (millerTest(n, d) == False)`\
+            `return False`
+    5) Return `True`.
 
     This `isPrime()` method is called for all `k` trials. It returns `False` if n is composite and returns `True` if n is probably prime. Here, `d` is an odd number such that `d*2r = n-1` for some `r >= 1`.
     
     **miller_test(n: int, d: int) -> bool**
     1) Pick a random number 'a' in range `[2, n-2]`
-    2) Compute: x = a^d % n
-    3) If x == 1 or x == n-1, return True.
+    2) Compute: `x = a^d % n`
+    3) If `x == 1 or x == n-1`, return `True`.
 
     4) Do following while d doesn't become `n-1`.\
         a) x = (x*x) % n.\
