@@ -110,7 +110,7 @@ Time Complexity: O(√n)
 In this project we are going to implement a class for each of the primality test algorithms mentioned above. Each class will consist of a `get_primes()` method and a `isPrime()` method. `get_primes()` method uses the algorithm defined in `isPrime()` method to check if a number is prime or not and return a list of prime numbers smaller than a given number.
 
 <a name = "identifying">
-<h3> Identifying the Attributes and Methods</h3>
+<h3> Identifying the Attributes and Methods </h3>
 </a>
 
 ### 1. `SchoolMethod` class
