@@ -32,13 +32,13 @@ A prime number is a natural number greater than 1 that has no positive divisors 
 
 Time Complexity: O(√n)
 
-2. **Fermat Method**: It is a probabilistic method, it tests if a number is probably a prime or a composite number. For prime number it will always return `True` but for composite number it may return either `True` or `False`, hence, this method is not very accurate. However, if we increase the iterations for test `k` the algorithm gets more accurate. 
+2. **Fermat Method**: It is a probabilistic method, it tests if a number is probably a prime or a composite number. For prime number it will always return `True` but for composite number it may return either `True` or `False`, hence, this method is not very accurate. However, if we increase the iterations for test `k` the algorithm gets more accurate.\
     Algorithm:
-    1)  Repeat following k times:\
-        a) Pick a randomly in the range [2, n - 2]\
-        b) If gcd(a, n) ≠ 1, then return False\
-        c) If an-1 &nequiv; 1 (mod n), then return False\
-    2) Return True [probably prime].\
+    1)  Repeat following k times:
+        a) Pick a randomly in the range [2, n - 2]
+        b) If gcd(a, n) ≠ 1, then return False
+        c) If an-1 &nequiv; 1 (mod n), then return False
+    2) Return True [probably prime].
 
     Where, Higher value of k indicates, probability of correct results for composite inputs become higher and hence, the tests for prime numbers are more accurate.
 
