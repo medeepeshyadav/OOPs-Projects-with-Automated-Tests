@@ -69,7 +69,7 @@ Time Complexity: O(√n)
 
     2) Create an array `marked[n]` that is going to be used to separate numbers of the form (i + j + 2ij) from others where  (1 <= i <= j)
 
-    3) Initialize all entries of `marked[]` as 0 (False).
+    3) Initialize all entries of `marked` as 0 (False).
 
     4) Mark all numbers of the form (i + j + 2ij) as 1 (True) where (1 <= i <= j)\
         Loop for i=1 to `nNew`\
@@ -80,20 +80,19 @@ Time Complexity: O(√n)
     6) Remaining primes are of the form (2i + 1) where i is index of `NOT marked` numbers. So print (2i + 1) for all i such that `marked[i]` is 0 (False).\
 
 5. **Miller Rabin Primality Test**: This algorithm, is more advanced form of Fermat Method of primality test. It is based on the same Fermat's Little Theorem. It return False for composite prime and True for prime numbers.
-    **Algorithm:**
-    k is an input parameter that determines accuracy level. Higher value of k indicates more accuracy.
 
-    A function to check if a number is prime or not:
-    isPrime(n : int, k: int) -> bool
-    1) Handle base cases for n < 3\
-    2) If n is even, return False.\
-    3) Find an odd number d such that `n-1` can be written as `d*2r`.\
-    Note that since `n` is odd, `(n-1)` must be even and `r` must be\
-    greater than 0.\
-    4) Do following k times\
-        if (millerTest(n, d) == False)\
-            return False\
-    5) Return True.\
+    **Algorithm:**
+    A `isPrime()` a method to check if a number is prime or not. Here, `k` is an input parameter that determines accuracy level. Higher value of `k` indicates more accurate result.
+
+    isPrime(n : int, k: int) -> bool\
+        1) Handle base cases for n < 3
+        2) If n is even, return False.
+        3) Find an odd number d such that `n-1` can be written as `d*2r`.\
+            Note that since `n` is odd, `(n-1)` must be even and `r` must be greater than 0.
+        4) Do following k times\
+            if (millerTest(n, d) == False)\
+                return False\
+        5) Return True.
 
 This function is called for all k trials. It returns `False` if n is composite and returns `True` if n is probably prime. `d` is an odd number such that `d*2r = n-1` for some `r >= 1`.\
 bool millerTest(int n, int d)
