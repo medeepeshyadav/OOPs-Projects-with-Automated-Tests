@@ -35,7 +35,7 @@ Time Complexity: O(√n)
 2. **Fermat Method**: It is a probabilistic method, it tests if a number is probably a prime or a composite number. For prime number it will always return `True` but for composite number it may return either `True` or `False`, hence, this method is not very accurate. However, if we increase the iterations for test `k` the algorithm gets more accurate.
 
     **Algorithm:**
-    1)  Repeat following k times:
+    1)  Repeat following k times:\
         a) Pick a randomly in the range [2, n - 2]\
         b) If gcd(a, n) ≠ 1, then return False\
         c) If an-1 &nequiv; 1 (mod n), then return False
@@ -44,19 +44,19 @@ Time Complexity: O(√n)
     Where, Higher value of k indicates, probability of correct results for composite inputs become higher and hence, the tests for prime numbers are more accurate.
 
 3. **Sieve of Eratosthenes**: The Sieve of Eratosthenes is one of the most efficient ways to find all primes smaller than `n`, when `n` is smaller than 10 million or so.
+
     **Algorithm:**
-    1) We create a list of all numbers from 2 to n. Let `n = 10` for simplicity.
-        [2, 3, 4, 5, 6, 7, 8, 9, 10]
+    1) We create a list of all numbers from 2 to n. Let `n = 10` for simplicity.\
+        [2, 3, 4, 5, 6, 7, 8, 9, 10]\
+        Then, we repeat the following steps until the square of current element is smaller than the input `n`.
 
-    Then, we repeat the following steps until the square of current element is smaller than the input `n`.
-
-    2) n = 10, current element = 2, Since, 2*2 < 10 we remove all the numbers that are multiples of 2, except itself.
+    2) n = 10, current element = 2, Since, 2*2 < 10 we remove all the numbers that are multiples of 2, except itself.\
         [2, 3, 5, 7, 9]
 
-    3) n = 10, current element = 3, Since, 3*3 < 10 we remove all the number that are multiples of 3, except itself.
+    3) n = 10, current element = 3, Since, 3*3 < 10 we remove all the number that are multiples of 3, except itself.\
         [2, 3, 5, 7]
 
-    4) n = 10, current element = 5, Since, 5*5 > 10 we stop here, and the elements in the list are the prime numbers less than 10.
+    4) n = 10, current element = 5, Since, 5*5 > 10 we stop here, and the elements in the list are the prime numbers less than 10.\
         Answer: [2, 3, 5, 7]
 
 4. **Sieve of Sundaram**: Sieve of Sundaram is more efficient method than Sieve of Eratosthenes method. It allows us to find the prime numbers smaller than 1 Billion.
