@@ -1,4 +1,4 @@
-# Monty Hall Game
+# Monty Hall Problem
 <p align ="center">
   <img src="./images/montyhallgame.jpg" />
 </p>
@@ -70,7 +70,10 @@ In the OOA stage, we came up with the high level description of the system we ar
 
 ## High level design
 With the above description of the system, our high level design looks like this:
-![](./images/high_level_design2.png)
+
+<p align ="center">
+  <img src="./images/high_level_design.png" />
+</p>
 
 We see that, we are required to create:
 - `Door` class with attribute to tell if there is a car behind it or a goat.
@@ -100,7 +103,9 @@ Now, let's move further and see what kind of attributes and methods we can defin
 ### The updated UML diagram
 Now, our UML diagram looks like this:
 
-![](./images/attributes_and_methods2.png)
+<p align ="center">
+  <img src="./images/attributes_and_methods.png" />
+</p>
 
 ### Result of OOD stage
 As a result of OOD stage, we discovered: what classes we need to implement for our system. We also discovered the associated attributes and methods for the respective classes. We now have the requirements for our Object Oriented Programming stage. We can now implement these classes in any Object Oriented language, I used Python.
@@ -117,7 +122,7 @@ A class to construct an object of `Door` type.
 **door_number**: ***int type***\
             It represents the door number
 
-**has_car**: ***bool type*** **Default: *False***\
+**has_car**: ***bool type*** **(Default: *False*)**\
             It is a boolean flag, if set `True` the door object has car else a goat.
 
 ### *class* `SetUp`
