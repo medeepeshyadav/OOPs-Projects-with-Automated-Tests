@@ -32,38 +32,34 @@ In this project I have implemented the famous Monty Hall problem using Python OO
 <h1> Problem Description</h1>
 </a>
 
-The problem is based on an early 90s television show named *Let's Make a Deal* which was hosted by Monty Hall. This game (shown in the figure below) is actually a puzzle which shows a very interesting usecase of probability. The game is very simple. The player is given tree doors, one of which has a brand new shiny red car and the other two doors have goats behind them (which you might not want to win compared to a brand new shiny red car). So, the player is firstly given a choice to choose a door from the tree doors. The player chooses a door and that door is not opened. The host (who knows which door has a car behind) opens one of the other two doors (not chosen by player), intentionally the one that has a goat behind it.Then there are two closed doors and one open door. The player is then asked if they want to switch to the other door or hold on to the same door they chose in the beginning (Either the door chosen in the beginning has the car or the other door). If the player choose not to switch the doors, all doors are opened and if the door which was chosen by the player has a car behind it they win the car or else they win a goat. Otherwise, if the player choose to switch the doors, again all doors are opened and if the door which the player now switched to has a car they win they car or else they win a goat.
+The problem is based on an early 90s television show named *Let's Make a Deal* which was hosted by Monty Hall. This game is actually a puzzle which shows a very interesting usecase of probability. The game is very simple. The player is given tree doors, one of which has a brand new shiny red car and the other two doors have goats behind them (which you might not want to win compared to a brand new shiny red car). So, the player is firstly given a choice to choose a door from the tree doors. The player chooses a door and that door is not opened. The host (who knows which door has a car behind) opens one of the other two doors (not chosen by player), intentionally the one that has a goat behind it.Then there are two closed doors and one open door. The player is then asked if they want to switch to the other door or hold on to the same door they chose in the beginning (Either the door chosen in the beginning has the car or the other door). If the player choose not to switch the doors, all doors are opened and if the door which was chosen by the player has a car behind it they win the car or else they win a goat. Otherwise, if the player choose to switch the doors, again all doors are opened and if the door which the player now switched to has a car they win they car or else they win a goat.
 
-![](./images/montyhallgame.png)
 
 ### Magic of Probability
-Here is where the probability shows its magic. In the beginning the player chooses at random a door of the three with probability (1/3). Then the host opens the door with goat (which he does knowingly very well). So, when the player is asked to stay or switch the doors, the player should always switch. Because if you do not switch your probability of winning car is still the same as in the beginning that is (1/3), BUT! if you chose to switch the doors, the probability of winning a car becomes (2/3).
+Here is where the probability shows its magic. In the beginning the player chooses at random a door of the three with probability (1/3). Then the host opens the door with goat (which he does knowingly very well). So, when the player is asked to stay or switch the doors, the player should always switch. Because if you do not switch your probability of winning car is still the same as in the beginning that is (1/3), BUT! if you chose to switch the doors, the probability of winning a car becomes (2/3). See the image below.
 
+![](./images/montyhallexplained.png)
 
 
 <a name = "ooa">
 <h1> Object Oriented Analysis (OOA)</h1>
 </a>
-Now that we are familiar with the problem, let's analyse the problem and look it from the Object Oriented point of view. This stage is known as Object Oriented Analysis (OOA). We just simply see the problem and identify the objects and the interface of the problem.
+Now that we are familiar with the problem, let's analyse the problem and look it from the Object Oriented point of view. Let's identify each object in the game.
 
 ## Identifying the objects
-The problem has 5 objects:
-- Sound
-- List of Sounds
-- Player
-- Game
-- Display
+The problem has 3 objects:
+- Door
+- Game setup (Composing of door objects)
+- Game (to display the GUI and run the game)
 
 The problem has the following interface:
-- Sound is added in a List of Sounds.
-- List of Sounds keeps the string pattern.
-- The player is asked to input the pattern.
-- If the pattern is correct, the List of Sounds is updated.
-- If the pattern is incorrect, the player loses.
-- Goal is to memorize the pattern and keep entering right pattern to score points.
+- User is asked to choose door number
+- A door with goat is opened at random
+- User is asked to switch the door or stay on same door
+- All doors are opened
 
 ## Result of the OOA stage
-From the OOA stage we have got the description of the system that needs to be built. We determined that we need five type of objects, Sound, a List of Sounds to hold Sound type objects, Player to save the state of the player, Game to integrate all the components and run the game and a Display object to display contents on user's screen.
+From the OOA stage we have got the description of the system that needs to be built. We determined that we need tree type of objects, Door, A Setup of game that creates initial setup of the puzzle, Game to integrate all the components and run the game and display contents on user's screen.
 
 <a name = "ood">
 <h1> Object Oriented Design (OOD)</h1>
@@ -74,39 +70,30 @@ In the OOA stage, we came up with the high level description of the system we ar
 With the above description of the system, our high level design looks like this:
 ![](./images/high_level_design2.png)
 
-We see that, the `Sound` class is directly associated with the `SoundList` class, and The `Player` class depends on the `Display` class. And then the `SoundList` class and the `Display` classes are in composite relation with the `Game` class 
+We see that, we are required to create:
+- `Door` class with attribute to tell if there is a car behind it or a goat.
+- `SetUp` class which will use the `Door` class to create objects of doors and randomly set the attribute on door object.
+- `Game` class which will use the `SetUp` to show the contents on the user screen and run the game.  
 
 Now, let's move further and see what kind of attributes and methods we can define on these classes.
 
 ## Identifying the Attributes and Methods
 
-### 1. `Sound` class
+### 1. `Door` class
 #### Attributes:
-**`sound_path`**: The class `Sound` can have a `sound_path` attribute to store the path of the sound file.
+**`door_number`**: The class `Door` can have a `door_number` to identify the door.
 
-**`sound_name`**: The class `Sound` can have a `sound_name` attribute to identify what sound it is. 
+**`has_car`**: The class `Door` can have a `has_car` a boolean type attribute, if set `True` the door will have a car behind if set `False` has goat behind it. 
 
-### 2. `SoundList` class
+### 2. `SetUp` class
 #### Methods:
-**`append()`**: The `SoundList` class needs to have a `append()`method to append the object of `Sound` type.
+**`get_setup()`**: The `SetUp` class needs to have a `get_setup()`method to prepare the initial setup of the puzzle.
 
-### 3. `Player` class
-#### Attributes:
-**`player_name`**: The `Player` class can have a `player_name` attribute to store the name of the player.
-
-**`score`**: The `Player` class can also have a `score` attribute to store the current score of the player.
-
-### 4. `Display` class
+### 3. `Game` class
 #### Methods:
-**`display_rules()`**: The `Display` class can have a `display_rules()` method to display the rules on the user screen, and ask player to enter their name. It will return a player object with its name.
+**`get_graphics()`**: The `Game` class can have a method `get_graphics()` to get the ASCII graphic components to be shown on user's display.
 
-### 5. `Game` class
-#### Methods:
-**`appender()`**: The `Game` class can have a `appender()` method to append a random letter after each correct input from player. It updates the `SoundList` object.
-
-**`sound_player()`**: The `sound_player()` method to play the sound of each `Sound` object stored in the `SoundList` object.
-
-**`run()`**: The `run()` method will integrate each of the objects and run the whole program.
+**`run()`**: The `run()` method will use the object of `SetUp` class and run the whole program.
 
 ### The updated UML diagram
 Now, our UML diagram looks like this:
@@ -114,64 +101,39 @@ Now, our UML diagram looks like this:
 ![](./images/attributes_and_methods2.png)
 
 ### Result of OOD stage
-As a result of OOD stage, we discovered: what classes we need to implement for our system. We also discovered the associated attributes and methods for the respective classes. We now have the requirements for our Object Oriented Programming stage. We can now implement these classes in any Object Oriented language, we will use Python.
+As a result of OOD stage, we discovered: what classes we need to implement for our system. We also discovered the associated attributes and methods for the respective classes. We now have the requirements for our Object Oriented Programming stage. We can now implement these classes in any Object Oriented language, I used Python.
 
 <a name = "oop">
 <h1> Object Oriented Programming (OOP)</h1>
 </a>
 
 ## Documentation
-### *class* `Sound(sound_path: Path, sound_name: str)` 
-A class to construct an object of `Sound` type.
+### *class* `Door` 
+A class to construct an object of `Door` type.
 
 **Parameters:**\
-**sound_path**: ***str type or Path object***\
-            It represents the path of the sound object.
+**door_number**: ***int type***\
+            It represents the door number
 
-**sound_name**: ***str type***\
-            It represents the name of the sound object.
+**has_car**: ***bool type*** **Default: *False***\
+            It is a boolean flag, if set `True` the door object has car else a goat.
 
-### *class* `SoundList(sound: Sound)`
-The **`SoundList`** class extends the buit-in `List` class, and stores only object of `Sound` type.
-
-**Methods:**\
-**append()**: ***sound: Sound type***\
-            Appends the object of `Sound` to self.
-
-### *class* `Player(name: str)` 
-A class to construct an object of `Player` type.
-
-**Parameters:**\
-**name**: ***str type***\
-            It represents the name of the player.
-            
-**Attributes**:\
-**score**: ***int type***\
-            represents the score of the player.
-
-### *class* `Display()`
-The **`Display`** creates an object of `Display` type having method to display the rules and ask player for their name to create an objec of `Player` class.
+### *class* `SetUp`
+The **`SetUp`** class uses the `Door` class to create objects of door and prepare the initial setup of the puzzle by randomly setting the `has_car` attribute as `True` for any one door object.
 
 **Methods:**\
-**display_rules()**:\
-            Displays the rules on user's screen and asks user for their name to create a Player object.
+**get_setup()**:\
+This method uses the `Door` class to create objects of door and prepare the initial setup of the puzzle by randomly setting the `has_car` attribute as `True` for any one door object. It returns a dictionary of door objects.
 
-### *class* `Game()`
-The **`Game`** creates a composite object of all the other classes in the program. It takes the objects of each class and run the game.
+### *class* `Game`
+The **`Game`** uses the object of `SetUp` class to show the components on the display and run the game.
 
 **Methods:**\
-**appender()**: ***sound_list: SoundList, sounds: list, pattern: str***\
-                This method appends the random sound objects form `sounds` to the `sound_list` and also updates the `pattern`. 
-            
-**sound_player()**: ***sound_list: SoundList***\
-                This method goes over each sound object in the `sound_list` and plays its associated sound located at the `sound_path`.
+**get_graphics()**:\
+                This method defines the constant game componenets and returns a dictionary of multiline strings displaying doors with car or goats. 
 
 **run()**:\
-            Combines all the objects in the program and run the `Game` object.
-
-### Exceptions
-#### `TypeError`
-This exception is raised when a parameter is passed in the `SoundList` class which is not of type `Sound`.
+            Uses the object of `SetUp` class and creates an interface for the puzzle and run it.
 
 ## Examples:
 Appending `Sound` object in a `SoundList`.
