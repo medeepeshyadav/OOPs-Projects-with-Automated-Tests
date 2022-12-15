@@ -38,7 +38,9 @@ The problem is based on an early 90s television show named *Let's Make a Deal* w
 ### Magic of Probability
 Here is where the probability shows its magic. In the beginning the player chooses at random a door of the three with probability (1/3). Then the host opens the door with goat (which he does knowingly very well). So, when the player is asked to stay or switch the doors, the player should always switch. Because if you do not switch your probability of winning car is still the same as in the beginning that is (1/3), BUT! if you chose to switch the doors, the probability of winning a car becomes (2/3). See the image below.
 
-![](./images/montyhallexplained.png)
+<p align ="center">
+  <img src="./images/montyhallexplained.png" />
+</p>
 
 
 <a name = "ooa">
