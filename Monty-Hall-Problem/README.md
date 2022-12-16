@@ -147,7 +147,7 @@ The **`Game`** uses the object of `SetUp` class to show the components on the di
 </a>
 
 For testing our program I have used **`pytest`** library. 
-#### Testing Door class
+### Testing Door class
 ```py
 import pytest
 from montyhall import Door, SetUp, Game
@@ -177,7 +177,7 @@ def test_Door() -> None:
 ```
 In the above test code we are creating three door objects. The `door1` object's `has_car` attribute is `False` by default. For `door2` object we set the `has_car`attribute as `False` explicitly and for `door3` object we set the `has_car` attribute as `True` explicitly and we test the attributes on each of these objects.
 
-#### Testing SetUp class
+### Testing SetUp class
 ```py
 # testing SetUp class
 def test_SetUp() -> None:
@@ -209,27 +209,27 @@ In the above test code, we are testing the `SetUp` class. We create an object of
 </a>
 Given below are some of the snapshots of the final output of the progam.
 
-## The initial state of the game
+### The initial state of the game
 This is how the initial interface of the game looks.
 
 ![](./images/stay_wins_1.png)
 
-## Choosing a Door
+### Choosing a Door
 We are asked to choose a door, we choose door 2 in the snapshot shown below.
 
 ![](./images/stay_wins_2.png)
 
-## Swap or Stay?
+### Swap or Stay?
 Then we are asked to swap doors or stay on the same. In the snapshot below, we chose to stay and fortunately won the car. But it is not always a win.
 
 ![](./images/stay_wins_3.png)
 
-## Swapping Looses
+### Swapping Looses
 In the snapshot below, we chose to swap doors and we lost the game with the message "You got a GOAT!"
 
 ![](./images/swap_looses.png)
 
-## Swapping Wins
+### Swapping Wins
 In the snapshot below, we chose to swap doors and we won the game with the message "Congratulations you won a car"
 
 ![](./images/swap_wins.png)
