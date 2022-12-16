@@ -97,6 +97,7 @@ class Game:
         # getting game setup
         s = SetUp()
         setup = s.get_setup()
+        print("#"*5+ " MONTY HALL PROBLEM "+ "#"*5)
         print("""
 +------+  +------+  +------+
 |      |  |      |  |      |
