@@ -142,91 +142,67 @@ The **`Game`** uses the object of `SetUp` class to show the components on the di
 **run()**:\
             Uses the object of `SetUp` class and creates an interface for the puzzle and run it.
 
-## Examples:
-Appending `Sound` object in a `SoundList`.
-```py
-# instantiating object of Sound class
-# passing the sound_path and sound_name parameters
-s1 = Sound(sound_path= "Repeat-After-Me/sounds/soundA.wav", sound_name='A')
-
-# instantiating object of SoundList
-sl = SoundList()
-
-# appending s1 in sl
-sl.append(s1)
-```
-
 <a name = "testing">
 <h1> Testing </h1>
 </a>
 
 For testing our program I have used **`pytest`** library. 
-#### Testing error raise
+#### Testing Door class
 ```py
 import pytest
-from repeatafterme import Sound, SoundList, Player, Display, Game
+from montyhall import Door, SetUp, Game
 
-# Testing Error
-@pytest.fixture
-def sound_list() -> None:
-    sl = SoundList()
+# testing Door class
+def test_Door() -> None:
+    # creating 3 door objects
 
-    return sl
+    # door1: has_car not passed
+    # default: False
+    door1 = Door(n=1)
+
+    # door2: has_car == False
+    door2 = Door(n=2, has_car=False)
+    
+    # door3: has_car == True
+    door3 = Door(n=3, has_car=True)
+
+    # asserting doo1.has_car == False
+    assert False == door1.has_car
+
+    # asserting door2.has_car == False
+    assert False == door2.has_car
+
+    # asserting door3.has_car == True
+    assert True == door3.has_car
 ```
-We create a fixture to instantiate an object of class `SoundList` for checking if the SoundList class raise an error if we append an object of any kind other than `Sound` type.
+In the above test code we are creating three door objects. The `door1` object's `has_car` attribute is `False` by default. For `door2` object we set the `has_car`attribute as `False` explicitly and for `door3` object we set the `has_car` attribute as `True` explicitly and we test the attributes on each of these objects.
 
-#### Testing TypeError
+#### Testing SetUp class
 ```py
-def test_SoundList_classV1(sound_list: SoundList) -> None:
-    try:
-        sound_list.append(12)
+# testing SetUp class
+def test_SetUp() -> None:
+    # instantiating a SetUp object
+    s = SetUp()
 
-    except TypeError:
-        assert True
+    # getting setup
+    setup = s.get_setup()
+
+    # asserting setup is instance of dict
+    assert isinstance(setup, dict)
+
+    # getting values in setup dict
+    values = [x.has_car for x in setup.values()]
+
+    # asserting there are 2 doors with Goat
+    assert 2 == values.count(False)
+
+    # asserting there is only 1 door with car
+    assert 1 == values.count(True)
 ```
-The above code will test if appending an `int` type object will raise a `TypeError` or not. Since, we expect our test to raise the error, it will pass if the `TypeError` does raise.
-
-#### Testing SoundList class's append() method
-```py
-def test_SoundList_classV2(sound_list: SoundList) -> None:
-    sound = Sound("Repeat-After-Me/sounds/soundA", 'A')
-    sound_list.append(sound)
-
-    assert isinstance(sound_list[-1], Sound)
-```
-The above code tests, if the object appended to the `SoundList` type object is an instance of `Sound` class. This test will pass if the object is an instance of `Sound` class.
-
-#### Testing Display class's display_rules() method
-```py
-def test_Display_class() -> None:
-    d = Display
-    player = d.display_rules(d)
-
-    assert isinstance(player, Player)
-    assert isinstance(player.player_name, str)
-```
-The above code tests, if the return type of the `display_rules()` method is an instance of `Player` class and if the object is an instance of `Player` class, check if the `player_name` is `str` type.
-
-#### Testing the `appender()` method of Game class
-```py
-def test_appender_method(sound_list: SoundList) -> None:
-    sl = sound_list
-    sound_A = Sound(sound_path="Repeat-After-Me/sounds/soundA.wav", sound_name='A')
-    sound_S = Sound(sound_path="Repeat-After-Me/sounds/soundS.wav", sound_name='S')
-    sound_D = Sound(sound_path="Repeat-After-Me/sounds/soundD.wav", sound_name='D')
-    sound_F = Sound(sound_path="Repeat-After-Me/sounds/soundF.wav", sound_name='F')
-
-    sounds = [sound_A, sound_S, sound_D, sound_F]
-    g = Game
-    pattern = ""
-    p = g.appender(g, sl, sounds, pattern)
-
-    assert len(sound_list) != 0
-    assert isinstance(p, str)
-    assert p[-1] == sound_list[-1].sound_name
-
-```
-The above test code, tests the `appender()` method of Game class. It tests, after appending a sound object to the `sound_list` the length of the `sound_list` is not zero (i.e., the sound list is not empty). It also checks if the return type of the object returned by the `appender()` method is `str` type (which is a pattern string). And it checks if the last last letter added to the `pattern` is same as the name of the sound object in the `sound_list`.
+In the above test code, we are testing the `SetUp` class. We create an object of `SetUp` class and call the `get_setup()` method. We test following things:
+- If the return type of the `get_setup` method is `dict` type
+- Count of doors with Goat are 2
+- Count of doors with Car is 1
 
 <a name='demo'>
 <h1> Demonstration </h1>
@@ -234,23 +210,29 @@ The above test code, tests the `appender()` method of Game class. It tests, afte
 Given below are some of the snapshots of the final output of the progam.
 
 #### The initial state of the game
-Here, I have first shown the rules of the game. and a small Menu, to ask the player for the level of difficulty.
+This is how the initial interface of the game looks.
 
-![](./images/initial_interface.png)
+![](./images/stay_wins_1.png)
 
+#### Choosing a Door
+We are asked to choose a door, we choose door 2 in the snapshot shown below.
 
-#### The state after the user inputs the level of difficulty
-After the user inputs the level of difficulty (3 in the snapshot below) the initial state of the game is diplayed as shown below.
+![](./images/stay_wins_2.png)
 
-![](./images/intermediate_interface.png)
+#### Swap or Stay?
+Then we are asked to swap doors or stay on the same. In the snapshot below, we chose to stay and fortunately won the car. But it is not always a win.
 
+![](./images/stay_wins_3.png)
 
-#### The final state of the game when user successfully solves the puzzle
-After the user successfully solves the puzzle in the given number of moves, by giving their response through keyboard input. They see the following display.
+#### Swapping Looses
+In the snapshot below, we chose to swap doors and we lost the game with the message "You got a GOAT!"
 
-![](./images/final_interface.png)
+![](./images/swap_looses.png)
 
-and the game exits successfully with SystemExit.
+#### Swapping Wins
+In the snapshot below, we chose to swap doors and we won the game with the message "Congratulations you won a car"
+
+![](./images/swap_wins.png)
 
 <a name = 'lessons'>
 <h1> Things that I learnt from this project</h1>
