@@ -8,23 +8,16 @@ In this project I have implemented the famous Monty Hall problem using Python OO
 ## Project Procedure
 - [Problem Description](#description)
 - [Object Oriented Analysis (OOA)](#ooa)
-    - Identifying the objects and interactions
-    - Result of OOA stage
+    - [Identifying Objects](#identifying1)
 - [Object Oriented Design (OOD)](#ood)
-    - High level design
-    - Identifying the Attributes and Methods
-    - UML Diagram
-    - Result of OOD stage
+    - [High Level Design](#hld)
+    - [Identifying the Attributes and Methods](#identifying2)
+    - [The updated UML diagram](#updated_uml)
 - [Object Oriented Programming (OOP)](#oop)
-    - Documentation
-    - Examples
-- [Functional Programming](#functional)
-    - Using Rod and Disc classes
-    - Functions in the program
+    - [Documentation](#docu)
 - [Testing](#testing)
-    - Testing error raise
-    - Testing objects
-    - Testing functionality of playgame.py
+    - [Testing Door class](#door_class)
+    - [Testing SetUp class](#setup_class)
 - [Demonstration](#demo)
 - [Things that I learnt from this Project](#lessons)
 
@@ -48,7 +41,9 @@ Here is where the probability shows its magic. In the beginning the player choos
 </a>
 Now that we are familiar with the problem, let's analyse the problem and look it from the Object Oriented point of view. Let's identify each object in the game.
 
-## Identifying the objects
+<a name = "identifying1">
+<h2> Identifying Objects</h2>
+</a>
 The problem has 3 objects:
 - Door
 - Game setup (Composing of door objects)
@@ -68,7 +63,10 @@ From the OOA stage we have got the description of the system that needs to be bu
 </a>
 In the OOA stage, we came up with the high level description of the system we are required to build. Now, let's use that description and transform it into requirements for our program.
 
-## High level design
+
+<a name = "hld">
+<h2> High Level Design</h2>
+</a>
 With the above description of the system, our high level design looks like this:
 
 <p align ="center">
@@ -82,7 +80,9 @@ We see that, we are required to create:
 
 Now, let's move further and see what kind of attributes and methods we can define on these classes.
 
-## Identifying the Attributes and Methods
+<a name = "identifying1">
+<h2> Identifying the Attributes and Methods</h2>
+</a>
 
 ### 1. `Door` class
 #### Attributes:
@@ -100,7 +100,10 @@ Now, let's move further and see what kind of attributes and methods we can defin
 
 **`run()`**: The `run()` method will use the object of `SetUp` class and run the whole program.
 
-### The updated UML diagram
+<a name = "updated_uml">
+<h2> The updated UML diagram</h2>
+</a>
+
 Now, our UML diagram looks like this:
 
 <p align ="center">
@@ -114,7 +117,12 @@ As a result of OOD stage, we discovered: what classes we need to implement for o
 <h1> Object Oriented Programming (OOP)</h1>
 </a>
 
-## Documentation
+The code for the program is available at *Monty-Hall-Problem/montyhall.py*. Given below is the documentation of the classes created in this project. 
+
+<a name = "docu">
+<h2> Documentation</h2>
+</a>
+
 ### *class* `Door` 
 A class to construct an object of `Door` type.
 
@@ -147,7 +155,10 @@ The **`Game`** uses the object of `SetUp` class to show the components on the di
 </a>
 
 For testing our program I have used **`pytest`** library. 
-### Testing Door class
+<a name = "door_class">
+<h2> Testing Door Class</h2>
+</a>
+
 ```py
 import pytest
 from montyhall import Door, SetUp, Game
@@ -177,7 +188,10 @@ def test_Door() -> None:
 ```
 In the above test code we are creating three door objects. The `door1` object's `has_car` attribute is `False` by default. For `door2` object we set the `has_car`attribute as `False` explicitly and for `door3` object we set the `has_car` attribute as `True` explicitly and we test the attributes on each of these objects.
 
-### Testing SetUp class
+<a name = "setup_class">
+<h2> Testing SetUp class</h2>
+</a>
+
 ```py
 # testing SetUp class
 def test_SetUp() -> None:
@@ -238,15 +252,8 @@ In the snapshot below, we chose to swap doors and we won the game with the messa
 <h1> Things that I learnt from this project</h1>
 </a>
 
-I have acquired the following skills from this project:
-- **Object Oriented Designing**: I have learnt how to approach an OOPs project as a step-by-step procedure, by first analysing the problem at hand from object oriented point of view, finding the objects and the relations between those objects.
+- **Monty Hall Problem**: The first thing that I learnt from this project is about **Monty Hall Problem** and how it can be implemented.
 
 - **UML Diagrams**: I have learnt how to draw the basic UML diagrams before jumping into programming step. UML diagrams do really makes implementation easy, when we sit and write the code for the Object Oriented Programming project.
 
-- **Exception Handling**: In this project I have used some of the exception classes and also coded my own simple exception `InvalidMove`. Doing this I have developed a good understanding of the concept of Exception Handling.
-
-- **Extending built-in types**: In my project I extended the built-in `list` type for our new class `Rod`. Which makes things quite easy.
-
-- **Unit Testing with `pytest` library**: The most valuable skill I have learnt is unit testing using `pytest` library. Testing my code pointed out a few loopholes in my code which I fixed and ensured that my code is free of bugs.
-
-- **Using functional programming to make a highly interactive command line display**: I learnt how we can make our command line prompt so interactive and also display our objects in such easy way.
+- **Unit Testing with `pytest` library**: I tested the classes of my OOPs program using `pytest` testing framework.
