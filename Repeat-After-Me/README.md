@@ -259,30 +259,6 @@ def test_appender_method(sound_list: SoundList) -> None:
 ```
 The above test code, tests the `appender()` method of Game class. It tests, after appending a sound object to the `sound_list` the length of the `sound_list` is not zero (i.e., the sound list is not empty). It also checks if the return type of the object returned by the `appender()` method is `str` type (which is a pattern string). And it checks if the last last letter added to the `pattern` is same as the name of the sound object in the `sound_list`.
 
-<a name='demo'>
-<h1> Demonstration </h1>
-</a>
-Given below are some of the snapshots of the final output of the progam.
-
-### The initial state of the game
-Here, I have first shown the rules of the game. and a small Menu, to ask the player for the level of difficulty.
-
-![](./images/initial_interface.png)
-
-
-### The state after the user inputs the level of difficulty
-After the user inputs the level of difficulty (3 in the snapshot below) the initial state of the game is diplayed as shown below.
-
-![](./images/intermediate_interface.png)
-
-
-### The final state of the game when user successfully solves the puzzle
-After the user successfully solves the puzzle in the given number of moves, by giving their response through keyboard input. They see the following display.
-
-![](./images/final_interface.png)
-
-and the game exits successfully with SystemExit.
-
 <a name = 'lessons'>
 <h1> Things that I learnt from this project</h1>
 </a>
@@ -294,8 +270,6 @@ I have acquired the following skills from this project:
 
 - **Exception Handling**: In this project I have used some of the exception classes and also coded my own simple exception `InvalidMove`. Doing this I have developed a good understanding of the concept of Exception Handling.
 
-- **Extending built-in types**: In my project I extended the built-in `list` type for our new class `Rod`. Which makes things quite easy.
+- **Inheritance**: For creating the `SoundList` class I inherited from the `List` class and redifined the `append()` method to only append object of `Sound` type.
 
 - **Unit Testing with `pytest` library**: The most valuable skill I have learnt is unit testing using `pytest` library. Testing my code pointed out a few loopholes in my code which I fixed and ensured that my code is free of bugs.
-
-- **Using functional programming to make a highly interactive command line display**: I learnt how we can make our command line prompt so interactive and also display our objects in such easy way.
