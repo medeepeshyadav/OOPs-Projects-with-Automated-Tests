@@ -4,23 +4,16 @@ In this small OOPs project, I have created a game called "Repeat After Me" using
 ## Project Procedure
 - [Problem Description](#description)
 - [Object Oriented Analysis (OOA)](#ooa)
-    - Identifying the objects and interactions
-    - Result of OOA stage
+    - [Identifying the objects](#identify1)
 - [Object Oriented Design (OOD)](#ood)
-    - High level design
-    - Identifying the Attributes and Methods
-    - UML Diagram
-    - Result of OOD stage
+    - [High level design](#hld)
+    - [Identifying the Attributes and Methods](#identify2)
+    - [UML Diagram](#uml)
+
 - [Object Oriented Programming (OOP)](#oop)
-    - Documentation
-    - Examples
-- [Functional Programming](#functional)
-    - Using Rod and Disc classes
-    - Functions in the program
+    - [Documentation](#docu)
+    - [Examples](#example)
 - [Testing](#testing)
-    - Testing error raise
-    - Testing objects
-    - Testing functionality of playgame.py
 - [Demonstration](#demo)
 - [Things that I learnt from this Project](#lessons)
 
@@ -35,7 +28,12 @@ In this small game the player is given a string pattern of random letters from a
 </a>
 Now that we are familiar with the problem, let's analyse the problem and look it from the Object Oriented point of view. This stage is known as Object Oriented Analysis (OOA). We just simply see the problem and identify the objects and the interface of the problem.
 
-## Identifying the objects
+## 
+
+<a name = "identify1">
+<h2>Identifying the objects</h2>
+</a>
+
 The problem has 5 objects:
 - Sound
 - List of Sounds
@@ -59,7 +57,10 @@ From the OOA stage we have got the description of the system that needs to be bu
 </a>
 In the OOA stage, we came up with the high level description of the system we are required to build. Now, let's use that description and transform it into requirements for our program.
 
-## High level design
+<a name = "hld">
+<h2>High level Design</h2>
+</a>
+
 With the above description of the system, our high level design looks like this:
 ![](./images/high_level_design2.png)
 
@@ -67,7 +68,9 @@ We see that, the `Sound` class is directly associated with the `SoundList` class
 
 Now, let's move further and see what kind of attributes and methods we can define on these classes.
 
-## Identifying the Attributes and Methods
+<a name = "identify2">
+<h2>Identifying the Attributes and Methods</h2>
+</a>
 
 ### 1. `Sound` class
 #### Attributes:
@@ -97,7 +100,10 @@ Now, let's move further and see what kind of attributes and methods we can defin
 
 **`run()`**: The `run()` method will integrate each of the objects and run the whole program.
 
-### The updated UML diagram
+<a name = "uml">
+<h2>UML Diagram</h2>
+</a>
+
 Now, our UML diagram looks like this:
 
 ![](./images/attributes_and_methods2.png)
@@ -109,7 +115,10 @@ As a result of OOD stage, we discovered: what classes we need to implement for o
 <h1> Object Oriented Programming (OOP)</h1>
 </a>
 
-## Documentation
+<a name = "docu">
+<h2> Documentation</h2>
+</a>
+
 ### *class* `Sound(sound_path: Path, sound_name: str)` 
 A class to construct an object of `Sound` type.
 
@@ -163,6 +172,10 @@ The **`Game`** creates a composite object of all the other classes in the progra
 This exception is raised when a parameter is passed in the `SoundList` class which is not of type `Sound`.
 
 ## Examples:
+<a name = "example">
+<h2>Examples</h2>
+</a>
+
 Appending `Sound` object in a `SoundList`.
 ```py
 # instantiating object of Sound class
@@ -180,8 +193,6 @@ sl.append(s1)
 <h1> Testing </h1>
 </a>
 
-For testing our program I have used **`pytest`** library. 
-#### Testing error raise
 ```py
 import pytest
 from repeatafterme import Sound, SoundList, Player, Display, Game
@@ -195,7 +206,7 @@ def sound_list() -> None:
 ```
 We create a fixture to instantiate an object of class `SoundList` for checking if the SoundList class raise an error if we append an object of any kind other than `Sound` type.
 
-#### Testing TypeError
+### Testing TypeError
 ```py
 def test_SoundList_classV1(sound_list: SoundList) -> None:
     try:
@@ -206,7 +217,7 @@ def test_SoundList_classV1(sound_list: SoundList) -> None:
 ```
 The above code will test if appending an `int` type object will raise a `TypeError` or not. Since, we expect our test to raise the error, it will pass if the `TypeError` does raise.
 
-#### Testing SoundList class's append() method
+### Testing SoundList class's append() method
 ```py
 def test_SoundList_classV2(sound_list: SoundList) -> None:
     sound = Sound("Repeat-After-Me/sounds/soundA", 'A')
@@ -216,7 +227,7 @@ def test_SoundList_classV2(sound_list: SoundList) -> None:
 ```
 The above code tests, if the object appended to the `SoundList` type object is an instance of `Sound` class. This test will pass if the object is an instance of `Sound` class.
 
-#### Testing Display class's display_rules() method
+### Testing Display class's display_rules() method
 ```py
 def test_Display_class() -> None:
     d = Display
@@ -227,7 +238,7 @@ def test_Display_class() -> None:
 ```
 The above code tests, if the return type of the `display_rules()` method is an instance of `Player` class and if the object is an instance of `Player` class, check if the `player_name` is `str` type.
 
-#### Testing the `appender()` method of Game class
+### Testing the `appender()` method of Game class
 ```py
 def test_appender_method(sound_list: SoundList) -> None:
     sl = sound_list
@@ -253,19 +264,19 @@ The above test code, tests the `appender()` method of Game class. It tests, afte
 </a>
 Given below are some of the snapshots of the final output of the progam.
 
-#### The initial state of the game
+### The initial state of the game
 Here, I have first shown the rules of the game. and a small Menu, to ask the player for the level of difficulty.
 
 ![](./images/initial_interface.png)
 
 
-#### The state after the user inputs the level of difficulty
+### The state after the user inputs the level of difficulty
 After the user inputs the level of difficulty (3 in the snapshot below) the initial state of the game is diplayed as shown below.
 
 ![](./images/intermediate_interface.png)
 
 
-#### The final state of the game when user successfully solves the puzzle
+### The final state of the game when user successfully solves the puzzle
 After the user successfully solves the puzzle in the given number of moves, by giving their response through keyboard input. They see the following display.
 
 ![](./images/final_interface.png)
