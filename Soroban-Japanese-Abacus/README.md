@@ -4,20 +4,17 @@ In this OOP project, I have implemented Soroban Japanese Abacus using Object Ori
 ## Project Procedure
 - [Problem Description](#description)
 - [Object Oriented Analysis (OOA)](#ooa)
-    - Identifying the objects and interactions
-    - Result of OOA stage
+    - [Identifying the objects](#identify1)
 - [Object Oriented Design (OOD)](#ood)
-    - High level design
-    - Identifying the Attributes and Methods
-    - UML Diagram
-    - Result of OOD stage
+    - [High level design](#hld)
+    - [Identifying the Attributes and Methods](#identify2)
+    - [UML Diagram](#uml)
 - [Object Oriented Programming (OOP)](#oop)
-    - Documentation
-    - Examples
+    - [Documentation](#docu)
+    - [Examples](#example)
 - [Testing](#testing)
-    - Testing Rod class
-    - Testing Abacus Class
-
+    - [Testing Rod class](#test1)
+    - [Testing Abacus Class](#test2)
 - [Demonstration](#demo)
 - [Things that I learnt from this Project](#lessons)
 
@@ -33,7 +30,10 @@ An abacus, also called a counting frame, is a calculating tool used in many cult
 </a>
 Now that we are familiar with the problem, let's analyse the problem and look it from the Object Oriented point of view. 
 
-## Identifying the objects
+<a name = "identify1">
+<h2> Identifying the objects</h2>
+</a>
+
 The problem has 2 objects:
 - Rods / Wires
 - Abacus (Composing of Rod objects)
@@ -43,7 +43,7 @@ The problem has the following interface:
 - Each Rod consists of 4 Earth beads (beads that are below the horizontal separator in the image) and 1 Heaven bead (bead that is above the horizontal separator in the image shown above)
 - The beads are moved up and down
 
-## Result of the OOA stage
+### Result of the OOA stage
 From the OOA stage we have got the description of the system that needs to be built. We determined that we need two type of objects; Rod and Abacus.
 
 <a name = "ood">
@@ -51,7 +51,10 @@ From the OOA stage we have got the description of the system that needs to be bu
 </a>
 In the OOA stage, we came up with the high level description of the system we are required to build. Now, let's use that description and transform it into requirements for our program.
 
-## High level design
+<a name = "hld">
+<h2>High level design</h2>
+</a>
+
 With the above description of the system, our high level design looks like this:
 ![](./images/high_level_design.png)
 
@@ -59,7 +62,10 @@ Our high level design shows two classes, `Rod` and `Abacus`. And there is a comp
 
 Now, let's move further and see what kind of attributes and methods we can define on these classes.
 
-## Identifying the Attributes and Methods
+<a name = "identify2">
+<h2>Identifying the Attributes and Methods</h2>
+</a>
+
 ### 1. `Rod` class
 #### Attributes:
 **`name`**: The `name` attribute to identify the rod object.
@@ -100,7 +106,10 @@ Since, our `Abacus` is composed of 10 rod type objects, we instantiate 10 object
 
 **`run()`**: The `run()` method will integrate each of the objects and methods and run the whole program.
 
-### The updated UML diagram
+<a name='uml'>
+<h2>UML Diagram</h2>
+</a>
+
 Now, our UML diagram looks like this:
 
 ![](./images/attributes_and_methods.png)
@@ -112,7 +121,10 @@ As a result of OOD stage, we discovered; What classes we need to implement for o
 <h1> Object Oriented Programming (OOP)</h1>
 </a>
 
-## Documentation
+<a name = "docu">
+<h2>Documentation</h2>
+</a>
+
 ### *class* `Rod` 
 A class to construct an object of `Rod` type.
 
@@ -145,8 +157,12 @@ Runs the whole program.
 </a>
 
 For testing our program I have used **`pytest`** library. 
-### Testing Rod class and its methods
-#### Testing Rod class objects
+
+<a name = "test1">
+<h2>Testing Rod Class</h2>
+</a>
+
+### Testing Rod class objects
 ```py
 import pytest
 from soroban import Rod, Abacus
@@ -175,7 +191,7 @@ In the above test code, we create two objects `rodQ` and `rodP`of `Rod` class an
 - We check if we move one bead on `rodQ` the value at that rod will be 1 Billion.
 - We also check if we move one bead on `rodP` the value at that rod will be 1.
 
-#### Testing move_beads_up() method of Rod class
+### Testing move_beads_up() method of Rod class
 ```py
 def test_move_beads_up() -> None:
     # creating a Qth rod of abacus
@@ -219,7 +235,7 @@ The above code will test:
 - Calling `move_beads_up()` method 5 times will activate the `heaven` bead and reset the `earth` row beads.
 - The value after activating heaven bead on `rodP`, the value at `rodP` will be equal to 5. 
 
-#### Testing move_beads_down() method of Rod class
+### Testing move_beads_down() method of Rod class
 ```py
 def test_move_beads_down() -> None:
     # creating a Pth rod of abacus
@@ -256,8 +272,11 @@ The above code we move 5 beads up on `rodP` and then we call `move_beads_down()`
 - Value on earth row is equal to 4
 - The value at the rod is equal to 4.
 
-### Testing Abacus class
-#### Testing the get_char_list() method of Abacus class.
+<a name = "test2">
+<h2>Testing Abacus Class</h2>
+</a>
+
+### Testing the get_char_list() method of Abacus class.
 ```py
 # testing Abacus class
 def test_get_char_list(rod:Rod) -> None:
@@ -282,19 +301,19 @@ In the above code we are testing the `get_char_list()` method. We check if the r
 </a>
 Given below are some of the snapshots of the final output of the progam.
 
-#### The initial state of the Abacus
+### The initial state of the Abacus
 The first snapshot shows the, title of the program. Then the abacus itself and some controls to move beads up and down.
 
 ![](./images/soroban1.png)
 
 
-#### The state after we input a command of up/down characters
+### The state after we input a command of up/down characters
 In the snapshot given below, we have given the command "uoppp", which moves up 1 bead on thousands' place, 1 bead on tens' place and 3 beads on ones' place. And the result of the command is `Total: 1013`. 
 
 ![](./images/soroban2.png)
 
 
-#### Activation of heaven bead
+### Activation of heaven bead
 After giving the last input (i.e., "uoppp") if we give "ppp" as our new command to the abacus, it will activate the heaven bead and the value on ones' place will be equal to 6, and hence, the total will be equal to `Total: 1016`.
 
 ![](./images/soroban3.png)
