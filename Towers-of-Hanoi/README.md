@@ -4,20 +4,18 @@ In this project, I have turned the famous Towers of Hanoi problem into a very in
 ## Project Procedure
 - [Problem Description](#description)
 - [Object Oriented Analysis (OOA)](#ooa)
-    - Identifying the objects and interactions
-    - Result of OOA stage
+    - [Identifying the objects](#identify1)
 - [Object Oriented Design (OOD)](#ood)
-    - High level design
-    - Identifying the Attributes and Methods
-    - UML Diagram
-    - Result of OOD stage
+    - [High level design](#hlld)
+    - [Identifying the Attributes and Methods](#identify2)
+    - [UML Diagram](#uml)
 - [Object Oriented Programming (OOP)](#oop)
-    - Documentation
-    - Examples
+    - [Documentation](#docu)
+    - [Examples](#example)
 
 - [Testing](#testing)
-    - Testing error raise
-    - Testing objects and methods
+    - [Testing error raise](#errors)
+    - [Testing objects and methods](#objects)
 
 - [Demonstration](#demo)
 - [Things that I learnt from this Project](#lessons)
@@ -42,7 +40,10 @@ The objective of the puzzle is to move the entire stack of disc from rod **A** t
 </a>
 Now that we are familiar with the problem, let's analyse the problem and look it from the Object Oriented point of view. This stage is known as Object Oriented Analysis (OOA). We just simply see the problem and identify the objects and the interface of the problem.
 
-## Identifying the objects
+<a name = "identify1">
+<h2>Identifying the objects</h2>
+</a>
+
 The problem has 5 objects:
 - Rods
 - Discs
@@ -56,7 +57,7 @@ The problem has the following interface:
 - Small disc cannot be put on large disc.
 - Goal is to stack all the discs on Rod 'C' in correct order.
 
-## Result of the OOA stage
+### Result of the OOA stage
 From the OOA stage we have got the description of the system that needs to be built. We determined that we need following five type of objects: 
 - Rod object to replicate real world rod object, 
 - Disc object to replicate a real world disc object, 
@@ -71,7 +72,10 @@ We also determined the behaviors on the objects, and which object activate a cer
 </a>
 In the OOA stage, we came up with the high level description of the system we are required to build. Now, let's use that description and transform it into requirements for our program.
 
-## High level design
+<a name = "hlld">
+<h2>High level design</h2>
+</a>
+
 With the above description of the system, our high level design looks like this:
 ![](./images/high_level_design.png)
 
@@ -86,7 +90,10 @@ Lastly, we have the **Game** class which combines all the objects and run the ga
 
 Now, let's move further and see what kind of attributes and methods we can define on these classes.
 
-## Identifying the Attributes and Methods
+<a name = "identify2">
+<h2>Identifying the Attributes and Methods</h2>
+</a>
+
 ### 1. `Disc` class
 #### Attributes:
 **`size`**: The class `Disc` can have a `size` attribute since, all the discs are of different size.
@@ -134,7 +141,10 @@ Now, let's move further and see what kind of attributes and methods we can defin
 
 **`run()`**: Combines all the objects and functionality and run the game.
 
-### The updated UML diagram
+<a name = "uml">
+<h2>UML Diagram</h2>
+</a>
+
 Now, our UML diagram looks like this:
 
 ![](./images/attributes_and_methods.png)
@@ -146,7 +156,10 @@ As a result of OOD stage, we discovered: what classes we need to implement for o
 <h1> Object Oriented Programming (OOP)</h1>
 </a>
 
-## Documentation
+<a name = "docu">
+<h2> Documentation</h2>
+</a>
+
 ### *class* `Disc` 
 A class to construct an object of `Disc` type.
 
@@ -239,7 +252,10 @@ This exception is raised when the user tries to pop from a rod object which is e
 
 \#Note: Later we use these exceptions in our user interface to show warning messages to the user.
 
-## Examples:
+<a name = "example">
+<h2>Examples</h2>
+</a>
+
 Pushing disc in a rod.
 ```py
 # instantiating object of Disc
@@ -289,7 +305,12 @@ Disc 1 popped from rod A and pushed on rod B.
 </a>
 
 For testing our programs I have used **`pytest`** library. 
-### Testing error raise
+
+
+<a name = "errors">
+<h2>Testing error raise</h2>
+</a>
+
 ```py
 import pytest
 from towerofhanoi import Disc, Rod, InvalidMove
@@ -303,7 +324,7 @@ def rod_object():
 ```
 We create a fixture to instantiate an object of class `Rod` for testing error raises (to check if the exceptions we have defined in the program raise correctly or not)
 
-#### Testing TypeError
+### Testing TypeError
 ```py
 @pytest.mark.parametrize("val", [10,20,100,300, Disc(2)])
 def test_type_error(rod_object, val) -> None:
@@ -316,7 +337,7 @@ def test_type_error(rod_object, val) -> None:
 ```
 The above code will test if pushing an `int` type object will raise a `TypeError` or not. Since, we expect our test to raise the error, it will pass if the `TypeError` does raise. We have passed a parameter list which consists of 4 `int` objects and 1 `Disc` type object, the test will pass for the `int` values since they will raise `TypeError` and fail for the `Disc` type.
 
-#### Testing InvalidError
+### Testing InvalidError
 ```py
 def test_push_method(rod_object) -> None:
     try:
@@ -333,7 +354,7 @@ def test_push_method(rod_object) -> None:
 ```
 The above code tests the raising of `InvalidMove` error. Since, we are trying to push a bigger size disc on top of small disc, we expect this to raise `InvalidMove` error. If it does raise this error, the test will pass.
 
-#### Testing IndexError
+### Testing IndexError
 ```py
 def test_pop_and_put_method() -> None:
     try:
@@ -359,9 +380,12 @@ def test_pop_and_put_method() -> None:
         assert False
 ```
 The above code tests the raising of `IndexError`. If the user calls `pop_and_put(rod)` method on an empty rod object. This is expected to raise `IndexError` if the error does raise, the test will pass. The test will also pass if the user doesn't raise the error. The test will fail otherwize.
+ 
+<a name = "objects">
+<h2>Testing objects and methods</h2>
+</a>
 
-### Testing objects and methods
-#### Testing Push method
+### Testing Push method
 ```py
 @pytest.mark.parametrize("val", [Disc(2), Disc(3), Disc(100)])
 def test_push_method1(rod_object, val) -> None:
@@ -371,7 +395,7 @@ def test_push_method1(rod_object, val) -> None:
 ```
 The above test code will check if the `rod_object` consists an object of `Disc` type. Since in the parameter list we are passing only `Disc` type objects. This test will pass for all parameters.
 
-#### Testing SetUp class
+### Testing SetUp class
 ```py
  """ This test checks the SetUp"""
     # it takes 3 parameters
@@ -395,7 +419,7 @@ In the above code, we are testing the functionality of the `prepare_setup()` met
 - if the item in the `dict` is a `Rod` type.
 - if the rod A in the output dict is filled and all other rods (B and C) are empty.
 
-#### Testing make_a_move() method in Player class
+### Testing make_a_move() method in Player class
 ```py
 # We create a fixture first
 @pytest.fixture
@@ -427,7 +451,7 @@ In the above code, we are testing the functionality of `make_a_move()` method of
 - if the `rod2` object in the tuple is object of `Rod`
 - if the length of the returned object is 2
 
-#### Testing display_menu() method of Game class
+### Testing display_menu() method of Game class
 ```py
 # testing the display_menu() method of Game class
 def test_display_menu(setup) -> None:
@@ -446,7 +470,7 @@ The above code tests the `display_menu()` method of `Game` class. It calls the m
 - If the first value in tuple is `int` type.
 - If the second value in the tuple is an object of `Player` class.
 
-#### Testing the whole Game class (Integration Test)
+### Testing the whole Game class (Integration Test)
 ```py
 @pytest.fixture
 def game_object() -> None:
