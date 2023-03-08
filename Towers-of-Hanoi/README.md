@@ -1,5 +1,7 @@
 # Towers of Hanoi
-In this project, I have turned the famous Towers of Hanoi problem into a very interactive game using Object Oriented Programming and Functional Programming. Also, tested the functionality of program with the help of `pytest` library.
+![](./images/towerofhanoi.gif)
+
+In this project, I have turned the famous Towers of Hanoi problem into a very interactive game using Object Oriented Programming and tested the functionality of program with the help of `pytest` library.
 
 ## Project Procedure
 - [Problem Description](#description)
