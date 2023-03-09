@@ -2,6 +2,7 @@ import random
 import os
 import sys
 import pickle
+import colors
 
 os.chdir('Guess-The-Movie')
 
@@ -10,6 +11,10 @@ with open(file="./movies/movies_dict.pkl", mode="rb") as f:
 
 class SetUp:
     def get_movie(self):
+        """ 
+        Selects a movie at random from the movie dataset
+        and prepares the quiz for player
+        """
         movie = random.choice(list(MOVIES))
         # movie = list(movie)
         query = ""
@@ -24,8 +29,6 @@ class SetUp:
             else:
                 query += '_'
 
-        # movie = "".join(movie)
-
         return movie, query
              
 class Game:
@@ -33,6 +36,10 @@ class Game:
         pass
 
     def run(self):
+        """
+        Uses the SetUp class to prepare quiz for the player
+        and runs the game
+        """
         while True:
             hint_count = 3
             bollywood = list('BOLLYWOOD')
@@ -49,25 +56,25 @@ class Game:
             3. Type 'quit' to quit the game.
             """)
             print("BOLLYWOOD")
-            print(question + f" {' '*20}Hints:{hint_count} | Wrong Guesses: {wrong_guesses}")
+            print(colors.OKCYAN+question+colors.ENDC + f" {' '*20}Hints:{colors.WARNING+str(hint_count)+colors.ENDC} | Wrong Guesses: {colors.FAIL+wrong_guesses+colors.ENDC}")
 
             while True:
                 if not any(char.isalnum() for char in answer):
-                    print(f"\nAnswer: {movie_key}")
-                    print(f"You guessed it correct!")
+                    print(f"\nAnswer: {colors.OKGREEN+movie_key+colors.OKGREEN}")
+                    print(colors.OKGREEN+"You guessed it correct!"+colors.ENDC)
                     print("#"*60)
                     print("\n"*2)
                     break
 
                 if not bollywood:
-                    print("You have lost!")
-                    print(f"\n Answer: {movie_key}\n")
+                    print(colors.FAIL+"You have lost!"+colors.ENDC)
+                    print(f"\n Answer: {colors.OKGREEN+movie_key+colors.ENDC}\n")
                     break
 
                 response = input('>').lower()
 
                 if response == "quit":
-                    print(f"Answer: {movie_key}")
+                    print(f"Answer: {colors.OKGREEN+movie_key+colors.ENDC}")
                     sys.exit()
 
                 elif response == "hint":
@@ -92,18 +99,18 @@ class Game:
                         hint_count -= 1
                         question = "".join(question)
                         print("".join(bollywood))
-                        print(question + f" {' '*20}Hints:{hint_count} | Wrong Guesses: {wrong_guesses}")
+                        print(colors.OKCYAN+question+colors.ENDC + f" {' '*20}Hints:{colors.WARNING+str(hint_count)+colors.ENDC} | Wrong Guesses: {colors.FAIL+wrong_guesses+colors.ENDC}")
 
                     elif hint_count == 2:
                         hint_count -= 1
-                        print(f"Movie was released in {MOVIES[movie_key][1]}")
+                        print(f"Movie was released in {colors.WARNING+str(MOVIES[movie_key][1])+colors.ENDC}")
 
                     elif hint_count == 1:
                         hint_count -= 1
-                        print(f"Lead actor's name is: {MOVIES[movie_key][0]}")
+                        print(f"Lead actor's name is: {colors.WARNING+MOVIES[movie_key][0]+colors.ENDC}")
 
                     else:
-                        print("You have used up all your hints!")
+                        print(colors.WARNING+"You have used up all your hints!"+colors.ENDC)
                         
 
                 elif response in answer:
@@ -115,13 +122,13 @@ class Game:
 
                     question = "".join(question)
                     print("".join(bollywood))
-                    print(question + f" {' '*20}Hints:{hint_count} | Wrong Guesses: {wrong_guesses}")
+                    print(colors.OKCYAN+question+colors.ENDC + f" {' '*20}Hints:{colors.WARNING+str(hint_count)+colors.ENDC} | Wrong Guesses: {colors.FAIL+wrong_guesses+colors.ENDC}")
 
                 else:
                     bollywood.pop(0)
                     wrong_guesses += " "+response.upper()
                     print("".join(bollywood))
-                    print(question + f" {' '*20}Hints:{hint_count} | Wrong Guesses: {wrong_guesses}")
+                    print(colors.OKCYAN+question+colors.ENDC + f" {' '*20}Hints:{colors.WARNING+str(hint_count)+colors.ENDC} | Wrong Guesses: {colors.FAIL+wrong_guesses+colors.ENDC}")
                     
 game = Game()
 game.run()
