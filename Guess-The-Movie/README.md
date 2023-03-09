@@ -4,15 +4,14 @@
 In this small OOPs project, I have implemented a fun old school pen and paper game **BOLLYWOOD** which is basically a movie guessing game. using Object Oriented Programming and tested the functionality of the game using `pytest`.
 
 ## Project Procedure
-- [Problem Description](#description)
+- [Project Description](#description)
 - [Identifying the Attributes and Methods](#identify)
-- [UML Diagram](#uml)
 - [Documentation](#docu)
 - [Testing](#testing)
     - [Testing objects and methods](#objects)
 
 <a name = "description">
-<h1> Problem Description</h1>
+<h1> Project Description</h1>
 </a>
 
 **BOLLYWOOD** is an old school pen & paper game we used to play as kids. It is basically a movie guessing game, where the player is given blanks to fill the letters of movie name and complete it. Each wrong guess costs one letter from the string "BOLLYWOOD". Player wins the game if he/she fills all the blanks with correct guesses and completes the name of movie. And the player looses if he/she couldn't guess the name of movie and all the letters in the string "BOLLYWOOD" are crossed out. The player is also provided with 3 different hints. The first hint fills one of letters in the name of movie in the blanks, the second hint tells the player in which year the movie was released, and the last and the most valuable hint is the name of the actor who played lead role in the movie.
