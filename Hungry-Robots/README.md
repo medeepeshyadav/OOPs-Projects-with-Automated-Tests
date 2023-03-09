@@ -11,10 +11,7 @@ In this small OOPs project, I have designed a small ASCII game called **Hungry R
     - [High level design](#hlld)
     - [Identifying the Attributes and Methods](#identify2)
     - [UML Diagram](#uml)
-- [Object Oriented Programming (OOP)](#oop)
-    - [Documentation](#docu)
-    - [Examples](#example)
-
+- [Documentation](#docu)
 - [Testing](#testing)
     - [Testing objects and methods](#objects)
 
