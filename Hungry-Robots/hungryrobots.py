@@ -59,14 +59,14 @@ class Board:
             randomX = random.randint(1, self.width - 2)
             randomY = random.randint(1, self.height - 2)
 
-            if self.isEmpty(randomX, randomY, robots, board):
+            if self.__isEmpty(randomX, randomY, robots, board):
                 break
         return randomX, randomY
 
     
-    def isEmpty(self, x: int, y: int, robots: list, board) -> bool:
+    def __isEmpty(self, x: int, y: int, robots: list, board) -> bool:
         """
-        Return True if the (x, y) is empty on the 
+        Return True if the (x, y) position is empty on the 
         board and there's also no robot there.
         """
         return (board[(x,y)] == settings.EMPTY_SPACE 
@@ -110,6 +110,7 @@ class Board:
             print()
     
     def make_move(self, board, robots, player_pos):
+        """Takes user's input to move the player on the board"""
         playerX, playerY = player_pos
         
         moves_dict = {
@@ -125,14 +126,14 @@ class Board:
         }
 
         # find which directions aren't blocked by robots
-        q = 'Q' if self.isEmpty(playerX-1, playerY-1, robots, board) else ' '
-        w = 'W' if self.isEmpty(playerX+0, playerY-1, robots, board) else ' '
-        e = 'E' if self.isEmpty(playerX+1, playerY-1, robots, board) else ' '
-        d = 'D' if self.isEmpty(playerX+1, playerY+0, robots, board) else ' '
-        c = 'C' if self.isEmpty(playerX+1, playerY+1, robots, board) else ' '
-        x = 'X' if self.isEmpty(playerX+0, playerY+1, robots, board) else ' '
-        z = 'Z' if self.isEmpty(playerX-1, playerY+1, robots, board) else ' '
-        a = 'A' if self.isEmpty(playerX-1, playerY+0, robots, board) else ' '
+        q = 'Q' if self.__isEmpty(playerX-1, playerY-1, robots, board) else ' '
+        w = 'W' if self.__isEmpty(playerX+0, playerY-1, robots, board) else ' '
+        e = 'E' if self.__isEmpty(playerX+1, playerY-1, robots, board) else ' '
+        d = 'D' if self.__isEmpty(playerX+1, playerY+0, robots, board) else ' '
+        c = 'C' if self.__isEmpty(playerX+1, playerY+1, robots, board) else ' '
+        x = 'X' if self.__isEmpty(playerX+0, playerY+1, robots, board) else ' '
+        z = 'Z' if self.__isEmpty(playerX-1, playerY+1, robots, board) else ' '
+        a = 'A' if self.__isEmpty(playerX-1, playerY+0, robots, board) else ' '
 
         all_moves = (q + w + e + d + c + x + z + a + 'S')
 
@@ -148,10 +149,14 @@ class Board:
             if move == 'QUIT':
                 sys.exit()
 
-            elif move == 'T' and board['teleport']:
-                # teleport the player to a random empty space
-                return self.get_random_empty_space(board, robots)
-
+            elif move == 'T':
+                if board['teleports']:
+                    # teleport the player to a random empty space
+                    board['teleports'] -= 1
+                    return self.get_random_empty_space(board, robots)
+                else:
+                    self.display_board(board, robots, player_pos)
+                    print(settings.WARNING +'You have used up all your teleports.'+settings.ENDC)
             elif move != '' and move in  all_moves:
                 # Return the new player position based on their move:
                 return moves_dict[move]
@@ -228,9 +233,6 @@ class Board:
 
         return robot_next_pos
 
-
-
-
 class Game:
     def __init__(self) -> None:
         pass
@@ -245,8 +247,7 @@ class Game:
             board_obj.display_board(board, robots, player_pos)
 
             if len(robots) == 0:
-                print("All the robots have crashed into each other.")
-                print("You have won!")
+                print(settings.OKGREEN+"All the robots have crashed into each other. \n You have won!"+settings.ENDC)
                 sys.exit()
 
             # move the player
@@ -258,7 +259,7 @@ class Game:
             for x, y in robots:
                 if (x, y) == player_pos:
                     board_obj.display_board(board, robots, player_pos)
-                    print("You have been eaten by robots!")
+                    print(settings.FAIL+"You have been eaten by robots!"+settings.ENDC)
                     sys.exit()
 
 
