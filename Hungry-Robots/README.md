@@ -1,5 +1,5 @@
 # Hungry Robots
-![](./images/towerofhanoi.gif)
+![](./images/hungryrobot.gif)
 
 In this small OOPs project, I have designed a small ASCII game called **Hungry Robots**, using Object Oriented Programming.
 
@@ -14,6 +14,7 @@ In this small OOPs project, I have designed a small ASCII game called **Hungry R
 - [Documentation](#docu)
 - [Testing](#testing)
     - [Testing objects and methods](#objects)
+- [Result](#result)
 
 <a name = "description">
 <h1> Problem Description</h1>
@@ -192,3 +193,8 @@ def test_move_robots(board_obj: Board):
     assert isinstance(return_value[0], tuple)
 ```
 Checking the return type of `move_robots()` method, test passes if the return type is `list` of `tuples`.
+<a name = "result">
+<h1> Result </h1>
+</a>
+Snapshot of the final game is given below.
+![](./images/hungryrobots2.png)
