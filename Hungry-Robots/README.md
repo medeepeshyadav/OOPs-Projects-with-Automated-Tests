@@ -197,4 +197,5 @@ Checking the return type of `move_robots()` method, test passes if the return ty
 <h1> Result </h1>
 </a>
 Snapshot of the final game is given below.
+
 ![](./images/hungryrobots2.png)
